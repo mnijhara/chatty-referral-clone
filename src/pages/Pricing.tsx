@@ -16,8 +16,8 @@ const Pricing = () => {
     free: {
       name: "Free",
       price: {
-        monthly: "$0",
-        annual: "$0",
+        monthly: "₹0",
+        annual: "₹0",
       },
       description: "Basic access to start your job search",
       features: [
@@ -32,8 +32,8 @@ const Pricing = () => {
     pro: {
       name: "Pro",
       price: {
-        monthly: "$29",
-        annual: "$19",
+        monthly: "₹1,999",
+        annual: "₹1,299",
       },
       description: "Everything you need for serious job seekers",
       features: [
@@ -50,8 +50,8 @@ const Pricing = () => {
     enterprise: {
       name: "Enterprise",
       price: {
-        monthly: "$99",
-        annual: "$79",
+        monthly: "₹6,999",
+        annual: "₹5,499",
       },
       description: "Premium service for professionals",
       features: [
@@ -99,6 +99,61 @@ const Pricing = () => {
               <span className="ml-2 text-xs font-medium text-green-500 bg-green-50 px-2 py-0.5 rounded-full">
                 Save 33%
               </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Customer Testimonials with Indian customers */}
+        <div className="mb-16">
+          <h2 className="text-xl font-bold mb-6 text-center">Trusted by Professionals Across India</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+                  alt="Customer testimonial" 
+                  className="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Priya Sharma</h3>
+                  <p className="text-sm text-gray-600">Software Engineer</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "ReferralHire helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" 
+                  alt="Customer testimonial" 
+                  className="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Raj Patel</h3>
+                  <p className="text-sm text-gray-600">Product Manager</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!"
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" 
+                  alt="Customer testimonial" 
+                  className="w-12 h-12 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Anika Gupta</h3>
+                  <p className="text-sm text-gray-600">Data Scientist</p>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
+              </p>
             </div>
           </div>
         </div>
@@ -218,7 +273,7 @@ const Pricing = () => {
             <div>
               <h3 className="font-semibold mb-2">What payment methods do you accept?</h3>
               <p className="text-gray-600">
-                We accept all major credit cards, PayPal, and in some regions, bank transfers.
+                We accept all major credit cards, UPI, Net Banking, and popular Indian wallets like Paytm and PhonePe.
               </p>
             </div>
             <div>
