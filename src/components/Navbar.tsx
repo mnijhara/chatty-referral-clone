@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="border-b border-gray-200 py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
         <Link to="/" className="flex items-center">
-          <span className="text-2xl font-bold text-brand">Refer<span className="text-teal-500">Me</span></span>
+          <span className="text-2xl font-bold text-brand">Referral<span className="text-teal-500">Hire</span></span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -37,6 +37,22 @@ const Navbar = () => {
             Referrers
           </NavLink>
           <NavLink 
+            to="/how-it-works" 
+            className={({ isActive }) => 
+              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+            }
+          >
+            How it Works
+          </NavLink>
+          <NavLink 
+            to="/pricing" 
+            className={({ isActive }) => 
+              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+            }
+          >
+            Pricing
+          </NavLink>
+          <NavLink 
             to="/about" 
             className={({ isActive }) => 
               isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
@@ -47,8 +63,12 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex space-x-4">
-          <Button variant="outline">Sign In</Button>
-          <Button>Sign Up</Button>
+          <Link to="/signin">
+            <Button variant="outline">Sign In</Button>
+          </Link>
+          <Link to="/signup">
+            <Button>Sign Up</Button>
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -82,6 +102,24 @@ const Navbar = () => {
               Referrers
             </NavLink>
             <NavLink 
+              to="/how-it-works" 
+              className={({ isActive }) => 
+                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+              }
+              onClick={toggleMenu}
+            >
+              How it Works
+            </NavLink>
+            <NavLink 
+              to="/pricing" 
+              className={({ isActive }) => 
+                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+              }
+              onClick={toggleMenu}
+            >
+              Pricing
+            </NavLink>
+            <NavLink 
               to="/about" 
               className={({ isActive }) => 
                 isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
@@ -91,8 +129,12 @@ const Navbar = () => {
               About
             </NavLink>
             <div className="flex flex-col space-y-2 pt-2">
-              <Button variant="outline" className="w-full">Sign In</Button>
-              <Button className="w-full">Sign Up</Button>
+              <Link to="/signin">
+                <Button variant="outline" className="w-full">Sign In</Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="w-full">Sign Up</Button>
+              </Link>
             </div>
           </div>
         </div>
