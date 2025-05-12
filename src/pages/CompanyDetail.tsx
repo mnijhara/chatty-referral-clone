@@ -1,5 +1,6 @@
 
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { getCompanyById, getReferrersByCompanyId } from "@/utils/placeholderData";
 import ReferrerCard from "@/components/ReferrerCard";
@@ -52,7 +53,7 @@ const CompanyDetail = () => {
   const websiteUrl = formatWebsiteUrl(company.website);
 
   // Scroll to top on page load
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
