@@ -3,11 +3,23 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { getCompanyById, getReferrersByCompanyId } from "@/utils/placeholderData";
 import ReferrerCard from "@/components/ReferrerCard";
+import { ExternalLink } from "lucide-react";
 
 const CompanyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const company = getCompanyById(id || "");
   const referrers = getReferrersByCompanyId(id || "");
+
+  // Generate a placeholder based on company name
+  const generatePlaceholder = (companyName: string) => {
+    const initials = companyName ? companyName.split(' ')
+      .map(word => word[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase() : "CO";
+    
+    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
+  };
 
   if (!company) {
     return (
@@ -21,6 +33,11 @@ const CompanyDetail = () => {
     );
   }
 
+  // Ensure website URL has proper format
+  const websiteUrl = company.website && !company.website.startsWith('http') 
+    ? `https://${company.website}` 
+    : company.website;
+
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Company Header */}
@@ -33,7 +50,7 @@ const CompanyDetail = () => {
             onError={(e) => { 
               const target = e.target as HTMLImageElement;
               target.onerror = null; 
-              target.src = `https://via.placeholder.com/150?text=${company.name.substring(0, 2)}`; 
+              target.src = generatePlaceholder(company.name);
             }}
           />
         </div>
@@ -49,9 +66,14 @@ const CompanyDetail = () => {
             <div>Founded {company.founded}</div>
           </div>
           <div className="flex gap-4">
-            <a href={company.website} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="sm">Visit Website</Button>
-            </a>
+            {websiteUrl && (
+              <a href={websiteUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <span>Visit Website</span>
+                  <ExternalLink size={16} />
+                </Button>
+              </a>
+            )}
           </div>
         </div>
       </div>

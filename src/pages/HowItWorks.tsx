@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Search, FileCheck, Briefcase } from "lucide-react";
 
 const HowItWorks = () => {
   return (
@@ -46,11 +47,13 @@ const HowItWorks = () => {
           </div>
           <div className="md:w-1/2">
             <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <img 
-                src="/placeholder.svg" 
-                alt="Browse companies and referrers" 
-                className="max-h-full"
-              />
+              <div className="flex flex-col items-center text-gray-500">
+                <Search size={64} strokeWidth={1} />
+                <div className="mt-4 text-center">
+                  <div className="text-lg font-semibold">Browse Companies</div>
+                  <p className="text-sm">Find the perfect company for your career</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -90,11 +93,13 @@ const HowItWorks = () => {
           </div>
           <div className="md:w-1/2">
             <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <img 
-                src="/placeholder.svg" 
-                alt="Submit referral request" 
-                className="max-h-full"
-              />
+              <div className="flex flex-col items-center text-gray-500">
+                <FileCheck size={64} strokeWidth={1} />
+                <div className="mt-4 text-center">
+                  <div className="text-lg font-semibold">Submit Request</div>
+                  <p className="text-sm">Create your personalized referral request</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -134,11 +139,13 @@ const HowItWorks = () => {
           </div>
           <div className="md:w-1/2">
             <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <img 
-                src="/placeholder.svg" 
-                alt="Get referred and interview" 
-                className="max-h-full"
-              />
+              <div className="flex flex-col items-center text-gray-500">
+                <Briefcase size={64} strokeWidth={1} />
+                <div className="mt-4 text-center">
+                  <div className="text-lg font-semibold">Get Hired</div>
+                  <p className="text-sm">Land your dream job with insider support</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

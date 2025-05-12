@@ -45,6 +45,28 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
+  // Generate avatar placeholder based on name
+  const generateAvatarPlaceholder = (personName: string) => {
+    const initials = personName.split(' ')
+      .map(word => word[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+    
+    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
+  };
+
+  // Generate company logo placeholder
+  const generateCompanyPlaceholder = (companyName: string) => {
+    const initials = companyName.split(' ')
+      .map(word => word[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+    
+    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=40`;
+  };
+  
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-6">
@@ -55,10 +77,19 @@ const ReferrerCard = ({
                 src={avatar}
                 alt={`${name}'s profile`}
                 className="w-full h-full object-cover"
+                onError={(e) => { 
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null; 
+                  target.src = generateAvatarPlaceholder(name); 
+                }}
               />
             </div>
             <div>
-              <h3 className="font-semibold">{name}</h3>
+              <h3 className="font-semibold">
+                <Link to={`/referrers/${id}`} className="hover:text-brand hover:underline">
+                  {name}
+                </Link>
+              </h3>
               <div className="flex items-center mt-1">
                 <div className="w-4 h-4 mr-1">
                   <img
@@ -68,7 +99,7 @@ const ReferrerCard = ({
                     onError={(e) => { 
                       const target = e.target as HTMLImageElement;
                       target.onerror = null; 
-                      target.src = "https://via.placeholder.com/40?text=Co"; 
+                      target.src = generateCompanyPlaceholder(company); 
                     }}
                   />
                 </div>

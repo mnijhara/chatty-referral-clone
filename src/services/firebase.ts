@@ -13,14 +13,14 @@ import {
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
-// Firebase configuration - the actual config will be provided by the user
+// Firebase configuration using environment variables with fallbacks
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // To be replaced with user's API key
-  authDomain: "YOUR_AUTH_DOMAIN", // To be replaced
-  projectId: "YOUR_PROJECT_ID", // To be replaced
-  storageBucket: "YOUR_STORAGE_BUCKET", // To be replaced
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // To be replaced
-  appId: "YOUR_APP_ID" // To be replaced
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "YOUR_MESSAGING_SENDER_ID",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "YOUR_APP_ID"
 };
 
 // Initialize Firebase

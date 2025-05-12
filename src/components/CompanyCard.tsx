@@ -22,6 +22,17 @@ const CompanyCard = ({
   referrersCount, 
   openPositions 
 }: CompanyCardProps) => {
+  // Generate a placeholder based on company name
+  const generatePlaceholder = (companyName: string) => {
+    const initials = companyName.split(' ')
+      .map(word => word[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+    
+    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
+  };
+
   return (
     <Link to={`/companies/${id}`}>
       <Card className="h-full hover:shadow-md transition-shadow duration-200">
@@ -35,7 +46,7 @@ const CompanyCard = ({
                 onError={(e) => { 
                   const target = e.target as HTMLImageElement;
                   target.onerror = null; 
-                  target.src = "https://via.placeholder.com/150?text=" + name.substring(0, 2); 
+                  target.src = generatePlaceholder(name);
                 }}
               />
             </div>

@@ -4,12 +4,22 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+  const { toast } = useToast();
 
   const toggleBillingCycle = () => {
     setBillingCycle(prev => prev === 'monthly' ? 'annual' : 'monthly');
+  };
+
+  const handleContactSales = () => {
+    toast({
+      title: "Contact request sent",
+      description: "Our sales team will contact you shortly.",
+      duration: 5000,
+    });
   };
 
   const pricing = {
@@ -110,9 +120,14 @@ const Pricing = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+                  src="https://randomuser.me/api/portraits/women/44.jpg" 
                   alt="Customer testimonial" 
                   className="w-12 h-12 rounded-full object-cover mr-4"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "https://ui-avatars.com/api/?name=PS&background=f3f4f6&color=6366f1&size=150";
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Priya Sharma</h3>
@@ -126,9 +141,14 @@ const Pricing = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" 
+                  src="https://randomuser.me/api/portraits/men/72.jpg" 
                   alt="Customer testimonial" 
                   className="w-12 h-12 rounded-full object-cover mr-4"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "https://ui-avatars.com/api/?name=RP&background=f3f4f6&color=6366f1&size=150";
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Raj Patel</h3>
@@ -142,9 +162,14 @@ const Pricing = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" 
+                  src="https://randomuser.me/api/portraits/women/28.jpg" 
                   alt="Customer testimonial" 
                   className="w-12 h-12 rounded-full object-cover mr-4"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "https://ui-avatars.com/api/?name=AG&background=f3f4f6&color=6366f1&size=150";
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Anika Gupta</h3>
@@ -245,11 +270,9 @@ const Pricing = () => {
               </ul>
             </CardContent>
             <CardFooter className="mt-auto">
-              <Link to="#contact" className="w-full">
-                <Button variant="outline" className="w-full">
-                  {pricing.enterprise.cta}
-                </Button>
-              </Link>
+              <Button variant="outline" className="w-full" onClick={handleContactSales}>
+                {pricing.enterprise.cta}
+              </Button>
             </CardFooter>
           </Card>
         </div>
@@ -292,7 +315,7 @@ const Pricing = () => {
             <p className="text-gray-600 mb-6">
               Contact our sales team to create a custom plan tailored to your specific requirements.
             </p>
-            <Button size="lg">Contact Sales</Button>
+            <Button size="lg" onClick={handleContactSales}>Contact Sales</Button>
           </div>
         </div>
       </div>
