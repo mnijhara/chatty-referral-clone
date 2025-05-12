@@ -32,6 +32,11 @@ const CompanyCard = ({
                 src={logo} 
                 alt={`${name} logo`} 
                 className="max-w-full max-h-full object-contain" 
+                onError={(e) => { 
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null; 
+                  target.src = "https://via.placeholder.com/150?text=" + name.substring(0, 2); 
+                }}
               />
             </div>
             <div>

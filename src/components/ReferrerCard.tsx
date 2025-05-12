@@ -25,6 +25,26 @@ const ReferrerCard = ({
   yearsAtCompany,
   successfulReferrals
 }: ReferrerCardProps) => {
+  // Extract companyId from the first referrer with this company name in the imports
+  const getCompanyIdFromName = (companyName: string) => {
+    // This is a placeholder implementation - in a real app, you would
+    // either pass the companyId as a prop or look it up from a context/store
+    const companyMap: Record<string, string> = {
+      "InfoTech Solutions": "1",
+      "Wipro Limited": "2",
+      "Tata Consultancy Services": "3",
+      "MindTree Studios": "4",
+      "L&T Infotech": "5",
+      "Paytm": "6",
+      "Apollo Health": "7",
+      "Zee Digital": "8"
+    };
+    
+    return companyMap[companyName] || "";
+  };
+
+  const companyId = getCompanyIdFromName(company);
+  
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-6">
@@ -45,9 +65,19 @@ const ReferrerCard = ({
                     src={companyLogo}
                     alt={`${company} logo`}
                     className="max-w-full max-h-full object-contain"
+                    onError={(e) => { 
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; 
+                      target.src = "https://via.placeholder.com/40?text=Co"; 
+                    }}
                   />
                 </div>
-                <span className="text-sm text-gray-600">{company}</span>
+                <Link 
+                  to={`/companies/${companyId}`} 
+                  className="text-sm text-gray-600 hover:text-brand hover:underline"
+                >
+                  {company}
+                </Link>
               </div>
             </div>
           </div>

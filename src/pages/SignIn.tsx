@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
+import { signInWithEmail, signInWithGoogle, signInWithFacebook } from "@/services/firebase";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -14,39 +15,68 @@ const SignIn = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate authentication - in a real app, this would connect to your authentication service
     try {
       // Simple validation
       if (!email || !password) {
         throw new Error("Please enter both email and password");
       }
       
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await signInWithEmail(email, password);
       
-      // For demo purposes - check if it's a demo account
-      if (email === "demo@referralhire.com" && password === "password") {
-        // Success - store in localStorage for demo purposes
-        localStorage.setItem("userLoggedIn", "true");
-        localStorage.setItem("userEmail", email);
-        
-        toast({
-          title: "Signed in successfully!",
-          description: "Welcome back to ReferralHire.",
-        });
-        
-        navigate("/");
-      } else {
-        throw new Error("Invalid credentials. Try demo@referralhire.com / password");
-      }
+      toast({
+        title: "Signed in successfully!",
+        description: "Welcome back to ReferralHire.",
+      });
+      
+      navigate("/");
     } catch (error: any) {
       toast({
         title: "Sign in failed",
         description: error.message || "Please check your credentials and try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      await signInWithGoogle();
+      toast({
+        title: "Signed in successfully!",
+        description: "Welcome back to ReferralHire.",
+      });
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Google sign in failed",
+        description: error.message || "An error occurred with Google Sign In",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    setIsLoading(true);
+    try {
+      await signInWithFacebook();
+      toast({
+        title: "Signed in successfully!",
+        description: "Welcome back to ReferralHire.",
+      });
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Facebook sign in failed",
+        description: error.message || "An error occurred with Facebook Sign In",
         variant: "destructive",
       });
     } finally {
@@ -62,7 +92,7 @@ const SignIn = () => {
           <CardDescription>Enter your email and password to sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input 
@@ -94,10 +124,6 @@ const SignIn = () => {
             </Button>
           </form>
           
-          <div className="mt-4 text-center text-sm">
-            <p>For demo purposes, use: <br /><strong>demo@referralhire.com / password</strong></p>
-          </div>
-          
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
@@ -108,7 +134,7 @@ const SignIn = () => {
           </div>
           
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" onClick={handleGoogleSignIn} disabled={isLoading}>
               <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z" fill="#EA4335" />
                 <path d="M23.49 12.275C23.49 11.49 23.415 10.73 23.3 10H12V14.51H18.47C18.18 15.99 17.34 17.25 16.08 18.1L19.945 21.1C22.2 19.01 23.49 15.92 23.49 12.275Z" fill="#4285F4" />
@@ -117,7 +143,7 @@ const SignIn = () => {
               </svg>
               Google
             </Button>
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" onClick={handleFacebookSignIn} disabled={isLoading}>
               <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
               </svg>

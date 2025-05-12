@@ -1,4 +1,3 @@
-
 export interface Company {
   id: string;
   name: string;
@@ -28,16 +27,16 @@ export interface Referrer {
   successfulReferrals: number;
 }
 
-// Sample company logos - using placeholder.com for demo purposes
+// Updated company logos with more reliable image sources
 const companyLogoPlaceholders = [
-  "https://via.placeholder.com/150/0284c7/FFFFFF?text=InfoTech",
-  "https://via.placeholder.com/150/14b8a6/FFFFFF?text=Wipro",
-  "https://via.placeholder.com/150/6366f1/FFFFFF?text=TCS",
-  "https://via.placeholder.com/150/ec4899/FFFFFF?text=MindTree",
-  "https://via.placeholder.com/150/f59e0b/FFFFFF?text=LnT",
-  "https://via.placeholder.com/150/10b981/FFFFFF?text=Paytm",
-  "https://via.placeholder.com/150/8b5cf6/FFFFFF?text=Apollo",
-  "https://via.placeholder.com/150/ef4444/FFFFFF?text=Zee"
+  "https://logo.clearbit.com/infosys.com",
+  "https://logo.clearbit.com/wipro.com",
+  "https://logo.clearbit.com/tcs.com",
+  "https://logo.clearbit.com/mindtree.com",
+  "https://logo.clearbit.com/larsentoubro.com",
+  "https://logo.clearbit.com/paytm.com",
+  "https://logo.clearbit.com/apollohospitals.com",
+  "https://logo.clearbit.com/zee.com"
 ];
 
 // Sample avatar placeholders
@@ -77,7 +76,7 @@ export const companies: Company[] = [
     industry: "IT Services",
     description: "Wipro Limited is a leading global information technology, consulting and business process services company headquartered in Bangalore.",
     location: "Bangalore, Karnataka",
-    website: "https://wipro.example.com",
+    website: "https://wipro.com",
     size: "10000+",
     founded: 1945,
     referrersCount: 7,
@@ -90,7 +89,7 @@ export const companies: Company[] = [
     industry: "IT Services & Consulting",
     description: "TCS is an Indian multinational information technology services and consulting company, providing business solutions to global clients.",
     location: "Mumbai, Maharashtra",
-    website: "https://tcs.example.com",
+    website: "https://tcs.com",
     size: "10000+",
     founded: 1968,
     referrersCount: 9,
@@ -103,7 +102,7 @@ export const companies: Company[] = [
     industry: "Digital Solutions",
     description: "A digital design and engineering studio specializing in enterprise software, customer experience and innovation.",
     location: "Pune, Maharashtra",
-    website: "https://mindtree.example.com",
+    website: "https://mindtree.com",
     size: "1000-5000",
     founded: 2010,
     referrersCount: 4,
@@ -116,7 +115,7 @@ export const companies: Company[] = [
     industry: "Technology Consulting",
     description: "L&T Infotech is a global technology consulting and digital solutions company helping enterprises worldwide reimagine business processes.",
     location: "Chennai, Tamil Nadu",
-    website: "https://lntinfotech.example.com",
+    website: "https://larsentoubro.com",
     size: "5000-10000",
     founded: 1997,
     referrersCount: 6,
@@ -129,7 +128,7 @@ export const companies: Company[] = [
     industry: "Financial Technology",
     description: "India's leading digital payments and financial technology company, transforming the way people pay and bank.",
     location: "Noida, Uttar Pradesh",
-    website: "https://paytm.example.com",
+    website: "https://paytm.com",
     size: "5000-10000",
     founded: 2010,
     referrersCount: 8,
@@ -142,7 +141,7 @@ export const companies: Company[] = [
     industry: "Healthcare",
     description: "Apollo Health is applying artificial intelligence to improve healthcare outcomes and patient care across India.",
     location: "Hyderabad, Telangana",
-    website: "https://apollo.example.com",
+    website: "https://apollohospitals.com",
     size: "1000-5000",
     founded: 2015,
     referrersCount: 5,
@@ -155,7 +154,7 @@ export const companies: Company[] = [
     industry: "Media & Entertainment",
     description: "Zee Digital creates engaging content and digital media solutions for audiences across India.",
     location: "Mumbai, Maharashtra",
-    website: "https://zeedigital.example.com",
+    website: "https://zee.com",
     size: "1000-5000",
     founded: 2012,
     referrersCount: 3,
