@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, FileCheck, Briefcase } from "lucide-react";
+import { Search, FileCheck, Briefcase, CheckCircle2 } from "lucide-react";
 
 const HowItWorks = () => {
   return (
@@ -26,21 +26,15 @@ const HowItWorks = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Search by company, industry, or location
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Filter by role, department, or seniority level
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Review referrer profiles and success rates
               </li>
             </ul>
@@ -72,21 +66,15 @@ const HowItWorks = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Upload your tailored resume and cover letter
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Specify the exact position you're applying for
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Share why you're a perfect match for the job
               </li>
             </ul>
@@ -118,21 +106,15 @@ const HowItWorks = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Receive updates on your referral status
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Prepare for interviews with company insights
               </li>
               <li className="flex items-center">
-                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
                 Get feedback from your referrer (optional)
               </li>
             </ul>

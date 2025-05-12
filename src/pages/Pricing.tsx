@@ -15,12 +15,38 @@ const Pricing = () => {
   };
 
   const handleContactSales = () => {
+    // Show toast when contact sales is clicked
     toast({
       title: "Contact request sent",
       description: "Our sales team will contact you shortly.",
       duration: 5000,
     });
   };
+
+  // Customer testimonial data with reliable avatar URLs
+  const testimonials = [
+    {
+      name: "Priya Sharma",
+      role: "Software Engineer",
+      image: "https://xsgames.co/randomusers/assets/avatars/female/1.jpg",
+      fallbackInitials: "PS",
+      text: "ReferralHire helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
+    },
+    {
+      name: "Raj Patel",
+      role: "Product Manager",
+      image: "https://xsgames.co/randomusers/assets/avatars/male/1.jpg",
+      fallbackInitials: "RP",
+      text: "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!"
+    },
+    {
+      name: "Anika Gupta",
+      role: "Data Scientist",
+      image: "https://xsgames.co/randomusers/assets/avatars/female/2.jpg",
+      fallbackInitials: "AG",
+      text: "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
+    }
+  ];
 
   const pricing = {
     free: {
@@ -117,69 +143,29 @@ const Pricing = () => {
         <div className="mb-16">
           <h2 className="text-xl font-bold mb-6 text-center">Trusted by Professionals Across India</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://randomuser.me/api/portraits/women/44.jpg" 
-                  alt="Customer testimonial" 
-                  className="w-12 h-12 rounded-full object-cover mr-4"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://ui-avatars.com/api/?name=PS&background=f3f4f6&color=6366f1&size=150";
-                  }}
-                />
-                <div>
-                  <h3 className="font-semibold">Priya Sharma</h3>
-                  <p className="text-sm text-gray-600">Software Engineer</p>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="flex items-center mb-4">
+                  <img 
+                    src={testimonial.image} 
+                    alt={`${testimonial.name} testimonial`} 
+                    className="w-12 h-12 rounded-full object-cover mr-4"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = `https://ui-avatars.com/api/?name=${testimonial.fallbackInitials}&background=f3f4f6&color=6366f1&size=150`;
+                    }}
+                  />
+                  <div>
+                    <h3 className="font-semibold">{testimonial.name}</h3>
+                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  </div>
                 </div>
+                <p className="text-gray-700 italic">
+                  "{testimonial.text}"
+                </p>
               </div>
-              <p className="text-gray-700 italic">
-                "ReferralHire helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://randomuser.me/api/portraits/men/72.jpg" 
-                  alt="Customer testimonial" 
-                  className="w-12 h-12 rounded-full object-cover mr-4"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://ui-avatars.com/api/?name=RP&background=f3f4f6&color=6366f1&size=150";
-                  }}
-                />
-                <div>
-                  <h3 className="font-semibold">Raj Patel</h3>
-                  <p className="text-sm text-gray-600">Product Manager</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">
-                "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!"
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://randomuser.me/api/portraits/women/28.jpg" 
-                  alt="Customer testimonial" 
-                  className="w-12 h-12 rounded-full object-cover mr-4"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://ui-avatars.com/api/?name=AG&background=f3f4f6&color=6366f1&size=150";
-                  }}
-                />
-                <div>
-                  <h3 className="font-semibold">Anika Gupta</h3>
-                  <p className="text-sm text-gray-600">Data Scientist</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">
-                "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 

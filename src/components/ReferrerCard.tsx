@@ -66,6 +66,10 @@ const ReferrerCard = ({
     
     return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=40`;
   };
+
+  // Use reliable images or fallbacks
+  const avatarUrl = avatar || generateAvatarPlaceholder(name);
+  const logoUrl = companyLogo || generateCompanyPlaceholder(company);
   
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">
@@ -74,7 +78,7 @@ const ReferrerCard = ({
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 rounded-full overflow-hidden">
               <img
-                src={avatar}
+                src={avatarUrl}
                 alt={`${name}'s profile`}
                 className="w-full h-full object-cover"
                 onError={(e) => { 
@@ -93,7 +97,7 @@ const ReferrerCard = ({
               <div className="flex items-center mt-1">
                 <div className="w-4 h-4 mr-1">
                   <img
-                    src={companyLogo}
+                    src={logoUrl}
                     alt={`${company} logo`}
                     className="max-w-full max-h-full object-contain"
                     onError={(e) => { 

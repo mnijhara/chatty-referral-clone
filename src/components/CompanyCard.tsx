@@ -33,6 +33,9 @@ const CompanyCard = ({
     return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
   };
 
+  // Use a reliable image or fallback
+  const logoUrl = logo || generatePlaceholder(name);
+
   return (
     <Link to={`/companies/${id}`}>
       <Card className="h-full hover:shadow-md transition-shadow duration-200">
@@ -40,7 +43,7 @@ const CompanyCard = ({
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 flex items-center justify-center rounded-md bg-gray-100 p-2">
               <img 
-                src={logo} 
+                src={logoUrl} 
                 alt={`${name} logo`} 
                 className="max-w-full max-h-full object-contain" 
                 onError={(e) => { 

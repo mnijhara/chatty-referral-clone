@@ -33,10 +33,13 @@ const CompanyDetail = () => {
     );
   }
 
+  // Use a reliable logo or fallback
+  const logoUrl = company.logo || generatePlaceholder(company.name);
+
   // Ensure website URL has proper format
-  const websiteUrl = company.website && !company.website.startsWith('http') 
-    ? `https://${company.website}` 
-    : company.website;
+  const websiteUrl = company.website ? 
+    (company.website.startsWith('http') ? company.website : `https://${company.website}`) 
+    : null;
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -44,7 +47,7 @@ const CompanyDetail = () => {
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10">
         <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-100 rounded-md p-4 flex items-center justify-center">
           <img
-            src={company.logo}
+            src={logoUrl}
             alt={`${company.name} logo`}
             className="max-w-full max-h-full object-contain"
             onError={(e) => { 

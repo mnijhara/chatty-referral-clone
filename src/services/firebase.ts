@@ -13,14 +13,14 @@ import {
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
-// Firebase configuration using environment variables with fallbacks
+// Firebase configuration with provided API key
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "YOUR_MESSAGING_SENDER_ID",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "YOUR_APP_ID"
+  apiKey: "AIzaSyArgAqurxwfDtI2pkTE_Yy9qAj5uxwHuEg",
+  authDomain: "referralhire-5d732.firebaseapp.com",
+  projectId: "referralhire-5d732",
+  storageBucket: "referralhire-5d732.appspot.com",
+  messagingSenderId: "258397655234",
+  appId: "1:258397655234:web:a92cb7335f2b7abff66a62"
 };
 
 // Initialize Firebase
