@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { companies, referrers } from "@/utils/placeholderData";
 import CompanyCard from "@/components/CompanyCard";
 import ReferrerCard from "@/components/ReferrerCard";
-import { HandShake, GraduationCap, Trophy } from "lucide-react";
+import { Handshake, GraduationCap, Trophy } from "lucide-react";
 
 const Index = () => {
   const featuredCompanies = companies.slice(0, 4);
@@ -230,7 +230,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                <HandShake className="h-8 w-8" />
+                <Handshake className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Find a Referrer</h3>
               <p className="text-gray-600">
