@@ -45,15 +45,26 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
-  // Generate avatar placeholder based on name
+  // Generate avatar placeholder based on gender (determined by name)
   const generateAvatarPlaceholder = (personName: string) => {
+    const commonFemaleNames = ["priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", "neha", "asha"];
+    const firstName = personName.split(' ')[0].toLowerCase();
+    const isFemale = commonFemaleNames.some(name => firstName.includes(name));
+    
     const initials = personName.split(' ')
       .map(word => word[0])
       .slice(0, 2)
       .join('')
       .toUpperCase();
     
-    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
+    // Indian-looking avatars based on gender
+    if (isFemale) {
+      // For female names, use female avatar
+      return "https://xsgames.co/randomusers/assets/avatars/female/40.jpg";
+    } else {
+      // For male names, use male avatar
+      return "https://xsgames.co/randomusers/assets/avatars/male/40.jpg";
+    }
   };
 
   // Generate company logo placeholder
@@ -68,8 +79,8 @@ const ReferrerCard = ({
   };
 
   // Use reliable images or fallbacks
-  const avatarUrl = avatar || generateAvatarPlaceholder(name);
-  const logoUrl = companyLogo || generateCompanyPlaceholder(company);
+  const avatarUrl = generateAvatarPlaceholder(name);
+  const logoUrl = companyLogo && companyLogo.startsWith('http') ? companyLogo : generateCompanyPlaceholder(company);
   
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">

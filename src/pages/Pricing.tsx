@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
@@ -23,27 +23,27 @@ const Pricing = () => {
     });
   };
 
-  // Customer testimonial data with reliable avatar URLs
+  // Customer testimonial data with specific Indian-focused avatars
   const testimonials = [
     {
       name: "Priya Sharma",
       role: "Software Engineer",
-      image: "https://xsgames.co/randomusers/assets/avatars/female/1.jpg",
-      fallbackInitials: "PS",
+      image: "https://xsgames.co/randomusers/assets/avatars/female/40.jpg",
+      gender: "female",
       text: "ReferralHire helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
     },
     {
       name: "Raj Patel",
       role: "Product Manager",
-      image: "https://xsgames.co/randomusers/assets/avatars/male/1.jpg",
-      fallbackInitials: "RP",
+      image: "https://xsgames.co/randomusers/assets/avatars/male/40.jpg",
+      gender: "male",
       text: "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!"
     },
     {
       name: "Anika Gupta",
       role: "Data Scientist",
-      image: "https://xsgames.co/randomusers/assets/avatars/female/2.jpg",
-      fallbackInitials: "AG",
+      image: "https://xsgames.co/randomusers/assets/avatars/female/42.jpg",
+      gender: "female",
       text: "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
     }
   ];
@@ -143,29 +143,34 @@ const Pricing = () => {
         <div className="mb-16">
           <h2 className="text-xl font-bold mb-6 text-center">Trusted by Professionals Across India</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex items-center mb-4">
-                  <img 
-                    src={testimonial.image} 
-                    alt={`${testimonial.name} testimonial`} 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = `https://ui-avatars.com/api/?name=${testimonial.fallbackInitials}&background=f3f4f6&color=6366f1&size=150`;
-                    }}
-                  />
-                  <div>
-                    <h3 className="font-semibold">{testimonial.name}</h3>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+            {testimonials.map((testimonial, index) => {
+              // Generate gender-specific fallback URLs
+              const fallbackUrl = `https://ui-avatars.com/api/?name=${testimonial.name.split(' ').map(n => n[0]).join('')}&background=f3f4f6&color=6366f1&size=150`;
+              
+              return (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-center mb-4">
+                    <img 
+                      src={testimonial.image} 
+                      alt={`${testimonial.name} testimonial`} 
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = fallbackUrl;
+                      }}
+                    />
+                    <div>
+                      <h3 className="font-semibold">{testimonial.name}</h3>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    </div>
                   </div>
+                  <p className="text-gray-700 italic">
+                    "{testimonial.text}"
+                  </p>
                 </div>
-                <p className="text-gray-700 italic">
-                  "{testimonial.text}"
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -295,7 +300,7 @@ const Pricing = () => {
         </div>
 
         {/* Enterprise Contact */}
-        <div className="mt-20 bg-gray-50 p-10 rounded-lg" id="contact">
+        <div className="mt-20 bg-gradient-to-r from-gray-50 to-blue-50 p-10 rounded-lg" id="contact">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-4">Need a custom solution?</h2>
             <p className="text-gray-600 mb-6">

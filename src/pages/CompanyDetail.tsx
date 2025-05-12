@@ -34,12 +34,27 @@ const CompanyDetail = () => {
   }
 
   // Use a reliable logo or fallback
-  const logoUrl = company.logo || generatePlaceholder(company.name);
+  const logoUrl = company.logo && company.logo.startsWith('http') 
+    ? company.logo 
+    : generatePlaceholder(company.name);
 
-  // Ensure website URL has proper format
-  const websiteUrl = company.website ? 
-    (company.website.startsWith('http') ? company.website : `https://${company.website}`) 
-    : null;
+  // Format the website URL properly
+  const formatWebsiteUrl = (url: string | undefined) => {
+    if (!url || url === '') return '';
+    
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    
+    return `https://${url}`;
+  };
+
+  const websiteUrl = formatWebsiteUrl(company.website);
+
+  // Scroll to top on page load
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     <div className="container mx-auto px-4 py-12">

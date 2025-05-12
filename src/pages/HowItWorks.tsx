@@ -40,14 +40,12 @@ const HowItWorks = () => {
             </ul>
           </div>
           <div className="md:w-1/2">
-            <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <div className="flex flex-col items-center text-gray-500">
-                <Search size={64} strokeWidth={1} />
-                <div className="mt-4 text-center">
-                  <div className="text-lg font-semibold">Browse Companies</div>
-                  <p className="text-sm">Find the perfect company for your career</p>
-                </div>
-              </div>
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg h-72 flex items-center justify-center shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c"
+                alt="Indian professionals browsing job listings"
+                className="w-full h-full object-cover rounded-md"
+              />
             </div>
           </div>
         </div>
@@ -80,14 +78,12 @@ const HowItWorks = () => {
             </ul>
           </div>
           <div className="md:w-1/2">
-            <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <div className="flex flex-col items-center text-gray-500">
-                <FileCheck size={64} strokeWidth={1} />
-                <div className="mt-4 text-center">
-                  <div className="text-lg font-semibold">Submit Request</div>
-                  <p className="text-sm">Create your personalized referral request</p>
-                </div>
-              </div>
+            <div className="bg-gradient-to-br from-teal-50 to-green-50 p-6 rounded-lg h-72 flex items-center justify-center shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1573496130407-57329f01f769"
+                alt="Indian professional preparing resume"
+                className="w-full h-full object-cover rounded-md"
+              />
             </div>
           </div>
         </div>
@@ -120,20 +116,18 @@ const HowItWorks = () => {
             </ul>
           </div>
           <div className="md:w-1/2">
-            <div className="bg-gray-100 p-6 rounded-lg h-72 flex items-center justify-center">
-              <div className="flex flex-col items-center text-gray-500">
-                <Briefcase size={64} strokeWidth={1} />
-                <div className="mt-4 text-center">
-                  <div className="text-lg font-semibold">Get Hired</div>
-                  <p className="text-sm">Land your dream job with insider support</p>
-                </div>
-              </div>
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg h-72 flex items-center justify-center shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+                alt="Indian professionals in a job interview"
+                className="w-full h-full object-cover rounded-md"
+              />
             </div>
           </div>
         </div>
 
         {/* Success rate stats */}
-        <div className="bg-gray-50 p-10 rounded-lg mb-16">
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-10 rounded-lg mb-16">
           <h3 className="text-xl font-bold mb-8 text-center">Why ReferralHire Works</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -194,7 +188,7 @@ const HowItWorks = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center py-10 bg-gray-50 rounded-lg">
+        <div className="text-center py-10 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg">
           <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
           <p className="text-lg text-gray-600 mb-6">
             Join thousands of candidates who have successfully landed interviews at top companies.

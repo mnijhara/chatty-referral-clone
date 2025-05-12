@@ -6,7 +6,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider,
   signOut,
   onAuthStateChanged,
   User
@@ -23,13 +22,20 @@ const firebaseConfig = {
   appId: "1:258397655234:web:a92cb7335f2b7abff66a62"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase - prevent duplicate app initialization
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+} catch (error) {
+  // Use existing app instance if already initialized
+  app = initializeApp(firebaseConfig, "secondary");
+  console.log("Using existing Firebase app");
+}
+
 const auth = getAuth(app);
 
 // Providers
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
 
 // Auth functions
 export const signInWithEmail = (email: string, password: string) => {
@@ -41,11 +47,10 @@ export const signUpWithEmail = (email: string, password: string) => {
 };
 
 export const signInWithGoogle = () => {
+  googleProvider.setCustomParameters({
+    prompt: 'select_account'
+  });
   return signInWithPopup(auth, googleProvider);
-};
-
-export const signInWithFacebook = () => {
-  return signInWithPopup(auth, facebookProvider);
 };
 
 export const logOut = () => {

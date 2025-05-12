@@ -34,7 +34,7 @@ const CompanyCard = ({
   };
 
   // Use a reliable image or fallback
-  const logoUrl = logo || generatePlaceholder(name);
+  const logoUrl = logo && logo.startsWith('http') ? logo : generatePlaceholder(name);
 
   return (
     <Link to={`/companies/${id}`}>

@@ -16,12 +16,14 @@ const Index = () => {
       <section className="hero-gradient text-white py-16 md:py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand/70 mix-blend-multiply"></div>
         <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')] bg-cover bg-center"></div>
+        {/* Dark overlay to improve text visibility */}
+        <div className="absolute inset-0 bg-black opacity-60 z-[1]"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 animation-fade-in">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 animation-fade-in drop-shadow-lg">
               Get Referred to Your Dream Company in India
             </h1>
-            <p className="text-lg md:text-xl mb-8 animation-fade-in">
+            <p className="text-lg md:text-xl mb-8 animation-fade-in drop-shadow-md">
               Connect with employees at top Indian companies who can refer you directly,
               increasing your chances of landing an interview by up to 9x.
             </p>
@@ -32,7 +34,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/referrers">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/20 hover:bg-white/30">
                   Find Referrers
                 </Button>
               </Link>
@@ -53,9 +55,14 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://i.pravatar.cc/150?img=33" 
+                  src="https://xsgames.co/randomusers/assets/avatars/female/42.jpg" 
                   alt="Priya Sharma" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
+                  onError={(e) => { 
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null; 
+                    target.src = `https://ui-avatars.com/api/?name=PS&background=f3f4f6&color=6366f1&size=150`; 
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Priya Sharma</h3>
@@ -70,9 +77,14 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://i.pravatar.cc/150?img=53" 
+                  src="https://xsgames.co/randomusers/assets/avatars/male/42.jpg" 
                   alt="Rahul Verma" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
+                  onError={(e) => { 
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null; 
+                    target.src = `https://ui-avatars.com/api/?name=RV&background=f3f4f6&color=6366f1&size=150`; 
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Rahul Verma</h3>
@@ -87,9 +99,14 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://i.pravatar.cc/150?img=47" 
+                  src="https://xsgames.co/randomusers/assets/avatars/female/43.jpg" 
                   alt="Anjali Desai" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
+                  onError={(e) => { 
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null; 
+                    target.src = `https://ui-avatars.com/api/?name=AD&background=f3f4f6&color=6366f1&size=150`; 
+                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Anjali Desai</h3>
@@ -163,9 +180,14 @@ const Index = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <div className="flex items-center mb-4">
                   <img 
-                    src="https://i.pravatar.cc/150?img=59" 
+                    src="https://xsgames.co/randomusers/assets/avatars/male/30.jpg" 
                     alt="Aditya Sharma" 
                     className="w-16 h-16 rounded-full object-cover mr-4"
+                    onError={(e) => { 
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; 
+                      target.src = `https://ui-avatars.com/api/?name=AS&background=f3f4f6&color=6366f1&size=150`; 
+                    }}
                   />
                   <div>
                     <h3 className="font-semibold">Aditya Sharma</h3>
@@ -181,9 +203,14 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
-                alt="Happy referrer" 
+                src="https://images.unsplash.com/photo-1520333789090-1afc82db536a"
+                alt="Happy Indian referrer" 
                 className="rounded-lg shadow-md w-full h-96 object-cover"
+                onError={(e) => { 
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null; 
+                  target.src = "https://placehold.co/600x400?text=Professional+at+work"; 
+                }}
               />
             </div>
           </div>
@@ -265,9 +292,14 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" 
-                alt="Remote worker in India"
+                src="https://images.unsplash.com/photo-1573497019236-61f23e57196c" 
+                alt="Indian professional working"
                 className="rounded-lg shadow-md h-96 w-full object-cover"
+                onError={(e) => { 
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null; 
+                  target.src = "https://placehold.co/600x400?text=Indian+Professional"; 
+                }}
               />
             </div>
             <div>

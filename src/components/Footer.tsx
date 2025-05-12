@@ -1,5 +1,21 @@
 
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+
+// Custom Link component that scrolls to top
+const Link = ({ to, children, className }: { to: string, children: React.ReactNode, className?: string }) => {
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <RouterLink to={to} className={className} onClick={handleClick}>
+      {children}
+    </RouterLink>
+  );
+};
 
 const Footer = () => {
   return (
