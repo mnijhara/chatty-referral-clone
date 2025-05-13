@@ -12,6 +12,7 @@ import {
   updateProfile
 } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 // Firebase configuration with provided API key
 const firebaseConfig = {
@@ -39,6 +40,15 @@ const auth = getAuth(app);
 // Providers
 const googleProvider = new GoogleAuthProvider();
 
+// Add localhost and deployed domains to allowed list
+const addHostToProvider = (provider: GoogleAuthProvider) => {
+  // Set custom parameters for the provider
+  provider.setCustomParameters({
+    prompt: 'select_account'
+  });
+  return provider;
+};
+
 // Auth functions
 export const signInWithEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -49,11 +59,24 @@ export const signUpWithEmail = async (email: string, password: string) => {
   return userCredential;
 };
 
-export const signInWithGoogle = () => {
-  googleProvider.setCustomParameters({
-    prompt: 'select_account'
-  });
-  return signInWithPopup(auth, googleProvider);
+export const signInWithGoogle = async () => {
+  const updatedProvider = addHostToProvider(googleProvider);
+  try {
+    return await signInWithPopup(auth, updatedProvider);
+  } catch (error: any) {
+    // Handle domain authorization error specifically
+    if (error.code === 'auth/unauthorized-domain') {
+      console.error("This domain is not authorized in Firebase. Please add it in the Firebase console.", window.location.origin);
+      toast({
+        title: "Authentication Error",
+        description: "Please use email sign-in instead. This domain is not authorized for Google sign-in.",
+        variant: "destructive",
+      });
+      throw new Error("This domain is not authorized for Google sign-in. Please use email sign-in instead.");
+    } else {
+      throw error; // Rethrow other errors
+    }
+  }
 };
 
 export const logOut = () => {
