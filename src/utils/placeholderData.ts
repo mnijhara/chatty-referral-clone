@@ -29,30 +29,30 @@ export interface Referrer {
 
 // Updated company logos with more reliable image sources
 const companyLogoPlaceholders = [
-  "https://logo.clearbit.com/infosys.com",
-  "https://logo.clearbit.com/wipro.com",
-  "https://logo.clearbit.com/tcs.com",
-  "https://logo.clearbit.com/mindtree.com",
-  "https://logo.clearbit.com/larsentoubro.com",
-  "https://logo.clearbit.com/paytm.com",
-  "https://logo.clearbit.com/apollohospitals.com",
-  "https://logo.clearbit.com/zee.com"
+  "https://via.placeholder.com/150?text=InfoTech",
+  "https://via.placeholder.com/150?text=Wipro",
+  "https://via.placeholder.com/150?text=TCS",
+  "https://via.placeholder.com/150?text=MindTree",
+  "https://via.placeholder.com/150?text=L&T",
+  "https://via.placeholder.com/150?text=Paytm",
+  "https://via.placeholder.com/150?text=Apollo",
+  "https://via.placeholder.com/150?text=Zee"
 ];
 
-// Sample avatar placeholders
+// Sample avatar placeholders - use more reliable sources
 const avatarPlaceholders = [
-  "https://i.pravatar.cc/150?img=1",
-  "https://i.pravatar.cc/150?img=2",
-  "https://i.pravatar.cc/150?img=3",
-  "https://i.pravatar.cc/150?img=4",
-  "https://i.pravatar.cc/150?img=5",
-  "https://i.pravatar.cc/150?img=6",
-  "https://i.pravatar.cc/150?img=7",
-  "https://i.pravatar.cc/150?img=8",
-  "https://i.pravatar.cc/150?img=9",
-  "https://i.pravatar.cc/150?img=10",
-  "https://i.pravatar.cc/150?img=11",
-  "https://i.pravatar.cc/150?img=12"
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
+  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5",
+  "https://images.unsplash.com/photo-1535468850893-d6e543fbd7f5",
+  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
+  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+  "https://images.unsplash.com/photo-1519345182560-3f2917c472ef"
 ];
 
 export const companies: Company[] = [

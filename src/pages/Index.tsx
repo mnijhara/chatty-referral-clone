@@ -17,26 +17,26 @@ const Index = () => {
     });
   };
 
-  // Generate reliable Indian avatar
+  // Generate reliable Indian avatar - using more reliable sources
   const generateIndianAvatar = (name: string, isFemale: boolean, index: number) => {
-    // Fixed Indian avatar URLs (these should be reliable)
+    // Use Unsplash images instead of imgbb which seems to be failing
     const femaleIndianAvatars = [
-      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", 
-      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", 
-      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", 
-      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
+      "https://images.unsplash.com/photo-1535468850893-d6e543fbd7f5",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
     ];
     
     const maleIndianAvatars = [
-      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", 
-      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", 
-      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", 
-      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5",
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
     ];
     
-    // Fallback images if the above don't load
-    const fallbackFemaleImage = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
-    const fallbackMaleImage = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
+    // Fallback images
+    const fallbackFemaleImage = "https://via.placeholder.com/150?text=F";
+    const fallbackMaleImage = "https://via.placeholder.com/150?text=M";
     
     return isFemale 
       ? (femaleIndianAvatars[index % 4] || fallbackFemaleImage)
@@ -95,7 +95,7 @@ const Index = () => {
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
-                      target.src = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
+                      target.src = "https://via.placeholder.com/150?text=Priya+S";
                     }}
                   />
                 </div>
@@ -119,7 +119,7 @@ const Index = () => {
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
-                      target.src = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
+                      target.src = "https://via.placeholder.com/150?text=Rahul+V";
                     }}
                   />
                 </div>
@@ -143,7 +143,7 @@ const Index = () => {
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
-                      target.src = "https://xsgames.co/randomusers/assets/avatars/female/2.jpg";
+                      target.src = "https://via.placeholder.com/150?text=Anjali+D";
                     }}
                   />
                 </div>
@@ -222,6 +222,11 @@ const Index = () => {
                     src={generateIndianAvatar("Aditya Sharma", false, 0)} 
                     alt="Aditya Sharma" 
                     className="w-16 h-16 rounded-full object-cover mr-4"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = "https://via.placeholder.com/150?text=Aditya+S";
+                    }}
                   />
                   <div>
                     <h3 className="font-semibold">Aditya Sharma</h3>
@@ -240,6 +245,11 @@ const Index = () => {
                 src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
                 alt="Indian professional at work" 
                 className="rounded-lg shadow-md w-full h-96 object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = "https://via.placeholder.com/640x480?text=Professional+At+Work";
+                }}
               />
             </div>
           </div>
@@ -324,6 +334,11 @@ const Index = () => {
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
                 alt="Indian professional working"
                 className="rounded-lg shadow-md h-96 w-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = "https://via.placeholder.com/640x480?text=Professional+Working";
+                }}
               />
             </div>
             <div>

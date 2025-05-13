@@ -53,30 +53,30 @@ const ReferrerCard = ({
     const firstName = personName.split(' ')[0].toLowerCase();
     const isFemale = commonFemaleNames.some(name => firstName.includes(name));
     
-    // Specific Indian-looking avatars based on gender (moved to reliable CDN)
-    const femaleIndianAvatars = [
-      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg",
-      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg",
-      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg",
-      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"
+    // Use Unsplash images as they are more reliable
+    const femaleAvatars = [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce", 
+      "https://images.unsplash.com/photo-1535468850893-d6e543fbd7f5",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
     ];
     
-    const maleIndianAvatars = [
-      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg",
-      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg",
-      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg",
-      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"
+    const maleAvatars = [
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5",
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
     ];
     
-    // Fallback images if the above don't load
-    const fallbackFemaleImage = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
-    const fallbackMaleImage = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
+    // Fallback to placeholder images
+    const fallbackFemaleImage = `https://via.placeholder.com/150?text=${personName.charAt(0)}`;
+    const fallbackMaleImage = `https://via.placeholder.com/150?text=${personName.charAt(0)}`;
     
     // Use name to deterministically select an avatar (ensures same name gets same avatar)
     const avatarSeed = personName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + seed;
     const index = avatarSeed % 4; // Choose one of 4 avatars based on name
     
-    const primaryAvatar = isFemale ? femaleIndianAvatars[index] : maleIndianAvatars[index];
+    const primaryAvatar = isFemale ? femaleAvatars[index] : maleAvatars[index];
     const fallbackAvatar = isFemale ? fallbackFemaleImage : fallbackMaleImage;
     
     return { primaryAvatar, fallbackAvatar, initials: personName.split(' ').map(n => n[0]).join('').toUpperCase() };
