@@ -36,8 +36,16 @@ const CompanyCard = ({
   // Use a reliable image or fallback
   const logoUrl = logo && logo.startsWith('http') ? logo : generatePlaceholder(name);
 
+  // Custom Link wrapper that scrolls to top when clicked
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <Link to={`/companies/${id}`}>
+    <Link to={`/companies/${id}`} onClick={handleClick}>
       <Card className="h-full hover:shadow-md transition-shadow duration-200">
         <CardContent className="p-6">
           <div className="flex items-center space-x-4">

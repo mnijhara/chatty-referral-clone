@@ -70,6 +70,7 @@ const SignUp = () => {
         description: error.message || "An error occurred during sign up.",
         variant: "destructive",
       });
+      console.error("Sign up error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +165,7 @@ const SignUp = () => {
                 htmlFor="terms"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                I accept the <Link to="/terms-of-service" className="text-brand hover:underline">terms and conditions</Link>
+                I accept the <Link to="/terms-of-service" onClick={() => window.scrollTo(0, 0)} className="text-brand hover:underline">terms and conditions</Link>
               </label>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
@@ -194,7 +195,7 @@ const SignUp = () => {
         <CardFooter className="flex flex-col">
           <div className="text-center text-sm">
             Already have an account?{" "}
-            <Link to="/signin" className="text-brand hover:underline">
+            <Link to="/signin" onClick={() => window.scrollTo(0, 0)} className="text-brand hover:underline">
               Sign in
             </Link>
           </div>

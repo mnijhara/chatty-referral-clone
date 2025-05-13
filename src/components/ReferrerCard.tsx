@@ -45,26 +45,33 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
-  // Generate avatar placeholder based on gender (determined by name)
+  // Generate avatar based on gender (determined by name)
   const generateAvatarPlaceholder = (personName: string) => {
-    const commonFemaleNames = ["priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", "neha", "asha"];
+    // List of common Indian female and male names to detect gender
+    const commonFemaleNames = ["priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", "neha", "asha", "nisha", "meera"];
     const firstName = personName.split(' ')[0].toLowerCase();
     const isFemale = commonFemaleNames.some(name => firstName.includes(name));
     
-    const initials = personName.split(' ')
-      .map(word => word[0])
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-    
     // Indian-looking avatars based on gender
-    if (isFemale) {
-      // For female names, use female avatar
-      return "https://xsgames.co/randomusers/assets/avatars/female/40.jpg";
-    } else {
-      // For male names, use male avatar
-      return "https://xsgames.co/randomusers/assets/avatars/male/40.jpg";
-    }
+    const femaleIndianAvatars = [
+      "https://randomuser.me/api/portraits/women/57.jpg", // Indian woman
+      "https://randomuser.me/api/portraits/women/36.jpg", // Indian woman
+      "https://randomuser.me/api/portraits/women/63.jpg", // Indian woman
+      "https://randomuser.me/api/portraits/women/93.jpg"  // Indian woman
+    ];
+    
+    const maleIndianAvatars = [
+      "https://randomuser.me/api/portraits/men/55.jpg", // Indian man
+      "https://randomuser.me/api/portraits/men/72.jpg", // Indian man
+      "https://randomuser.me/api/portraits/men/76.jpg", // Indian man
+      "https://randomuser.me/api/portraits/men/83.jpg"  // Indian man
+    ];
+    
+    // Use name to deterministically select an avatar (ensures same name gets same avatar)
+    const seed = personName.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const index = seed % 4; // Choose one of 4 avatars based on name
+    
+    return isFemale ? femaleIndianAvatars[index] : maleIndianAvatars[index];
   };
 
   // Generate company logo placeholder

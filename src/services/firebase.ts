@@ -8,7 +8,8 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
-  User
+  User,
+  updateProfile
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
@@ -28,7 +29,8 @@ try {
   app = initializeApp(firebaseConfig);
 } catch (error) {
   // Use existing app instance if already initialized
-  app = initializeApp(firebaseConfig, "secondary");
+  const existingApp = initializeApp(firebaseConfig, "referralhire");
+  app = existingApp;
   console.log("Using existing Firebase app");
 }
 
@@ -42,8 +44,9 @@ export const signInWithEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-export const signUpWithEmail = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const signUpWithEmail = async (email: string, password: string) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  return userCredential;
 };
 
 export const signInWithGoogle = () => {

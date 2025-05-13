@@ -130,7 +130,7 @@ const CompanyDetail = () => {
             <p className="text-lg text-gray-600 mb-6">
               No referrers available for this company yet.
             </p>
-            <Link to="/companies">
+            <Link to="/companies" onClick={() => window.scrollTo(0, 0)}>
               <Button variant="outline">Explore Other Companies</Button>
             </Link>
           </div>

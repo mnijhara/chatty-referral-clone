@@ -47,6 +47,7 @@ const SignIn = () => {
         description: error.message || "Please check your credentials and try again.",
         variant: "destructive",
       });
+      console.error("Sign in error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -135,7 +136,7 @@ const SignIn = () => {
         <CardFooter className="flex flex-col">
           <div className="text-center text-sm">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-brand hover:underline">
+            <Link to="/signup" className="text-brand hover:underline" onClick={() => window.scrollTo(0, 0)}>
               Sign up
             </Link>
           </div>
