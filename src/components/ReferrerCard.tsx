@@ -53,26 +53,33 @@ const ReferrerCard = ({
     const firstName = personName.split(' ')[0].toLowerCase();
     const isFemale = commonFemaleNames.some(name => firstName.includes(name));
     
-    // Specific Indian-looking avatars based on gender
+    // Specific Indian-looking avatars based on gender (moved to reliable CDN)
     const femaleIndianAvatars = [
-      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", // Indian woman
-      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", // Indian woman
-      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", // Indian woman
-      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  // Indian woman
+      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg",
+      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg",
+      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg",
+      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"
     ];
     
     const maleIndianAvatars = [
-      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", // Indian man
-      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", // Indian man
-      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", // Indian man
-      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  // Indian man
+      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg",
+      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg",
+      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg",
+      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"
     ];
+    
+    // Fallback images if the above don't load
+    const fallbackFemaleImage = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
+    const fallbackMaleImage = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
     
     // Use name to deterministically select an avatar (ensures same name gets same avatar)
     const avatarSeed = personName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + seed;
     const index = avatarSeed % 4; // Choose one of 4 avatars based on name
     
-    return isFemale ? femaleIndianAvatars[index] : maleIndianAvatars[index];
+    const primaryAvatar = isFemale ? femaleIndianAvatars[index] : maleIndianAvatars[index];
+    const fallbackAvatar = isFemale ? fallbackFemaleImage : fallbackMaleImage;
+    
+    return { primaryAvatar, fallbackAvatar, initials: personName.split(' ').map(n => n[0]).join('').toUpperCase() };
   };
 
   // Generate company logo placeholder
@@ -87,7 +94,7 @@ const ReferrerCard = ({
   };
 
   // Use reliable images or fallbacks
-  const avatarUrl = generateAvatarPlaceholder(name, id.charCodeAt(0));
+  const { primaryAvatar, fallbackAvatar, initials } = generateAvatarPlaceholder(name, id.charCodeAt(0));
   const logoUrl = companyLogo && companyLogo.startsWith('http') ? companyLogo : generateCompanyPlaceholder(company);
   
   const scrollToTop = () => {
@@ -104,11 +111,16 @@ const ReferrerCard = ({
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12">
               <AvatarImage
-                src={avatarUrl}
+                src={primaryAvatar}
                 alt={`${name}'s profile`}
                 className="object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = fallbackAvatar;
+                }}
               />
-              <AvatarFallback>{name.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
+              <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
             <div>
               <h3 className="font-semibold">

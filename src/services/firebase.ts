@@ -49,6 +49,10 @@ const addHostToProvider = (provider: GoogleAuthProvider) => {
   return provider;
 };
 
+// IMPORTANT: The domain below needs to be added to Firebase Auth console
+// Under Authentication > Settings > Authorized domains
+export const FIREBASE_AUTH_DOMAIN_TO_ADD = "referral-clone.lovable.app";
+
 // Auth functions
 export const signInWithEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -62,17 +66,25 @@ export const signUpWithEmail = async (email: string, password: string) => {
 export const signInWithGoogle = async () => {
   const updatedProvider = addHostToProvider(googleProvider);
   try {
+    // Show a console message about the domain that needs to be added
+    console.info(
+      "IMPORTANT: To make Google Sign-in work, add this domain to Firebase Auth console:", 
+      window.location.origin,
+      "or specifically:",
+      FIREBASE_AUTH_DOMAIN_TO_ADD
+    );
+    
     return await signInWithPopup(auth, updatedProvider);
   } catch (error: any) {
     // Handle domain authorization error specifically
     if (error.code === 'auth/unauthorized-domain') {
-      console.error("This domain is not authorized in Firebase. Please add it in the Firebase console.", window.location.origin);
+      console.error("This domain is not authorized in Firebase. Add this domain to the Firebase console:", window.location.origin);
       toast({
         title: "Authentication Error",
-        description: "Please use email sign-in instead. This domain is not authorized for Google sign-in.",
+        description: `Add domain "${FIREBASE_AUTH_DOMAIN_TO_ADD}" to Firebase Auth console under Authentication > Settings > Authorized domains.`,
         variant: "destructive",
       });
-      throw new Error("This domain is not authorized for Google sign-in. Please use email sign-in instead.");
+      throw new Error(`Domain "${window.location.origin}" is not authorized for Google sign-in. Add it to the Firebase console first.`);
     } else {
       throw error; // Rethrow other errors
     }

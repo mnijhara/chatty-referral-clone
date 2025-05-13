@@ -19,21 +19,28 @@ const Index = () => {
 
   // Generate reliable Indian avatar
   const generateIndianAvatar = (name: string, isFemale: boolean, index: number) => {
+    // Fixed Indian avatar URLs (these should be reliable)
     const femaleIndianAvatars = [
-      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", // Indian woman
-      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", // Indian woman
-      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", // Indian woman
-      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  // Indian woman
+      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", 
+      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", 
+      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", 
+      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  
     ];
     
     const maleIndianAvatars = [
-      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", // Indian man
-      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", // Indian man
-      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", // Indian man
-      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  // Indian man
+      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", 
+      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", 
+      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", 
+      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  
     ];
     
-    return isFemale ? femaleIndianAvatars[index % 4] : maleIndianAvatars[index % 4];
+    // Fallback images if the above don't load
+    const fallbackFemaleImage = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
+    const fallbackMaleImage = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
+    
+    return isFemale 
+      ? (femaleIndianAvatars[index % 4] || fallbackFemaleImage)
+      : (maleIndianAvatars[index % 4] || fallbackMaleImage);
   };
 
   return (
@@ -80,12 +87,19 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
-                <img 
-                  src={generateIndianAvatar("Priya Sharma", true, 0)} 
-                  alt="Priya Sharma" 
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                />
-                <div>
+                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+                  <img 
+                    src={generateIndianAvatar("Priya Sharma", true, 0)} 
+                    alt="Priya Sharma" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = "https://xsgames.co/randomusers/assets/avatars/female/1.jpg";
+                    }}
+                  />
+                </div>
+                <div className="ml-4">
                   <h3 className="font-semibold">Priya Sharma</h3>
                   <p className="text-sm text-gray-600">Software Engineer at TCS</p>
                 </div>
@@ -97,12 +111,19 @@ const Index = () => {
             
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
-                <img 
-                  src={generateIndianAvatar("Rahul Verma", false, 1)} 
-                  alt="Rahul Verma" 
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                />
-                <div>
+                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+                  <img 
+                    src={generateIndianAvatar("Rahul Verma", false, 1)} 
+                    alt="Rahul Verma" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = "https://xsgames.co/randomusers/assets/avatars/male/1.jpg";
+                    }}
+                  />
+                </div>
+                <div className="ml-4">
                   <h3 className="font-semibold">Rahul Verma</h3>
                   <p className="text-sm text-gray-600">Product Manager at Paytm</p>
                 </div>
@@ -114,12 +135,19 @@ const Index = () => {
             
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
-                <img 
-                  src={generateIndianAvatar("Anjali Desai", true, 2)} 
-                  alt="Anjali Desai" 
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                />
-                <div>
+                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+                  <img 
+                    src={generateIndianAvatar("Anjali Desai", true, 2)} 
+                    alt="Anjali Desai" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = "https://xsgames.co/randomusers/assets/avatars/female/2.jpg";
+                    }}
+                  />
+                </div>
+                <div className="ml-4">
                   <h3 className="font-semibold">Anjali Desai</h3>
                   <p className="text-sm text-gray-600">UI Designer at MindTree</p>
                 </div>
