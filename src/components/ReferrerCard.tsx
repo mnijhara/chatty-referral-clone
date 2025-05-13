@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface ReferrerCardProps {
   id: string;
@@ -46,30 +47,30 @@ const ReferrerCard = ({
   const companyId = getCompanyIdFromName(company);
   
   // Generate avatar based on gender (determined by name)
-  const generateAvatarPlaceholder = (personName: string) => {
-    // List of common Indian female and male names to detect gender
-    const commonFemaleNames = ["priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", "neha", "asha", "nisha", "meera"];
+  const generateAvatarPlaceholder = (personName: string, seed: number = 0) => {
+    // List of common Indian female names to detect gender
+    const commonFemaleNames = ["priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", "neha", "asha", "nisha", "pooja", "kavita"];
     const firstName = personName.split(' ')[0].toLowerCase();
     const isFemale = commonFemaleNames.some(name => firstName.includes(name));
     
-    // Indian-looking avatars based on gender
+    // Specific Indian-looking avatars based on gender
     const femaleIndianAvatars = [
-      "https://randomuser.me/api/portraits/women/57.jpg", // Indian woman
-      "https://randomuser.me/api/portraits/women/36.jpg", // Indian woman
-      "https://randomuser.me/api/portraits/women/63.jpg", // Indian woman
-      "https://randomuser.me/api/portraits/women/93.jpg"  // Indian woman
+      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", // Indian woman
+      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", // Indian woman
+      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", // Indian woman
+      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  // Indian woman
     ];
     
     const maleIndianAvatars = [
-      "https://randomuser.me/api/portraits/men/55.jpg", // Indian man
-      "https://randomuser.me/api/portraits/men/72.jpg", // Indian man
-      "https://randomuser.me/api/portraits/men/76.jpg", // Indian man
-      "https://randomuser.me/api/portraits/men/83.jpg"  // Indian man
+      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", // Indian man
+      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", // Indian man
+      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", // Indian man
+      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  // Indian man
     ];
     
     // Use name to deterministically select an avatar (ensures same name gets same avatar)
-    const seed = personName.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const index = seed % 4; // Choose one of 4 avatars based on name
+    const avatarSeed = personName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + seed;
+    const index = avatarSeed % 4; // Choose one of 4 avatars based on name
     
     return isFemale ? femaleIndianAvatars[index] : maleIndianAvatars[index];
   };
@@ -86,29 +87,36 @@ const ReferrerCard = ({
   };
 
   // Use reliable images or fallbacks
-  const avatarUrl = generateAvatarPlaceholder(name);
+  const avatarUrl = generateAvatarPlaceholder(name, id.charCodeAt(0));
   const logoUrl = companyLogo && companyLogo.startsWith('http') ? companyLogo : generateCompanyPlaceholder(company);
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
-              <img
+            <Avatar className="w-12 h-12">
+              <AvatarImage
                 src={avatarUrl}
                 alt={`${name}'s profile`}
-                className="w-full h-full object-cover"
-                onError={(e) => { 
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null; 
-                  target.src = generateAvatarPlaceholder(name); 
-                }}
+                className="object-cover"
               />
-            </div>
+              <AvatarFallback>{name.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
+            </Avatar>
             <div>
               <h3 className="font-semibold">
-                <Link to={`/referrers/${id}`} className="hover:text-brand hover:underline">
+                <Link 
+                  to={`/referrers/${id}`} 
+                  className="hover:text-brand hover:underline"
+                  onClick={scrollToTop}
+                >
                   {name}
                 </Link>
               </h3>
@@ -128,6 +136,7 @@ const ReferrerCard = ({
                 <Link 
                   to={`/companies/${companyId}`} 
                   className="text-sm text-gray-600 hover:text-brand hover:underline"
+                  onClick={scrollToTop}
                 >
                   {company}
                 </Link>
@@ -152,10 +161,14 @@ const ReferrerCard = ({
         </div>
 
         <div className="mt-4 flex justify-between items-center">
-          <Link to={`/referrers/${id}`} className="text-sm text-brand hover:underline">
+          <Link 
+            to={`/referrers/${id}`} 
+            className="text-sm text-brand hover:underline"
+            onClick={scrollToTop}
+          >
             View Profile
           </Link>
-          <Link to={`/request/${id}`}>
+          <Link to={`/request/${id}`} onClick={scrollToTop}>
             <Button size="sm">Request Referral</Button>
           </Link>
         </div>

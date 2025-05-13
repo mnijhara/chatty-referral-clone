@@ -10,14 +10,40 @@ const Index = () => {
   const featuredCompanies = companies.slice(0, 4);
   const featuredReferrers = referrers.slice(0, 4);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Generate reliable Indian avatar
+  const generateIndianAvatar = (name: string, isFemale: boolean, index: number) => {
+    const femaleIndianAvatars = [
+      "https://i.ibb.co/P64vGQ9/indian-woman-1.jpg", // Indian woman
+      "https://i.ibb.co/f1BXhrY/indian-woman-2.jpg", // Indian woman
+      "https://i.ibb.co/cw6mYZv/indian-woman-3.jpg", // Indian woman
+      "https://i.ibb.co/PQHB2CZ/indian-woman-4.jpg"  // Indian woman
+    ];
+    
+    const maleIndianAvatars = [
+      "https://i.ibb.co/NTsGFyZ/indian-man-1.jpg", // Indian man
+      "https://i.ibb.co/ZHTf6p2/indian-man-2.jpg", // Indian man
+      "https://i.ibb.co/TwhHdbh/indian-man-3.jpg", // Indian man
+      "https://i.ibb.co/CnC1CQS/indian-man-4.jpg"  // Indian man
+    ];
+    
+    return isFemale ? femaleIndianAvatars[index % 4] : maleIndianAvatars[index % 4];
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section with Background Image */}
       <section className="hero-gradient text-white py-16 md:py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand/70 mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158')] bg-cover bg-center"></div>
         {/* Dark overlay to improve text visibility */}
-        <div className="absolute inset-0 bg-black opacity-60 z-[1]"></div>
+        <div className="absolute inset-0 bg-black opacity-80 z-[1]"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 animation-fade-in drop-shadow-lg">
@@ -28,12 +54,12 @@ const Index = () => {
               increasing your chances of landing an interview by up to 9x.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 animation-fade-in">
-              <Link to="/companies">
+              <Link to="/companies" onClick={scrollToTop}>
                 <Button size="lg" className="w-full sm:w-auto">
                   Browse Companies
                 </Button>
               </Link>
-              <Link to="/referrers">
+              <Link to="/referrers" onClick={scrollToTop}>
                 <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/20 hover:bg-white/30">
                   Find Referrers
                 </Button>
@@ -55,14 +81,9 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://xsgames.co/randomusers/assets/avatars/female/42.jpg" 
+                  src={generateIndianAvatar("Priya Sharma", true, 0)} 
                   alt="Priya Sharma" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
-                  onError={(e) => { 
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null; 
-                    target.src = `https://ui-avatars.com/api/?name=PS&background=f3f4f6&color=6366f1&size=150`; 
-                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Priya Sharma</h3>
@@ -77,14 +98,9 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://xsgames.co/randomusers/assets/avatars/male/42.jpg" 
+                  src={generateIndianAvatar("Rahul Verma", false, 1)} 
                   alt="Rahul Verma" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
-                  onError={(e) => { 
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null; 
-                    target.src = `https://ui-avatars.com/api/?name=RV&background=f3f4f6&color=6366f1&size=150`; 
-                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Rahul Verma</h3>
@@ -99,14 +115,9 @@ const Index = () => {
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
                 <img 
-                  src="https://xsgames.co/randomusers/assets/avatars/female/43.jpg" 
+                  src={generateIndianAvatar("Anjali Desai", true, 2)} 
                   alt="Anjali Desai" 
                   className="w-16 h-16 rounded-full object-cover mr-4"
-                  onError={(e) => { 
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null; 
-                    target.src = `https://ui-avatars.com/api/?name=AD&background=f3f4f6&color=6366f1&size=150`; 
-                  }}
                 />
                 <div>
                   <h3 className="font-semibold">Anjali Desai</h3>
@@ -146,7 +157,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">Featured Companies</h2>
-            <Link to="/companies" className="text-brand hover:underline">
+            <Link to="/companies" onClick={scrollToTop} className="text-brand hover:underline">
               View All →
             </Link>
           </div>
@@ -180,14 +191,9 @@ const Index = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <div className="flex items-center mb-4">
                   <img 
-                    src="https://xsgames.co/randomusers/assets/avatars/male/30.jpg" 
+                    src={generateIndianAvatar("Aditya Sharma", false, 0)} 
                     alt="Aditya Sharma" 
                     className="w-16 h-16 rounded-full object-cover mr-4"
-                    onError={(e) => { 
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null; 
-                      target.src = `https://ui-avatars.com/api/?name=AS&background=f3f4f6&color=6366f1&size=150`; 
-                    }}
                   />
                   <div>
                     <h3 className="font-semibold">Aditya Sharma</h3>
@@ -203,14 +209,9 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src="https://images.unsplash.com/photo-1520333789090-1afc82db536a"
-                alt="Happy Indian referrer" 
+                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
+                alt="Indian professional at work" 
                 className="rounded-lg shadow-md w-full h-96 object-cover"
-                onError={(e) => { 
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null; 
-                  target.src = "https://placehold.co/600x400?text=Professional+at+work"; 
-                }}
               />
             </div>
           </div>
@@ -222,7 +223,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">Featured Referrers</h2>
-            <Link to="/referrers" className="text-brand hover:underline">
+            <Link to="/referrers" onClick={scrollToTop} className="text-brand hover:underline">
               View All →
             </Link>
           </div>
@@ -292,14 +293,9 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1573497019236-61f23e57196c" 
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
                 alt="Indian professional working"
                 className="rounded-lg shadow-md h-96 w-full object-cover"
-                onError={(e) => { 
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null; 
-                  target.src = "https://placehold.co/600x400?text=Indian+Professional"; 
-                }}
               />
             </div>
             <div>
@@ -322,7 +318,7 @@ const Index = () => {
                   <span>Receive insider tips to help you ace your interviews.</span>
                 </li>
               </ul>
-              <Link to="/companies" className="inline-block mt-8">
+              <Link to="/companies" onClick={scrollToTop} className="inline-block mt-8">
                 <Button>Find Your Next Opportunity</Button>
               </Link>
             </div>
@@ -339,7 +335,7 @@ const Index = () => {
               Don't let your dream job slip away. Connect with referrers and increase your chances of landing an interview today.
             </p>
             <div className="flex justify-center">
-              <Link to="/referrers">
+              <Link to="/referrers" onClick={scrollToTop}>
                 <Button size="lg">Find Referrers Now</Button>
               </Link>
             </div>
