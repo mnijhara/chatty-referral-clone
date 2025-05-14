@@ -1,14 +1,55 @@
 
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useAuth, logOut } from "@/services/firebase";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { toast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      toast({
+        title: "Logged out successfully",
+        description: "You have been logged out.",
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Error logging out",
+        description: "There was a problem logging out.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Get user initials for avatar fallback
+  const getUserInitials = () => {
+    if (currentUser?.displayName) {
+      return currentUser.displayName
+        .split(' ')
+        .map(name => name[0])
+        .join('')
+        .toUpperCase();
+    }
+    return currentUser?.email?.substring(0, 2).toUpperCase() || 'U';
   };
 
   return (
@@ -63,12 +104,50 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex space-x-4">
-          <Link to="/signin">
-            <Button variant="outline">Sign In</Button>
-          </Link>
-          <Link to="/signup">
-            <Button>Sign Up</Button>
-          </Link>
+          {currentUser ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback>{getUserInitials()}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end">
+                <div className="flex items-center justify-start gap-2 p-2">
+                  <div className="flex flex-col space-y-1 leading-none">
+                    {currentUser.displayName && (
+                      <p className="font-medium">{currentUser.displayName}</p>
+                    )}
+                    {currentUser.email && (
+                      <p className="w-[200px] truncate text-sm text-gray-500">{currentUser.email}</p>
+                    )}
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="cursor-pointer flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link to="/signin">
+                <Button variant="outline">Sign In</Button>
+              </Link>
+              <Link to="/signup">
+                <Button>Sign Up</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -129,12 +208,27 @@ const Navbar = () => {
               About
             </NavLink>
             <div className="flex flex-col space-y-2 pt-2">
-              <Link to="/signin">
-                <Button variant="outline" className="w-full">Sign In</Button>
-              </Link>
-              <Link to="/signup">
-                <Button className="w-full">Sign Up</Button>
-              </Link>
+              {currentUser ? (
+                <>
+                  <Link to="/profile" className="flex items-center py-2" onClick={toggleMenu}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                  <Button onClick={handleLogout} variant="outline" className="justify-start">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/signin">
+                    <Button variant="outline" className="w-full">Sign In</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button className="w-full">Sign Up</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

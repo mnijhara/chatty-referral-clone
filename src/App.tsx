@@ -3,7 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "@/services/firebase";
 import Index from "./pages/Index";
 import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
@@ -15,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
 import HowItWorks from "./pages/HowItWorks";
 import Pricing from "./pages/Pricing";
 import Blog from "./pages/Blog";
@@ -25,6 +27,19 @@ import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
 
 const queryClient = new QueryClient();
+
+// Protected route component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { currentUser, loading } = useAuth();
+  
+  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  
+  if (!currentUser) {
+    return <Navigate to="/signin" replace />;
+  }
+  
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -43,6 +58,7 @@ const App = () => (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/blog" element={<Blog />} />

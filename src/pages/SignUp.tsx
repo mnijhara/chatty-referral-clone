@@ -25,7 +25,7 @@ const SignUp = () => {
   // Auto-redirect if already signed in
   useEffect(() => {
     if (currentUser) {
-      navigate("/");
+      navigate("/profile");
     }
   }, [currentUser, navigate]);
 
@@ -62,7 +62,7 @@ const SignUp = () => {
         description: "Welcome to ReferralHire.",
       });
       
-      navigate("/");
+      navigate("/profile");
       
     } catch (error: any) {
       toast({
@@ -88,7 +88,7 @@ const SignUp = () => {
         title: "Account created successfully!",
         description: "Welcome to ReferralHire.",
       });
-      navigate("/");
+      navigate("/profile");
     } catch (error: any) {
       toast({
         title: "Google sign up failed",
