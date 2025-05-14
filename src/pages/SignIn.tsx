@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { signInWithEmail, signInWithGoogle, useAuth } from "@/services/firebase";
+import { signInWithEmail, signInWithGoogle, useAuth, FIREBASE_AUTH_DOMAINS_TO_ADD } from "@/services/firebase";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -56,23 +56,27 @@ const SignIn = () => {
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
+    
     try {
       await signInWithGoogle();
       
-      // Only show success toast and navigate if the sign-in was successful
-      // This will not run if signInWithGoogle throws an error
+      // Only show success toast and navigate if sign-in was successful
       toast({
         title: "Signed in successfully!",
         description: "Welcome back to ReferralHire.",
       });
       navigate("/", { replace: true });
     } catch (error: any) {
-      // Error is already handled in the firebase.ts file with custom toast
+      // Most errors are already handled in firebase.ts with custom toast
+      // But just in case, log it again here
       console.error("Google sign in error:", error);
     } finally {
       setGoogleLoading(false);
     }
   };
+
+  const currentDomain = window.location.hostname;
+  const isDomainSupported = FIREBASE_AUTH_DOMAINS_TO_ADD.includes(currentDomain);
 
   return (
     <div className="container mx-auto py-12 flex justify-center px-4">
@@ -138,6 +142,14 @@ const SignIn = () => {
               </>
             )}
           </Button>
+          
+          {!isDomainSupported && (
+            <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md text-amber-800 text-sm">
+              <p className="font-medium">Important: Google Sign-in might not work</p>
+              <p className="mt-1">Current domain ({currentDomain}) needs to be added to Firebase Console:</p>
+              <p className="mt-1 font-mono text-xs">Firebase Console → Authentication → Settings → Authorized domains</p>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col">
           <div className="text-center text-sm">
