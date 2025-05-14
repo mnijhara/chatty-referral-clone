@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/services/firebase";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import { getAuth, updateProfile } from "firebase/auth";
 import { Input } from "@/components/ui/input";
-import { Shield, Calendar } from "lucide-react";
+import { Shield, Calendar, CreditCard } from "lucide-react";
 
 const Profile = () => {
   const { currentUser, loading } = useAuth();
@@ -104,6 +104,13 @@ const Profile = () => {
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-muted-foreground" />
                   <span>Authentication method: {currentUser.providerData[0]?.providerId === 'password' ? 'Email/Password' : 'Google'}</span>
+                </div>
+                
+                <div className="flex items-center gap-2 mt-2">
+                  <CreditCard className="h-5 w-5 text-muted-foreground" />
+                  <Link to="/dashboard" className="text-brand hover:underline">
+                    View your referrals dashboard
+                  </Link>
                 </div>
                 
                 <Separator className="my-4" />

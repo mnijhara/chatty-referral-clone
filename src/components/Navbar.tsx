@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, CreditCard } from "lucide-react";
 import { useAuth, logOut } from "@/services/firebase";
 import { 
   DropdownMenu,
@@ -131,6 +131,12 @@ const Navbar = () => {
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="cursor-pointer flex items-center">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    <span>Dashboard</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />
@@ -213,6 +219,10 @@ const Navbar = () => {
                   <Link to="/profile" className="flex items-center py-2" onClick={toggleMenu}>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
+                  </Link>
+                  <Link to="/dashboard" className="flex items-center py-2" onClick={toggleMenu}>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    <span>Dashboard</span>
                   </Link>
                   <Button onClick={handleLogout} variant="outline" className="justify-start">
                     <LogOut className="mr-2 h-4 w-4" />
