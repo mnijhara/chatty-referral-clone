@@ -66,27 +66,46 @@ export const signUpWithEmail = async (email: string, password: string) => {
 export const signInWithGoogle = async () => {
   const updatedProvider = addHostToProvider(googleProvider);
   try {
-    // Show a console message about the domain that needs to be added
-    console.info(
-      "IMPORTANT: To make Google Sign-in work, add this domain to Firebase Auth console:", 
-      window.location.origin,
-      "or specifically:",
-      FIREBASE_AUTH_DOMAIN_TO_ADD
-    );
+    // Check if the current domain is in the authorized domains list from Firebase
+    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/projects?key=${firebaseConfig.apiKey}`);
+    const data = await response.json();
+    
+    const currentDomain = window.location.hostname;
+    const isAuthorized = data.authorizedDomains && data.authorizedDomains.includes(currentDomain);
+    
+    console.log("Current domain:", currentDomain);
+    console.log("Authorized domains:", data.authorizedDomains);
+    console.log("Is current domain authorized:", isAuthorized);
+    
+    if (!isAuthorized) {
+      // Domain is not authorized, show toast and suggest using email sign-in
+      toast({
+        title: "Google Sign-in Unavailable",
+        description: "Please use email sign-in instead. Google authentication is currently unavailable on this domain.",
+        variant: "destructive",
+      });
+      throw new Error("Domain not authorized for Google sign-in");
+    }
     
     return await signInWithPopup(auth, updatedProvider);
   } catch (error: any) {
-    // Handle domain authorization error specifically
-    if (error.code === 'auth/unauthorized-domain') {
+    // If it's an unauthorized domain error, show a nicer message
+    if (error.code === 'auth/unauthorized-domain' || error.message === "Domain not authorized for Google sign-in") {
       console.error("This domain is not authorized in Firebase. Add this domain to the Firebase console:", window.location.origin);
       toast({
-        title: "Authentication Error",
-        description: `Add domain "${FIREBASE_AUTH_DOMAIN_TO_ADD}" to Firebase Auth console under Authentication > Settings > Authorized domains.`,
+        title: "Google Sign-in Unavailable",
+        description: "Please use email sign-in instead. Google authentication is currently unavailable on this domain.",
         variant: "destructive",
       });
-      throw new Error(`Domain "${window.location.origin}" is not authorized for Google sign-in. Add it to the Firebase console first.`);
+      throw new Error("Please use email sign-in instead");
     } else {
-      throw error; // Rethrow other errors
+      // For other errors, just pass them along
+      toast({
+        title: "Authentication Error",
+        description: error.message || "An error occurred during sign in",
+        variant: "destructive",
+      });
+      throw error;
     }
   }
 };

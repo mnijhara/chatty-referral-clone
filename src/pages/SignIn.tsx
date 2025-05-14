@@ -58,13 +58,16 @@ const SignIn = () => {
     setGoogleLoading(true);
     try {
       await signInWithGoogle();
+      
+      // Only show success toast and navigate if the sign-in was successful
+      // This will not run if signInWithGoogle throws an error
       toast({
         title: "Signed in successfully!",
         description: "Welcome back to ReferralHire.",
       });
       navigate("/", { replace: true });
     } catch (error: any) {
-      // Error is already handled in the firebase.ts file
+      // Error is already handled in the firebase.ts file with custom toast
       console.error("Google sign in error:", error);
     } finally {
       setGoogleLoading(false);
