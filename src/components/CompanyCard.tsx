@@ -22,15 +22,33 @@ const CompanyCard = ({
   referrersCount, 
   openPositions 
 }: CompanyCardProps) => {
-  // Generate a placeholder based on company name
+  // Generate a better company logo placeholder based on company name
   const generatePlaceholder = (companyName: string) => {
+    // Extract first letter or first two letters of words for better initials
     const initials = companyName.split(' ')
       .map(word => word[0])
       .slice(0, 2)
       .join('')
       .toUpperCase();
     
-    return `https://ui-avatars.com/api/?name=${initials}&background=f1f1f1&color=8E9196&size=100`;
+    // Generate a colorful background based on company name
+    const colors = [
+      "6366f1", // Indigo
+      "3b82f6", // Blue
+      "0ea5e9", // Sky blue
+      "10b981", // Green
+      "8b5cf6", // Violet
+      "ec4899", // Pink
+      "f43f5e", // Rose
+      "f59e0b", // Amber
+    ];
+    
+    // Use the company name to deterministically select a color
+    const colorIndex = companyName.split('').reduce(
+      (sum, char) => sum + char.charCodeAt(0), 0
+    ) % colors.length;
+    
+    return `https://ui-avatars.com/api/?name=${initials}&background=${colors[colorIndex]}&color=ffffff&size=100&bold=true&format=svg`;
   };
 
   // Use a reliable image or fallback
@@ -49,11 +67,11 @@ const CompanyCard = ({
       <Card className="h-full hover:shadow-sm transition-shadow duration-200 border-gray-100">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-1">
+            <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-0 overflow-hidden">
               <img 
                 src={logoUrl} 
                 alt={`${name} logo`} 
-                className="max-w-full max-h-full object-contain" 
+                className="max-w-full max-h-full w-full h-full object-cover" 
                 onError={(e) => { 
                   const target = e.target as HTMLImageElement;
                   target.onerror = null; 
