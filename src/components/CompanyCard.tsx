@@ -30,7 +30,7 @@ const CompanyCard = ({
       .join('')
       .toUpperCase();
     
-    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
+    return `https://ui-avatars.com/api/?name=${initials}&background=f1f1f1&color=8E9196&size=100`;
   };
 
   // Use a reliable image or fallback
@@ -46,10 +46,10 @@ const CompanyCard = ({
 
   return (
     <Link to={`/companies/${id}`} onClick={handleClick}>
-      <Card className="h-full hover:shadow-md transition-shadow duration-200">
-        <CardContent className="p-6">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 flex items-center justify-center rounded-md bg-gray-100 p-2">
+      <Card className="h-full hover:shadow-sm transition-shadow duration-200 border-gray-100">
+        <CardContent className="p-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-1">
               <img 
                 src={logoUrl} 
                 alt={`${name} logo`} 
@@ -61,9 +61,9 @@ const CompanyCard = ({
                 }}
               />
             </div>
-            <div>
-              <h3 className="font-semibold text-lg">{name}</h3>
-              <div className="flex items-center space-x-2 text-sm text-gray-600 mt-1">
+            <div className="text-left">
+              <h3 className="font-medium text-base">{name}</h3>
+              <div className="flex items-center space-x-1 text-xs text-gray-500 mt-0.5">
                 <span>{industry}</span>
                 <span>•</span>
                 <span>{location}</span>
@@ -71,13 +71,13 @@ const CompanyCard = ({
             </div>
           </div>
           
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge variant="outline" className="bg-blue-50 text-blue-700 hover:bg-blue-100">
+          <div className="mt-2 flex flex-wrap gap-1">
+            <Badge variant="outline" className="bg-blue-50/50 text-blue-600 text-xs hover:bg-blue-100/50 px-1.5 py-0">
               {referrersCount} Referrers
             </Badge>
             {openPositions > 0 && (
-              <Badge variant="outline" className="bg-green-50 text-green-700 hover:bg-green-100">
-                {openPositions} Open Positions
+              <Badge variant="outline" className="bg-green-50/50 text-green-600 text-xs hover:bg-green-100/50 px-1.5 py-0">
+                {openPositions} Jobs
               </Badge>
             )}
           </div>
