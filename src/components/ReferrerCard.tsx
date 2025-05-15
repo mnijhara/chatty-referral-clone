@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { toast } from "@/components/ui/use-toast";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface ReferrerCardProps {
   id: string;
@@ -46,79 +48,96 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
-  // Enhanced avatar generation specifically for Indian professionals
-  const generateIndianAvatar = (personName: string) => {
-    // Extensive list of common Indian female names for better gender detection
-    const commonFemaleNames = [
-      "priya", "anjali", "anika", "meera", "divya", "sita", "lakshmi", "sunita", 
+  // More reliable avatar generation - improved implementation
+  const getAvatar = (personName: string) => {
+    // Convert name to lowercase for consistent matching
+    const nameLower = personName.toLowerCase();
+    
+    // More comprehensive list of common Indian female names for detection
+    const femaleNameIndicators = [
+      "priya", "anjali", "anika", "divya", "sita", "lakshmi", "sunita", 
       "neha", "asha", "nisha", "pooja", "kavita", "radha", "geeta", "anita", 
       "deepa", "kiran", "manju", "seema", "ritu", "suman", "sarika", "rekha",
-      "jyoti", "shanti", "savita", "usha", "padma", "rani", "lata", "vani"
+      "jyoti", "padma", "rani", "lata", "vani", "singh", "malhotra", "desai",
+      "sharma", "patel"
     ];
     
-    const firstName = personName.split(' ')[0].toLowerCase();
-    const isFemale = commonFemaleNames.some(name => firstName.includes(name));
+    // Generate a hash based on the name
+    const nameHash = Array.from(personName).reduce(
+      (acc, char, idx) => acc + char.charCodeAt(0) * (idx + 1), 0
+    );
     
-    // Calculate a consistent hash from the name to always get the same avatar for the same name
-    const nameHash = personName.split('').reduce((acc, char, idx) => acc + char.charCodeAt(0) * (idx + 1), 0);
+    // Determine gender from name - more reliable
+    const isFemale = femaleNameIndicators.some(indicator => 
+      nameLower.includes(indicator)
+    );
     
-    // More diverse and reliable Indian avatar collections
-    // Female Indian professionals
-    const femaleIndianAvatars = [
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // South Asian woman with dark hair
-      "https://images.unsplash.com/photo-1592621385612-4d211978a5f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Indian woman smiling
-      "https://images.unsplash.com/photo-1589578527966-fdac0f44566c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Professional Indian woman
-      "https://images.unsplash.com/photo-1573497019236-61f12a5cba85?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Indian businesswoman
-      "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Professional with glasses
-      "https://images.unsplash.com/photo-1596075780750-81249df16d19?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"  // Indian tech professional
-    ];
-    
-    // Male Indian professionals
-    const maleIndianAvatars = [
-      "https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Indian man in formal attire
-      "https://images.unsplash.com/photo-1618375531912-867984bdfd87?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Professional Indian male
-      "https://images.unsplash.com/photo-1562904403-a5106bef8319?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Indian tech worker
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Professional with glasses
-      "https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80", // Indian businessman
-      "https://images.unsplash.com/photo-1624797432677-6f803a98acb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"  // Tech professional
-    ];
-    
-    // Select a consistent avatar based on the name hash
-    const avatarArray = isFemale ? femaleIndianAvatars : maleIndianAvatars;
-    const selectedIndex = nameHash % avatarArray.length;
-    const selectedAvatar = avatarArray[selectedIndex];
-    
-    // Generate fallback initials from the name
+    // Get name initials for fallback
     const initials = personName
       .split(' ')
       .map(part => part[0])
       .join('')
       .toUpperCase();
     
-    // Create a fallback URL with the person's initials
-    const fallbackAvatar = `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=128`;
+    // Use direct image URLs instead of dynamic services to improve reliability
+    // Female avatars - diverse and professional collection
+    const femaleAvatars = [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1598550880863-4e8aa3d0edb4?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1590649880765-91b1956b8276?w=300&h=300&fit=crop"
+    ];
+    
+    // Male avatars - diverse and professional collection
+    const maleAvatars = [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop"
+    ];
+
+    // Select avatar based on name hash for consistency
+    const avatarCollection = isFemale ? femaleAvatars : maleAvatars;
+    const selectedIndex = nameHash % avatarCollection.length;
+    
+    // Create a reliable fallback
+    const fallbackUrl = `https://ui-avatars.com/api/?name=${initials}&size=200&background=f0f0f0&color=333`;
+    
+    // If the provided avatar is valid, use it, otherwise use our selected one
+    const primaryAvatar = avatar && avatar.startsWith('http') ? avatar : avatarCollection[selectedIndex];
     
     return {
-      primaryAvatar: selectedAvatar,
-      fallbackAvatar,
+      primaryAvatar,
+      fallbackUrl,
       initials
     };
   };
 
-  // Generate company logo placeholder
+  // Generate more reliable company logo placeholder
   const generateCompanyPlaceholder = (companyName: string) => {
-    const initials = companyName.split(' ')
+    // Extract the first letter or first two letters from each word for the company initials
+    const initials = companyName
+      .split(' ')
       .map(word => word[0])
       .slice(0, 2)
       .join('')
       .toUpperCase();
     
-    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=40`;
+    // Use a consistent company logo placeholder with company initials
+    return `https://ui-avatars.com/api/?name=${initials}&size=80&background=f3f4f6&color=6366f1&bold=true&format=svg`;
   };
 
-  // Get avatar resources based on name
-  const { primaryAvatar, fallbackAvatar, initials } = generateIndianAvatar(name);
-  const logoUrl = companyLogo && companyLogo.startsWith('http') ? companyLogo : generateCompanyPlaceholder(company);
+  // Get avatar resources using our improved implementation
+  const { primaryAvatar, fallbackUrl, initials } = getAvatar(name);
+  
+  // Get company logo with reliable fallback
+  const logoUrl = companyLogo && companyLogo.startsWith('http') 
+    ? companyLogo 
+    : generateCompanyPlaceholder(company);
   
   const scrollToTop = () => {
     window.scrollTo({
@@ -127,12 +146,20 @@ const ReferrerCard = ({
     });
   };
   
+  const handleImageError = () => {
+    toast({
+      description: `Failed to load image for ${name}`,
+      variant: "destructive",
+      duration: 3000,
+    });
+  };
+  
   return (
     <Card className="h-full hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12">
+            <Avatar className="w-12 h-12 border border-gray-200">
               <AvatarImage
                 src={primaryAvatar}
                 alt={`${name}'s profile`}
@@ -140,7 +167,7 @@ const ReferrerCard = ({
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.onerror = null;
-                  target.src = fallbackAvatar;
+                  target.src = fallbackUrl;
                 }}
               />
               <AvatarFallback>{initials}</AvatarFallback>
@@ -156,7 +183,7 @@ const ReferrerCard = ({
                 </Link>
               </h3>
               <div className="flex items-center mt-1">
-                <div className="w-4 h-4 mr-1">
+                <div className="w-5 h-5 mr-1 bg-gray-50 rounded-sm overflow-hidden flex items-center justify-center border border-gray-200">
                   <img
                     src={logoUrl}
                     alt={`${company} logo`}
@@ -164,7 +191,7 @@ const ReferrerCard = ({
                     onError={(e) => { 
                       const target = e.target as HTMLImageElement;
                       target.onerror = null; 
-                      target.src = generateCompanyPlaceholder(company); 
+                      target.src = generateCompanyPlaceholder(company);
                     }}
                   />
                 </div>
