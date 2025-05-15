@@ -62,46 +62,47 @@ const RequestReferral = () => {
 
   if (!referrer) {
     return (
-      <div className="container mx-auto px-4 py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">Referrer Not Found</h1>
-        <p className="mb-6">The referrer you are requesting does not exist.</p>
+      <div className="container mx-auto px-3 py-8 text-center">
+        <h1 className="text-2xl font-bold mb-3">Referrer Not Found</h1>
+        <p className="mb-4 text-sm">The referrer you are requesting does not exist.</p>
         <Link to="/referrers">
-          <Button>Back to Referrers</Button>
+          <Button size="sm">Back to Referrers</Button>
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-3 py-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Request a Referral</h1>
+        <h1 className="text-2xl font-bold mb-5">Request a Referral</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Referral Request Form</CardTitle>
-                <CardDescription>
+            <Card className="shadow-sm">
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="text-lg">Referral Request Form</CardTitle>
+                <CardDescription className="text-xs">
                   Complete this form to request a referral from {referrer.name}.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form id="referralForm" onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="fullName">Full Name</Label>
+              <CardContent className="p-4">
+                <form id="referralForm" onSubmit={handleSubmit} className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="fullName" className="text-xs">Full Name</Label>
                       <Input
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleInputChange}
                         placeholder="Enter your full name"
+                        className="h-8 text-xs"
                         required
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email" className="text-xs">Email</Label>
                       <Input
                         id="email"
                         name="email"
@@ -109,62 +110,67 @@ const RequestReferral = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="Enter your email"
+                        className="h-8 text-xs"
                         required
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="linkedin">LinkedIn Profile</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="linkedin" className="text-xs">LinkedIn Profile</Label>
                     <Input
                       id="linkedin"
                       name="linkedin"
                       value={formData.linkedin}
                       onChange={handleInputChange}
                       placeholder="Enter your LinkedIn profile URL"
+                      className="h-8 text-xs"
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="position">Position You're Applying For</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="position" className="text-xs">Position You're Applying For</Label>
                     <Input
                       id="position"
                       name="position"
                       value={formData.position}
                       onChange={handleInputChange}
                       placeholder="Enter the position title"
+                      className="h-8 text-xs"
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="resume">Resume (PDF)</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="resume" className="text-xs">Resume (PDF)</Label>
                     <Input
                       id="resume"
                       name="resume"
                       type="file"
                       accept=".pdf"
                       onChange={handleFileChange}
+                      className="h-8 text-xs"
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message to Referrer</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="message" className="text-xs">Message to Referrer</Label>
                     <Textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Introduce yourself and explain why you'd be a good fit for this position"
-                      rows={6}
+                      rows={4}
+                      className="text-xs"
                       required
                     />
                   </div>
                 </form>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={() => navigate(-1)}>
+              <CardFooter className="p-4 pt-0 flex justify-between">
+                <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
                   Cancel
                 </Button>
-                <Button type="submit" form="referralForm">
+                <Button type="submit" size="sm" form="referralForm">
                   Submit Request
                 </Button>
               </CardFooter>
@@ -172,13 +178,13 @@ const RequestReferral = () => {
           </div>
 
           <div>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Referrer</CardTitle>
+            <Card className="shadow-sm">
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="text-base">Referrer</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden">
+              <CardContent className="p-4 pt-0 space-y-3">
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 rounded-full overflow-hidden">
                     <img
                       src={referrer.avatar}
                       alt={`${referrer.name}'s profile`}
@@ -186,37 +192,49 @@ const RequestReferral = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="font-semibold">{referrer.name}</h3>
-                    <div className="text-sm text-gray-600">{referrer.role}</div>
+                    <h3 className="font-medium text-sm">{referrer.name}</h3>
+                    <div className="text-xs text-gray-600">{referrer.role}</div>
                   </div>
                 </div>
                 <div>
-                  <div className="flex items-center mb-2">
-                    <div className="w-4 h-4 mr-1">
+                  <div className="flex items-center mb-1.5">
+                    <div className="w-3 h-3 mr-1">
                       <img
                         src={referrer.companyLogo}
                         alt={`${referrer.company} logo`}
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
-                    <span className="text-sm">{referrer.company}</span>
+                    <span className="text-xs">{referrer.company}</span>
                   </div>
-                  <Badge variant="outline" className="bg-green-50 text-green-700">
+                  <Badge variant="outline" className="bg-green-50 text-green-700 text-xs">
                     {referrer.successfulReferrals} Successful Referrals
                   </Badge>
                 </div>
               </CardContent>
             </Card>
 
-            <div className="mt-4">
-              <Card>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-2">Tips for Success</h3>
-                  <ul className="text-sm text-gray-600 space-y-2">
-                    <li>Be specific about why you're interested in this company</li>
-                    <li>Highlight relevant skills and experience</li>
-                    <li>Keep your message concise and professional</li>
-                    <li>Make sure your resume is up-to-date</li>
+            <div className="mt-3">
+              <Card className="shadow-sm">
+                <CardContent className="p-3">
+                  <h3 className="font-medium text-sm mb-2">Tips for Success</h3>
+                  <ul className="text-xs text-gray-600 space-y-1.5">
+                    <li className="flex gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-1"></div>
+                      <span>Be specific about why you're interested in this company</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-1"></div>
+                      <span>Highlight relevant skills and experience</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-1"></div>
+                      <span>Keep your message concise and professional</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-1"></div>
+                      <span>Make sure your resume is up-to-date</span>
+                    </li>
                   </ul>
                 </CardContent>
               </Card>
