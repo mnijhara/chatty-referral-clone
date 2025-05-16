@@ -17,30 +17,30 @@ const Index = () => {
     });
   };
 
-  // Generate reliable Indian avatar - using more reliable sources
-  const generateIndianAvatar = (name: string, isFemale: boolean, index: number) => {
-    // Use Unsplash images instead of imgbb which seems to be failing
-    const femaleIndianAvatars = [
+  // Generate reliable avatar - using more diverse professional images
+  const generateAvatar = (name: string, isFemale: boolean, index: number) => {
+    // Use Unsplash images with diverse professional photos
+    const femaleAvatars = [
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
-      "https://images.unsplash.com/photo-1535468850893-d6e543fbd7f5",
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956",
+      "https://images.unsplash.com/photo-1560535733-540e0b0068b9"
     ];
     
-    const maleIndianAvatars = [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5",
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
+    const maleAvatars = [
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
     ];
     
     // Fallback images
-    const fallbackFemaleImage = "https://via.placeholder.com/150?text=F";
-    const fallbackMaleImage = "https://via.placeholder.com/150?text=M";
+    const fallbackFemaleImage = "https://ui-avatars.com/api/?name=F&background=f0f0f0&color=333";
+    const fallbackMaleImage = "https://ui-avatars.com/api/?name=M&background=f0f0f0&color=333";
     
     return isFemale 
-      ? (femaleIndianAvatars[index % 4] || fallbackFemaleImage)
-      : (maleIndianAvatars[index % 4] || fallbackMaleImage);
+      ? (femaleAvatars[index % 4] || fallbackFemaleImage)
+      : (maleAvatars[index % 4] || fallbackMaleImage);
   };
 
   return (
@@ -54,10 +54,10 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 animation-fade-in drop-shadow-lg">
-              Get Referred to Your Dream Company in India
+              Get Referred to Your Dream Company
             </h1>
             <p className="text-lg md:text-xl mb-8 animation-fade-in drop-shadow-md">
-              Connect with employees at top Indian companies who can refer you directly,
+              Connect with employees at top tech companies who can refer you directly,
               increasing your chances of landing an interview by up to 9x.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 animation-fade-in">
@@ -170,7 +170,7 @@ const Index = () => {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm text-center">
               <div className="text-4xl font-bold text-brand mb-2">500+</div>
-              <p className="text-gray-600">Referrers from top Indian tech companies</p>
+              <p className="text-gray-600">Referrers from top tech companies</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm text-center">
               <div className="text-4xl font-bold text-brand mb-2">85%</div>
@@ -332,7 +332,7 @@ const Index = () => {
             <div>
               <img 
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-                alt="Indian professional working"
+                alt="Professional working"
                 className="rounded-lg shadow-md h-96 w-full object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -342,10 +342,10 @@ const Index = () => {
               />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">Work at India's Top Companies</h2>
+              <h2 className="text-2xl font-bold mb-4">Work at Top Companies</h2>
               <p className="text-gray-700 mb-6">
-                Our platform connects you with insiders at the most desirable employers across India, 
-                from established IT giants to innovative startups.
+                Our platform connects you with insiders at the most desirable employers, 
+                from established tech giants to innovative startups.
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start">

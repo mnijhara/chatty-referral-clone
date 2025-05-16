@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -48,46 +47,41 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
-  // Improved avatar generation implementation with more reliable gender detection
+  // Improved avatar generation implementation with more diverse profiles
   const getAvatar = (personName: string) => {
-    // Analyze name for more reliable gender detection
-    const nameParts = personName.toLowerCase().split(' ');
+    // Generic professional avatars - not specific to any ethnicity
+    const genericProfessionalAvatars = {
+      male: [
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop", // Generic professional male 1
+        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop", // Generic professional male 2
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop", // Generic professional male 3
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop", // Generic professional male 4
+        "https://images.unsplash.com/photo-1463453091185-61582044d556?w=300&h=300&fit=crop", // Generic professional male 5
+      ],
+      female: [
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop", // Generic professional female 1
+        "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop", // Generic professional female 2
+        "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop", // Generic professional female 3
+        "https://images.unsplash.com/photo-1560535733-540e0b0068b9?w=300&h=300&fit=crop", // Generic professional female 4
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop", // Generic professional female 5
+      ]
+    };
     
-    // Common Indian first names for better gender detection
-    const femaleFirstNames = [
-      "priya", "anjali", "anika", "divya", "sita", "lakshmi", "sunita", 
-      "neha", "asha", "nisha", "pooja", "kavita", "radha", "geeta", "anita", 
-      "deepa", "kiran", "manju", "seema", "ritu", "suman", "sarika", "rekha",
-      "jyoti", "padma", "rani", "lata", "vani", "meera", "shreya", "nisha",
-      "patel", "sonam", "kritika", "radhika", "swati", "manisha", "shilpa",
-      "archana", "amrita", "sangeeta", "divya", "sneha", "laxmi", "savita",
-      "vidya", "bharti", "aishwarya", "raveena", "kajol", "alia", "deepika",
-      "soha", "kareena", "karisma", "madhuri", "shilpa", "juhi", "sonali"
-    ];
-
-    const maleFirstNames = [
-      "rahul", "amit", "aditya", "vikram", "vivek", "sanjay", "rajesh",
-      "suresh", "mahesh", "ramesh", "mukesh", "dinesh", "ajay", "vijay",
-      "sanjay", "vinod", "anand", "arvind", "ravi", "mohan", "krishna",
-      "karthik", "nitin", "sandeep", "deepak", "manoj", "arjun", "rakesh",
-      "prakash", "raj", "sunil", "anil", "ashok", "jatin", "lalit", "manish",
-      "naveen", "pranav", "rajiv", "rohit", "sachin", "sameer", "shekhar",
-      "shyam", "varun", "venkat", "vikas", "yash", "kunal", "gaurav", "aarav"
-    ];
-
-    // Check first name against our lists
-    const firstName = nameParts[0];
-    let isFemale = femaleFirstNames.includes(firstName);
-    let isMale = maleFirstNames.includes(firstName);
-    
-    // If inconclusive from first name, check other name parts for gender indicators
-    if (!isFemale && !isMale) {
-      isFemale = femaleFirstNames.some(name => nameParts.includes(name));
-      isMale = maleFirstNames.some(name => nameParts.includes(name));
-    }
-    
-    // Default to male if still inconclusive (or use a more sophisticated approach)
-    const determineGender = isFemale ? "female" : "male";
+    // Map specific names to specific gender for the sample data
+    const knownPeople: Record<string, string> = {
+      "Aditya Sharma": "male",
+      "Priya Patel": "female",
+      "Vikram Mehta": "male",
+      "Anjali Desai": "female",
+      "Rahul Verma": "male",
+      "Divya Singh": "female",
+      "Karthik Rao": "male",
+      "Nisha Agarwal": "female",
+      "Sanjay Gupta": "male",
+      "Meera Reddy": "female",
+      "Arjun Nair": "male",
+      "Neha Malhotra": "female"
+    };
     
     // Get name initials for fallback
     const initials = personName
@@ -96,32 +90,16 @@ const ReferrerCard = ({
       .join('')
       .toUpperCase();
     
-    // Select gender-appropriate avatar collections
-    // Female avatars - diverse and professional collection
-    const femaleAvatars = [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1598550880863-4e8aa3d0edb4?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=300&h=300&fit=crop"
-    ];
+    // Determine gender for this person (default to male if unknown)
+    const gender = knownPeople[personName] || "male";
     
-    // Male avatars - diverse and professional collection
-    const maleAvatars = [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1566753323558-f4e0952af115?w=300&h=300&fit=crop"
-    ];
-
     // Generate a name hash that remains consistent for the same name
     const nameHash = Array.from(personName).reduce(
       (acc, char, idx) => acc + char.charCodeAt(0) * (idx + 1), 0
     );
     
     // Select an avatar from the appropriate gender collection based on name hash
-    const avatarCollection = determineGender === "female" ? femaleAvatars : maleAvatars;
+    const avatarCollection = gender === "female" ? genericProfessionalAvatars.female : genericProfessionalAvatars.male;
     const selectedIndex = nameHash % avatarCollection.length;
     
     // Create a reliable fallback
@@ -134,7 +112,7 @@ const ReferrerCard = ({
       primaryAvatar,
       fallbackUrl,
       initials,
-      gender: determineGender
+      gender
     };
   };
 

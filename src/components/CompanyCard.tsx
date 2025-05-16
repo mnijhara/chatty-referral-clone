@@ -51,8 +51,8 @@ const CompanyCard = ({
     return `https://ui-avatars.com/api/?name=${initials}&background=${colors[colorIndex]}&color=ffffff&size=100&bold=true&format=svg`;
   };
 
-  // Use a reliable image or fallback
-  const logoUrl = logo && logo.startsWith('http') ? logo : generatePlaceholder(name);
+  // Always use the generated placeholder for more reliability
+  const logoUrl = generatePlaceholder(name);
 
   // Custom Link wrapper that scrolls to top when clicked
   const handleClick = () => {
