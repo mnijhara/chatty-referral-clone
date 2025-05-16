@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/services/firebase";
+import { useState, useEffect } from "react";
 import Index from "./pages/Index";
 import Companies from "./pages/Companies";
 import CompanyDetail from "./pages/CompanyDetail";
@@ -26,14 +27,46 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
 
-// Create a new QueryClient instance
-const queryClient = new QueryClient();
+// Create a new QueryClient instance with improved caching configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // Prevents refetching data every time window gains focus
+      staleTime: 5 * 60 * 1000, // 5 minutes - data is considered fresh for 5 minutes
+      retry: 1, // Only retry failed requests once
+    },
+  },
+});
 
-// Protected route component
+// Improved Protected route component with loading state
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { currentUser, loading } = useAuth();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   
-  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  useEffect(() => {
+    // Set a timeout to prevent flash of loading state for quick auth checks
+    const timer = setTimeout(() => {
+      if (loading) {
+        setIsCheckingAuth(true);
+      } else {
+        setIsCheckingAuth(false);
+      }
+    }, 200);
+    
+    return () => clearTimeout(timer);
+  }, [loading]);
+  
+  // Show loading state only if auth check is taking longer than 200ms
+  if (isCheckingAuth && loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-brand"></div>
+          <p className="mt-4 text-gray-600">Verifying authentication...</p>
+        </div>
+      </div>
+    );
+  }
   
   if (!currentUser) {
     return <Navigate to="/signin" replace />;
@@ -45,7 +78,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      {/* Remove the redundant Toaster here since it's already in main.tsx */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>

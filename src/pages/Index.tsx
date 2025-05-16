@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { companies, referrers } from "@/utils/placeholderData";
@@ -43,19 +44,18 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section with Background Image */}
-      <section className="hero-gradient text-white py-16 md:py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand/70 mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158')] bg-cover bg-center"></div>
-        {/* Dark overlay to improve text visibility */}
-        <div className="absolute inset-0 bg-black opacity-80 z-[1]"></div>
-        <div className="container mx-auto px-4 relative z-10">
+    <div className="flex flex-col">
+      {/* Hero Section with improved background and contrast */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand/70 mix-blend-multiply z-10"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-black opacity-60 z-[1]"></div>
+        <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 animation-fade-in drop-shadow-lg">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 text-white animation-fade-in drop-shadow-lg">
               Get Referred to Your Dream Company
             </h1>
-            <p className="text-lg md:text-xl mb-8 animation-fade-in drop-shadow-md">
+            <p className="text-lg md:text-xl mb-8 text-white/90 animation-fade-in drop-shadow-md">
               Connect with employees at top tech companies who can refer you directly,
               increasing your chances of landing an interview by up to 9x.
             </p>
@@ -66,7 +66,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/referrers" onClick={scrollToTop}>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/20 hover:bg-white/30">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/20 hover:bg-white/30 text-white border-white/50">
                   Find Referrers
                 </Button>
               </Link>
@@ -75,16 +75,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonial Section */}
-      <section className="py-12 bg-white">
+      {/* Testimonial Section - Improved layout */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold">Success Stories</h2>
-            <p className="text-gray-600 mt-2">Hear from our happy customers who landed their dream jobs</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Success Stories</h2>
+            <p className="text-gray-600 mt-2 max-w-2xl mx-auto">Hear from our happy customers who landed their dream jobs through reliable referrals</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
@@ -108,7 +108,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
@@ -132,7 +132,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
@@ -159,33 +159,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      {/* Stats Section - Enhanced visual appeal */}
+      <section className="py-16 bg-gray-50 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand/5 to-brand/10 mix-blend-overlay"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-              <div className="text-4xl font-bold text-brand mb-2">9x</div>
+            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
+              <div className="text-4xl font-bold text-brand mb-3">9x</div>
               <p className="text-gray-600">Higher chance of getting an interview with a referral</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-              <div className="text-4xl font-bold text-brand mb-2">500+</div>
+            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
+              <div className="text-4xl font-bold text-brand mb-3">500+</div>
               <p className="text-gray-600">Referrers from top tech companies</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-              <div className="text-4xl font-bold text-brand mb-2">85%</div>
+            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
+              <div className="text-4xl font-bold text-brand mb-3">85%</div>
               <p className="text-gray-600">Success rate for referral requests</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Companies */}
+      {/* Featured Companies - Improved spacing and hover effects */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">Featured Companies</h2>
-            <Link to="/companies" onClick={scrollToTop} className="text-brand hover:underline">
-              View All →
+            <Link to="/companies" onClick={scrollToTop} className="text-brand hover:underline flex items-center">
+              View All
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -205,7 +209,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Referrer Success Story */}
+      {/* Referrer Success Story - More engaging layout */}
       <section className="py-16 bg-brand/5">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -241,7 +245,7 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
                 alt="Professional at work" 
                 className="rounded-lg shadow-md w-full h-96 object-cover"
                 onError={(e) => {
@@ -255,13 +259,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Referrers */}
+      {/* Featured Referrers - Improved layout and hover effects */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">Featured Referrers</h2>
-            <Link to="/referrers" onClick={scrollToTop} className="text-brand hover:underline">
-              View All →
+            <Link to="/referrers" onClick={scrollToTop} className="text-brand hover:underline flex items-center">
+              View All
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -282,8 +289,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-16">
+      {/* How It Works - Enhanced visual presentation */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
@@ -292,8 +299,8 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
               <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 <Handshake className="h-8 w-8" />
               </div>
@@ -302,7 +309,7 @@ const Index = () => {
                 Search for employees at your target companies who are open to providing referrals.
               </p>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
               <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 <GraduationCap className="h-8 w-8" />
               </div>
@@ -311,7 +318,7 @@ const Index = () => {
                 Send your resume and a personalized note to the referrer explaining why you're a good fit.
               </p>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
               <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 <Trophy className="h-8 w-8" />
               </div>
@@ -324,13 +331,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Job Success Image Section */}
+      {/* Job Success Image Section - Enhanced visual appeal */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
+            <div className="order-2 md:order-1">
               <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
                 alt="Professional working"
                 className="rounded-lg shadow-md h-96 w-full object-cover"
                 onError={(e) => {
@@ -340,7 +347,7 @@ const Index = () => {
                 }}
               />
             </div>
-            <div>
+            <div className="order-1 md:order-2">
               <h2 className="text-2xl font-bold mb-4">Work at Top Companies</h2>
               <p className="text-gray-700 mb-6">
                 Our platform connects you with insiders at the most desirable employers, 
@@ -348,27 +355,29 @@ const Index = () => {
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-2 mt-1">✓</span>
+                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
                   <span>Get referred to roles that match your skills and experience.</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-2 mt-1">✓</span>
+                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
                   <span>Bypass the traditional application process and get noticed.</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-2 mt-1">✓</span>
+                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
                   <span>Receive insider tips to help you ace your interviews.</span>
                 </li>
               </ul>
-              <Link to="/companies" onClick={scrollToTop} className="inline-block mt-8">
-                <Button>Find Your Next Opportunity</Button>
-              </Link>
+              <div className="mt-8">
+                <Link to="/companies" onClick={scrollToTop}>
+                  <Button>Find Your Next Opportunity</Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Enhanced visual appeal */}
       <section className="py-16 bg-brand/10">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -378,7 +387,7 @@ const Index = () => {
             </p>
             <div className="flex justify-center">
               <Link to="/referrers" onClick={scrollToTop}>
-                <Button size="lg">Find Referrers Now</Button>
+                <Button size="lg" className="px-8">Find Referrers Now</Button>
               </Link>
             </div>
           </div>
