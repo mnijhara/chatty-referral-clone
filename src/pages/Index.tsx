@@ -89,7 +89,7 @@ const Index = () => {
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
-                    src={generateIndianAvatar("Priya Sharma", true, 0)} 
+                    src={generateAvatar("Priya Sharma", true, 0)} 
                     alt="Priya Sharma" 
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -113,7 +113,7 @@ const Index = () => {
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
-                    src={generateIndianAvatar("Rahul Verma", false, 1)} 
+                    src={generateAvatar("Rahul Verma", false, 1)} 
                     alt="Rahul Verma" 
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -137,7 +137,7 @@ const Index = () => {
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
                   <img 
-                    src={generateIndianAvatar("Anjali Desai", true, 2)} 
+                    src={generateAvatar("Anjali Desai", true, 2)} 
                     alt="Anjali Desai" 
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -214,12 +214,12 @@ const Index = () => {
               <h2 className="text-2xl font-bold mb-4">Top Referrers Make a Difference</h2>
               <p className="text-gray-700 mb-6">
                 Our platform's top referrers have helped hundreds of qualified candidates 
-                land interviews and jobs at India's best companies.
+                land interviews and jobs at the best companies.
               </p>
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <div className="flex items-center mb-4">
                   <img 
-                    src={generateIndianAvatar("Aditya Sharma", false, 0)} 
+                    src={generateAvatar("Aditya Sharma", false, 0)} 
                     alt="Aditya Sharma" 
                     className="w-16 h-16 rounded-full object-cover mr-4"
                     onError={(e) => {
@@ -243,7 +243,7 @@ const Index = () => {
             <div className="order-1 md:order-2">
               <img 
                 src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
-                alt="Indian professional at work" 
+                alt="Professional at work" 
                 className="rounded-lg shadow-md w-full h-96 object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
