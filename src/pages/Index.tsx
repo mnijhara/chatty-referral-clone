@@ -56,7 +56,7 @@ const Index = () => {
               Get Referred to Your Dream Company
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/90 animation-fade-in drop-shadow-md">
-              Connect with employees at top tech companies who can refer you directly,
+              Connect with employees at top companies who can refer you directly,
               increasing your chances of landing an interview by up to 9x.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 animation-fade-in">
@@ -100,11 +100,11 @@ const Index = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="font-semibold">Priya Sharma</h3>
-                  <p className="text-sm text-gray-600">Software Engineer at TCS</p>
+                  <p className="text-sm text-gray-600">Software Engineer at MakeMyTrip</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Thanks to Referral Hire, I got a direct referral to TCS and received an interview call within 2 days. I'm now working at my dream company!"
+                "Thanks to Referral Hire, I got a direct referral to MakeMyTrip and received an interview call within 2 days. I'm now working at my dream company!"
               </p>
             </div>
             
@@ -124,11 +124,11 @@ const Index = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="font-semibold">Rahul Verma</h3>
-                  <p className="text-sm text-gray-600">Product Manager at Paytm</p>
+                  <p className="text-sm text-gray-600">Product Manager at Reliance Industries</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "After months of applying to jobs with no response, I got referred through this platform and landed a role at Paytm within weeks!"
+                "After months of applying to jobs with no response, I got referred through this platform and landed a role at Reliance within weeks!"
               </p>
             </div>
             
@@ -148,11 +148,11 @@ const Index = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="font-semibold">Anjali Desai</h3>
-                  <p className="text-sm text-gray-600">UI Designer at MindTree</p>
+                  <p className="text-sm text-gray-600">UI Designer at Tata Group</p>
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at MindTree!"
+                "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at Tata Group!"
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ const Index = () => {
             </div>
             <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
               <div className="text-4xl font-bold text-brand mb-3">500+</div>
-              <p className="text-gray-600">Referrers from top tech companies</p>
+              <p className="text-gray-600">Referrers from top companies</p>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
               <div className="text-4xl font-bold text-brand mb-3">85%</div>
@@ -233,7 +233,7 @@ const Index = () => {
                   />
                   <div>
                     <h3 className="font-semibold">Aditya Sharma</h3>
-                    <p className="text-sm text-gray-600">Senior Engineer at InfoTech Solutions</p>
+                    <p className="text-sm text-gray-600">Senior Engineer at Mahindra Group</p>
                   </div>
                 </div>
                 <p className="text-gray-700 italic">
@@ -351,7 +351,7 @@ const Index = () => {
               <h2 className="text-2xl font-bold mb-4">Work at Top Companies</h2>
               <p className="text-gray-700 mb-6">
                 Our platform connects you with insiders at the most desirable employers, 
-                from established tech giants to innovative startups.
+                from established global leaders to innovative organizations.
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start">

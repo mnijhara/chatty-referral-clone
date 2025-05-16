@@ -51,10 +51,10 @@ const CompanyCard = ({
     return `https://ui-avatars.com/api/?name=${initials}&background=${colors[colorIndex]}&color=ffffff&size=100&bold=true&format=svg`;
   };
 
-  // Use placeholder for more reliability
-  const logoUrl = logo || generatePlaceholder(name);
+  // Always generate a placeholder for more reliability
+  const logoUrl = generatePlaceholder(name);
 
-  // Custom Link wrapper that scrolls to top when clicked - improved to work better with SPA routing
+  // Custom Link wrapper that scrolls to top when clicked
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     window.scrollTo({
       top: 0,
@@ -64,7 +64,7 @@ const CompanyCard = ({
 
   return (
     <Link to={`/companies/${id}`} onClick={handleClick}>
-      <Card className="h-full hover:shadow-sm transition-shadow duration-200 border-gray-100">
+      <Card className="h-full hover:shadow-md transition-shadow duration-200 border-gray-100">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-0 overflow-hidden border border-gray-100">
@@ -72,11 +72,6 @@ const CompanyCard = ({
                 src={logoUrl} 
                 alt={`${name} logo`} 
                 className="max-w-full max-h-full w-full h-full object-contain" 
-                onError={(e) => { 
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null; 
-                  target.src = generatePlaceholder(name);
-                }}
               />
             </div>
             <div className="text-left">

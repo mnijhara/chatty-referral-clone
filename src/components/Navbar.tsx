@@ -64,7 +64,7 @@ const Navbar = () => {
           <NavLink 
             to="/companies" 
             className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
             }
           >
             Companies
@@ -72,7 +72,7 @@ const Navbar = () => {
           <NavLink 
             to="/referrers" 
             className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
             }
           >
             Referrers
@@ -80,7 +80,7 @@ const Navbar = () => {
           <NavLink 
             to="/how-it-works" 
             className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
             }
           >
             How it Works
@@ -88,7 +88,7 @@ const Navbar = () => {
           <NavLink 
             to="/pricing" 
             className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
             }
           >
             Pricing
@@ -96,7 +96,7 @@ const Navbar = () => {
           <NavLink 
             to="/about" 
             className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-gray-600 hover:text-brand"
+              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
             }
           >
             About
@@ -171,7 +171,7 @@ const Navbar = () => {
             <NavLink 
               to="/companies" 
               className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
               }
               onClick={toggleMenu}
             >
@@ -180,7 +180,7 @@ const Navbar = () => {
             <NavLink 
               to="/referrers" 
               className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
               }
               onClick={toggleMenu}
             >
@@ -189,7 +189,7 @@ const Navbar = () => {
             <NavLink 
               to="/how-it-works" 
               className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
               }
               onClick={toggleMenu}
             >
@@ -198,7 +198,7 @@ const Navbar = () => {
             <NavLink 
               to="/pricing" 
               className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
               }
               onClick={toggleMenu}
             >
@@ -207,7 +207,7 @@ const Navbar = () => {
             <NavLink 
               to="/about" 
               className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-gray-600 hover:text-brand py-2"
+                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
               }
               onClick={toggleMenu}
             >
