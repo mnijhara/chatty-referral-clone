@@ -28,39 +28,76 @@ export interface Referrer {
   successfulReferrals: number;
 }
 
-// Using more reliable svg placeholders instead of standard image URLs
-const generateLogoPlaceholder = (name: string, bgColor = "3b82f6") => {
+// More reliable logo generation function
+const generateCompanyLogo = (name: string, colorIndex: number) => {
   const initials = name.split(' ')
     .map(word => word[0])
     .slice(0, 2)
     .join('')
     .toUpperCase();
   
-  return `https://ui-avatars.com/api/?name=${initials}&background=${bgColor}&color=ffffff&size=100&bold=true&format=svg`;
+  const colors = [
+    "6366f1", // Indigo
+    "3b82f6", // Blue  
+    "0ea5e9", // Sky blue
+    "10b981", // Green
+    "8b5cf6", // Violet
+    "ec4899", // Pink
+    "f43f5e", // Rose
+    "f59e0b", // Amber
+  ];
+  
+  const bgColor = colors[colorIndex % colors.length];
+  return `data:image/svg+xml,${encodeURIComponent(`
+    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#${bgColor}"/>
+      <text x="50" y="50" font-family="Arial, sans-serif" font-size="36" font-weight="bold" 
+            fill="white" text-anchor="middle" dominant-baseline="central">${initials}</text>
+    </svg>
+  `)}`;
 };
 
-const companyLogoPlaceholders = [
-  generateLogoPlaceholder("InfoTech Solutions", "6366f1"),
-  generateLogoPlaceholder("Wipro Limited", "3b82f6"),
-  generateLogoPlaceholder("TCS", "0ea5e9"),
-  generateLogoPlaceholder("MindTree", "10b981"),
-  generateLogoPlaceholder("L&T", "8b5cf6"),
-  generateLogoPlaceholder("Paytm", "ec4899"),
-  generateLogoPlaceholder("Apollo", "f43f5e"),
-  generateLogoPlaceholder("Zee", "f59e0b")
-];
-
-// Consistent Indian avatar placeholders using UI Avatars API
-const generateAvatarPlaceholder = (name: string, backgroundColor: string) => {
+// Generate avatar for referrers
+const generateAvatar = (name: string, colorIndex: number) => {
   const initials = name.split(' ').map(word => word[0]).join('').toUpperCase();
-  return `https://ui-avatars.com/api/?name=${initials}&background=${backgroundColor}&color=ffffff&size=300&bold=true&format=svg`;
+  const colors = [
+    "4F46E5", // Indigo
+    "EC4899", // Pink
+    "0EA5E9", // Sky blue
+    "10B981", // Green
+    "8B5CF6", // Violet
+    "F43F5E", // Rose
+    "F59E0B", // Amber
+    "6366F1", // Blue
+  ];
+  
+  const bgColor = colors[colorIndex % colors.length];
+  return `data:image/svg+xml,${encodeURIComponent(`
+    <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="300" fill="#${bgColor}" rx="150"/>
+      <text x="150" y="150" font-family="Arial, sans-serif" font-size="120" font-weight="bold" 
+            fill="white" text-anchor="middle" dominant-baseline="central">${initials}</text>
+    </svg>
+  `)}`;
 };
+
+// Pre-generate company logos with consistent colors
+const companyLogos = [
+  generateCompanyLogo("InfoTech Solutions", 0),
+  generateCompanyLogo("Wipro Limited", 1), 
+  generateCompanyLogo("Tata Consultancy Services", 2),
+  generateCompanyLogo("MindTree Studios", 3),
+  generateCompanyLogo("L&T Infotech", 4),
+  generateCompanyLogo("Paytm", 5),
+  generateCompanyLogo("Apollo Health", 6),
+  generateCompanyLogo("Zee Digital", 7)
+];
 
 export const companies: Company[] = [
   {
     id: "1",
     name: "InfoTech Solutions",
-    logo: companyLogoPlaceholders[0],
+    logo: companyLogos[0],
     industry: "Information Technology",
     description: "A leading IT services company providing software development and digital transformation solutions across India.",
     location: "Bangalore, Karnataka",
@@ -73,7 +110,7 @@ export const companies: Company[] = [
   {
     id: "2",
     name: "Wipro Limited",
-    logo: companyLogoPlaceholders[1],
+    logo: companyLogos[1],
     industry: "IT Services",
     description: "Wipro Limited is a leading global information technology, consulting and business process services company headquartered in Bangalore.",
     location: "Bangalore, Karnataka",
@@ -86,7 +123,7 @@ export const companies: Company[] = [
   {
     id: "3",
     name: "Tata Consultancy Services",
-    logo: companyLogoPlaceholders[2],
+    logo: companyLogos[2],
     industry: "IT Services & Consulting",
     description: "TCS is an Indian multinational information technology services and consulting company, providing business solutions to global clients.",
     location: "Mumbai, Maharashtra",
@@ -99,7 +136,7 @@ export const companies: Company[] = [
   {
     id: "4",
     name: "MindTree Studios",
-    logo: companyLogoPlaceholders[3],
+    logo: companyLogos[3],
     industry: "Digital Solutions",
     description: "A digital design and engineering studio specializing in enterprise software, customer experience and innovation.",
     location: "Pune, Maharashtra",
@@ -112,7 +149,7 @@ export const companies: Company[] = [
   {
     id: "5",
     name: "L&T Infotech",
-    logo: companyLogoPlaceholders[4],
+    logo: companyLogos[4],
     industry: "Technology Consulting",
     description: "L&T Infotech is a global technology consulting and digital solutions company helping enterprises worldwide reimagine business processes.",
     location: "Chennai, Tamil Nadu",
@@ -125,7 +162,7 @@ export const companies: Company[] = [
   {
     id: "6",
     name: "Paytm",
-    logo: companyLogoPlaceholders[5],
+    logo: companyLogos[5],
     industry: "Financial Technology",
     description: "India's leading digital payments and financial technology company, transforming the way people pay and bank.",
     location: "Noida, Uttar Pradesh",
@@ -138,7 +175,7 @@ export const companies: Company[] = [
   {
     id: "7",
     name: "Apollo Health",
-    logo: companyLogoPlaceholders[6],
+    logo: companyLogos[6],
     industry: "Healthcare",
     description: "Apollo Health is applying artificial intelligence to improve healthcare outcomes and patient care across India.",
     location: "Hyderabad, Telangana",
@@ -151,7 +188,7 @@ export const companies: Company[] = [
   {
     id: "8",
     name: "Zee Digital",
-    logo: companyLogoPlaceholders[7],
+    logo: companyLogos[7],
     industry: "Media & Entertainment",
     description: "Zee Digital creates engaging content and digital media solutions for audiences across India.",
     location: "Mumbai, Maharashtra",
@@ -167,10 +204,10 @@ export const referrers: Referrer[] = [
   {
     id: "1",
     name: "Aditya Sharma",
-    avatar: generateAvatarPlaceholder("Aditya Sharma", "4F46E5"),
+    avatar: generateAvatar("Aditya Sharma", 0),
     company: "InfoTech Solutions",
     companyId: "1",
-    companyLogo: companyLogoPlaceholders[0],
+    companyLogo: companyLogos[0],
     role: "Senior Software Engineer",
     department: "Engineering",
     yearsAtCompany: 4,
@@ -181,10 +218,10 @@ export const referrers: Referrer[] = [
   {
     id: "2",
     name: "Priya Patel",
-    avatar: generateAvatarPlaceholder("Priya Patel", "EC4899"),
+    avatar: generateAvatar("Priya Patel", 1),
     company: "Wipro Limited",
     companyId: "2",
-    companyLogo: companyLogoPlaceholders[1],
+    companyLogo: companyLogos[1],
     role: "Data Scientist",
     department: "Analytics",
     yearsAtCompany: 3,
@@ -195,10 +232,10 @@ export const referrers: Referrer[] = [
   {
     id: "3",
     name: "Vikash Mehta",
-    avatar: generateAvatarPlaceholder("Vikash Mehta", "0EA5E9"),
+    avatar: generateAvatar("Vikash Mehta", 2),
     company: "Tata Consultancy Services",
     companyId: "3",
-    companyLogo: companyLogoPlaceholders[2],
+    companyLogo: companyLogos[2],
     role: "Product Manager",
     department: "Product",
     yearsAtCompany: 2,
@@ -209,10 +246,10 @@ export const referrers: Referrer[] = [
   {
     id: "4",
     name: "Anjali Desai",
-    avatar: generateAvatarPlaceholder("Anjali Desai", "10B981"),
+    avatar: generateAvatar("Anjali Desai", 3),
     company: "MindTree Studios",
     companyId: "4",
-    companyLogo: companyLogoPlaceholders[3],
+    companyLogo: companyLogos[3],
     role: "Creative Director",
     department: "Design",
     yearsAtCompany: 5,
@@ -223,10 +260,10 @@ export const referrers: Referrer[] = [
   {
     id: "5",
     name: "Ravi Verma",
-    avatar: generateAvatarPlaceholder("Ravi Verma", "8B5CF6"),
+    avatar: generateAvatar("Ravi Verma", 4),
     company: "InfoTech Solutions",
     companyId: "1",
-    companyLogo: companyLogoPlaceholders[0],
+    companyLogo: companyLogos[0],
     role: "Engineering Manager",
     department: "Engineering",
     yearsAtCompany: 6,
@@ -237,10 +274,10 @@ export const referrers: Referrer[] = [
   {
     id: "6",
     name: "Divya Singh",
-    avatar: generateAvatarPlaceholder("Divya Singh", "F43F5E"),
+    avatar: generateAvatar("Divya Singh", 5),
     company: "Paytm",
     companyId: "6",
-    companyLogo: companyLogoPlaceholders[5],
+    companyLogo: companyLogos[5],
     role: "Software Developer",
     department: "Engineering",
     yearsAtCompany: 2,
@@ -251,10 +288,10 @@ export const referrers: Referrer[] = [
   {
     id: "7",
     name: "Karthik Rao",
-    avatar: generateAvatarPlaceholder("Karthik Rao", "F59E0B"),
+    avatar: generateAvatar("Karthik Rao", 6),
     company: "Apollo Health",
     companyId: "7",
-    companyLogo: companyLogoPlaceholders[6],
+    companyLogo: companyLogos[6],
     role: "AI Researcher",
     department: "R&D",
     yearsAtCompany: 3,
@@ -265,10 +302,10 @@ export const referrers: Referrer[] = [
   {
     id: "8",
     name: "Nisha Agarwal",
-    avatar: generateAvatarPlaceholder("Nisha Agarwal", "6366F1"),
+    avatar: generateAvatar("Nisha Agarwal", 7),
     company: "Wipro Limited",
     companyId: "2",
-    companyLogo: companyLogoPlaceholders[1],
+    companyLogo: companyLogos[1],
     role: "Product Marketing Manager",
     department: "Marketing",
     yearsAtCompany: 4,
@@ -279,10 +316,10 @@ export const referrers: Referrer[] = [
   {
     id: "9",
     name: "Sanjay Gupta",
-    avatar: generateAvatarPlaceholder("Sanjay Gupta", "3B82F6"),
+    avatar: generateAvatar("Sanjay Gupta", 0),
     company: "Tata Consultancy Services",
     companyId: "3",
-    companyLogo: companyLogoPlaceholders[2],
+    companyLogo: companyLogos[2],
     role: "DevOps Engineer",
     department: "Operations",
     yearsAtCompany: 3,
@@ -293,10 +330,10 @@ export const referrers: Referrer[] = [
   {
     id: "10",
     name: "Meera Reddy",
-    avatar: generateAvatarPlaceholder("Meera Reddy", "EC4899"),
+    avatar: generateAvatar("Meera Reddy", 1),
     company: "Zee Digital",
     companyId: "8",
-    companyLogo: companyLogoPlaceholders[7],
+    companyLogo: companyLogos[7],
     role: "Content Strategist",
     department: "Content",
     yearsAtCompany: 2,
@@ -307,10 +344,10 @@ export const referrers: Referrer[] = [
   {
     id: "11",
     name: "Arjun Nair",
-    avatar: generateAvatarPlaceholder("Arjun Nair", "10B981"),
+    avatar: generateAvatar("Arjun Nair", 2),
     company: "InfoTech Solutions",
     companyId: "1",
-    companyLogo: companyLogoPlaceholders[0],
+    companyLogo: companyLogos[0],
     role: "UX Designer",
     department: "Design",
     yearsAtCompany: 3,
@@ -321,10 +358,10 @@ export const referrers: Referrer[] = [
   {
     id: "12",
     name: "Neha Malhotra",
-    avatar: generateAvatarPlaceholder("Neha Malhotra", "8B5CF6"),
+    avatar: generateAvatar("Neha Malhotra", 3),
     company: "L&T Infotech",
     companyId: "5",
-    companyLogo: companyLogoPlaceholders[4],
+    companyLogo: companyLogos[4],
     role: "Project Manager",
     department: "Operations",
     yearsAtCompany: 5,
