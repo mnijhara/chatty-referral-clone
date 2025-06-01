@@ -29,8 +29,6 @@ const ReferrerCard = ({
 }: ReferrerCardProps) => {
   // Extract companyId from the first referrer with this company name in the imports
   const getCompanyIdFromName = (companyName: string) => {
-    // This is a placeholder implementation - in a real app, you would
-    // either pass the companyId as a prop or look it up from a context/store
     const companyMap: Record<string, string> = {
       "InfoTech Solutions": "1",
       "Wipro Limited": "2",
@@ -58,44 +56,8 @@ const ReferrerCard = ({
   
   const initials = getInitials(name);
   
-  // Generate company logo placeholder
-  const generateCompanyPlaceholder = (companyName: string) => {
-    // Extract the first letter or first two letters from each word for the company initials
-    const initials = companyName
-      .split(' ')
-      .map(word => word[0])
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-    
-    // Generate consistent colorful background 
-    const colors = [
-      "6366f1", // Indigo
-      "3b82f6", // Blue
-      "0ea5e9", // Sky blue
-      "10b981", // Green
-      "8b5cf6", // Violet
-      "ec4899", // Pink
-      "f43f5e", // Rose
-      "f59e0b", // Amber
-    ];
-    
-    const colorIndex = companyName.split('').reduce(
-      (sum, char) => sum + char.charCodeAt(0), 0
-    ) % colors.length;
-    
-    // Use a consistent company logo placeholder with company initials
-    return `https://ui-avatars.com/api/?name=${initials}&size=80&background=${colors[colorIndex]}&color=ffffff&bold=true&format=svg`;
-  };
-  
-  // Get company logo with reliable fallback
-  const logoUrl = companyLogo && companyLogo.startsWith('http') 
-    ? companyLogo 
-    : generateCompanyPlaceholder(company);
-  
   // Use react-router's scrollToTop instead of window direct manipulation
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // No need to preventDefault as we're using Link which correctly handles SPA routing
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -112,11 +74,6 @@ const ReferrerCard = ({
                 src={avatar}
                 alt={`${name}'s profile`}
                 className="object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = `https://ui-avatars.com/api/?name=${initials}&size=200&background=f0f0f0&color=333`;
-                }}
               />
               <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
@@ -133,14 +90,9 @@ const ReferrerCard = ({
               <div className="flex items-center mt-1">
                 <div className="w-5 h-5 mr-1 bg-gray-50 rounded-sm overflow-hidden flex items-center justify-center border border-gray-200">
                   <img
-                    src={logoUrl}
+                    src={companyLogo}
                     alt={`${company} logo`}
                     className="max-w-full max-h-full object-contain"
-                    onError={(e) => { 
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null; 
-                      target.src = generateCompanyPlaceholder(company);
-                    }}
                   />
                 </div>
                 <Link 

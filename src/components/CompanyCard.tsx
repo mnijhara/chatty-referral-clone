@@ -22,38 +22,6 @@ const CompanyCard = ({
   referrersCount, 
   openPositions 
 }: CompanyCardProps) => {
-  // Generate a better company logo placeholder based on company name
-  const generatePlaceholder = (companyName: string) => {
-    // Extract first letter or first two letters of words for better initials
-    const initials = companyName.split(' ')
-      .map(word => word[0])
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-    
-    // Generate a colorful background based on company name
-    const colors = [
-      "6366f1", // Indigo
-      "3b82f6", // Blue
-      "0ea5e9", // Sky blue
-      "10b981", // Green
-      "8b5cf6", // Violet
-      "ec4899", // Pink
-      "f43f5e", // Rose
-      "f59e0b", // Amber
-    ];
-    
-    // Use the company name to deterministically select a color
-    const colorIndex = companyName.split('').reduce(
-      (sum, char) => sum + char.charCodeAt(0), 0
-    ) % colors.length;
-    
-    return `https://ui-avatars.com/api/?name=${initials}&background=${colors[colorIndex]}&color=ffffff&size=100&bold=true&format=svg`;
-  };
-
-  // Always generate a placeholder for more reliability
-  const logoUrl = generatePlaceholder(name);
-
   // Custom Link wrapper that scrolls to top when clicked
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     window.scrollTo({
@@ -69,7 +37,7 @@ const CompanyCard = ({
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-0 overflow-hidden border border-gray-100">
               <img 
-                src={logoUrl} 
+                src={logo} 
                 alt={`${name} logo`} 
                 className="max-w-full max-h-full w-full h-full object-contain" 
               />
