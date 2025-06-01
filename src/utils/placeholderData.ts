@@ -50,24 +50,11 @@ const companyLogoPlaceholders = [
   generateLogoPlaceholder("Zee", "f59e0b")
 ];
 
-// These avatars are more carefully selected to ensure consistency in gender and diversity
-const maleAvatars = [
-  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=300&h=300&fit=crop", // Male 1 
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop", // Male 2
-  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=300&fit=crop", // Male 3
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop", // Male 4
-  "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop", // Male 5
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop"  // Male 6
-];
-
-const femaleAvatars = [
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop", // Female 1
-  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop", // Female 2
-  "https://images.unsplash.com/photo-1548142813-c348350df52b?w=300&h=300&fit=crop", // Female 3
-  "https://images.unsplash.com/photo-1535468850893-d6e543fbd7f5?w=300&h=300&fit=crop", // Female 4
-  "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=300&h=300&fit=crop", // Female 5
-  "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=300&fit=crop"  // Female 6
-];
+// Consistent Indian avatar placeholders using UI Avatars API
+const generateAvatarPlaceholder = (name: string, backgroundColor: string) => {
+  const initials = name.split(' ').map(word => word[0]).join('').toUpperCase();
+  return `https://ui-avatars.com/api/?name=${initials}&background=${backgroundColor}&color=ffffff&size=300&bold=true&format=svg`;
+};
 
 export const companies: Company[] = [
   {
@@ -180,7 +167,7 @@ export const referrers: Referrer[] = [
   {
     id: "1",
     name: "Aditya Sharma",
-    avatar: maleAvatars[0],
+    avatar: generateAvatarPlaceholder("Aditya Sharma", "4F46E5"),
     company: "InfoTech Solutions",
     companyId: "1",
     companyLogo: companyLogoPlaceholders[0],
@@ -194,7 +181,7 @@ export const referrers: Referrer[] = [
   {
     id: "2",
     name: "Priya Patel",
-    avatar: femaleAvatars[0],
+    avatar: generateAvatarPlaceholder("Priya Patel", "EC4899"),
     company: "Wipro Limited",
     companyId: "2",
     companyLogo: companyLogoPlaceholders[1],
@@ -207,8 +194,8 @@ export const referrers: Referrer[] = [
   },
   {
     id: "3",
-    name: "Vikram Mehta",
-    avatar: maleAvatars[1],
+    name: "Vikash Mehta",
+    avatar: generateAvatarPlaceholder("Vikash Mehta", "0EA5E9"),
     company: "Tata Consultancy Services",
     companyId: "3",
     companyLogo: companyLogoPlaceholders[2],
@@ -216,13 +203,13 @@ export const referrers: Referrer[] = [
     department: "Product",
     yearsAtCompany: 2,
     bio: "Product manager focused on financial technology products at TCS. I enjoy mentoring and helping people navigate the job application process.",
-    linkedin: "https://linkedin.com/in/vikrammehta",
+    linkedin: "https://linkedin.com/in/vikashmehta",
     successfulReferrals: 4
   },
   {
     id: "4",
     name: "Anjali Desai",
-    avatar: femaleAvatars[1],
+    avatar: generateAvatarPlaceholder("Anjali Desai", "10B981"),
     company: "MindTree Studios",
     companyId: "4",
     companyLogo: companyLogoPlaceholders[3],
@@ -235,8 +222,8 @@ export const referrers: Referrer[] = [
   },
   {
     id: "5",
-    name: "Rahul Verma",
-    avatar: maleAvatars[2],
+    name: "Ravi Verma",
+    avatar: generateAvatarPlaceholder("Ravi Verma", "8B5CF6"),
     company: "InfoTech Solutions",
     companyId: "1",
     companyLogo: companyLogoPlaceholders[0],
@@ -244,13 +231,13 @@ export const referrers: Referrer[] = [
     department: "Engineering",
     yearsAtCompany: 6,
     bio: "Managing front-end development teams at InfoTech. I've helped many talented engineers join our company over the years.",
-    linkedin: "https://linkedin.com/in/rahulverma",
+    linkedin: "https://linkedin.com/in/raviverma",
     successfulReferrals: 9
   },
   {
     id: "6",
     name: "Divya Singh",
-    avatar: femaleAvatars[2],
+    avatar: generateAvatarPlaceholder("Divya Singh", "F43F5E"),
     company: "Paytm",
     companyId: "6",
     companyLogo: companyLogoPlaceholders[5],
@@ -264,7 +251,7 @@ export const referrers: Referrer[] = [
   {
     id: "7",
     name: "Karthik Rao",
-    avatar: maleAvatars[3],
+    avatar: generateAvatarPlaceholder("Karthik Rao", "F59E0B"),
     company: "Apollo Health",
     companyId: "7",
     companyLogo: companyLogoPlaceholders[6],
@@ -278,7 +265,7 @@ export const referrers: Referrer[] = [
   {
     id: "8",
     name: "Nisha Agarwal",
-    avatar: femaleAvatars[3],
+    avatar: generateAvatarPlaceholder("Nisha Agarwal", "6366F1"),
     company: "Wipro Limited",
     companyId: "2",
     companyLogo: companyLogoPlaceholders[1],
@@ -292,7 +279,7 @@ export const referrers: Referrer[] = [
   {
     id: "9",
     name: "Sanjay Gupta",
-    avatar: maleAvatars[4],
+    avatar: generateAvatarPlaceholder("Sanjay Gupta", "3B82F6"),
     company: "Tata Consultancy Services",
     companyId: "3",
     companyLogo: companyLogoPlaceholders[2],
@@ -306,7 +293,7 @@ export const referrers: Referrer[] = [
   {
     id: "10",
     name: "Meera Reddy",
-    avatar: femaleAvatars[4],
+    avatar: generateAvatarPlaceholder("Meera Reddy", "EC4899"),
     company: "Zee Digital",
     companyId: "8",
     companyLogo: companyLogoPlaceholders[7],
@@ -320,7 +307,7 @@ export const referrers: Referrer[] = [
   {
     id: "11",
     name: "Arjun Nair",
-    avatar: maleAvatars[5],
+    avatar: generateAvatarPlaceholder("Arjun Nair", "10B981"),
     company: "InfoTech Solutions",
     companyId: "1",
     companyLogo: companyLogoPlaceholders[0],
@@ -334,7 +321,7 @@ export const referrers: Referrer[] = [
   {
     id: "12",
     name: "Neha Malhotra",
-    avatar: femaleAvatars[5],
+    avatar: generateAvatarPlaceholder("Neha Malhotra", "8B5CF6"),
     company: "L&T Infotech",
     companyId: "5",
     companyLogo: companyLogoPlaceholders[4],
