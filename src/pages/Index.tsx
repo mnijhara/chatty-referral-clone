@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { companies, referrers } from "@/utils/placeholderData";
@@ -17,31 +16,27 @@ const Index = () => {
     });
   };
 
-  // Generate reliable avatar - using more diverse professional images
-  const generateAvatar = (name: string, isFemale: boolean, index: number) => {
-    // Use Unsplash images with diverse professional photos
-    const femaleAvatars = [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956",
-      "https://images.unsplash.com/photo-1560535733-540e0b0068b9"
-    ];
-    
-    const maleAvatars = [
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a",
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
-    ];
-    
-    // Fallback images
-    const fallbackFemaleImage = "https://ui-avatars.com/api/?name=F&background=f0f0f0&color=333";
-    const fallbackMaleImage = "https://ui-avatars.com/api/?name=M&background=f0f0f0&color=333";
-    
-    return isFemale 
-      ? (femaleAvatars[index % 4] || fallbackFemaleImage)
-      : (maleAvatars[index % 4] || fallbackMaleImage);
-  };
+  // Updated Indian professional images for success stories
+  const successStories = [
+    {
+      name: "Priya Sharma",
+      role: "Software Engineer at MakeMyTrip",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+      testimonial: "Thanks to Referral Hire, I got a direct referral to MakeMyTrip and received an interview call within 2 days. I'm now working at my dream company!"
+    },
+    {
+      name: "Rahul Verma", 
+      role: "Product Manager at Reliance Industries",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+      testimonial: "After months of applying to jobs with no response, I got referred through this platform and landed a role at Reliance within weeks!"
+    },
+    {
+      name: "Anjali Desai",
+      role: "UI Designer at Tata Group", 
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+      testimonial: "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at Tata Group!"
+    }
+  ];
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -122,7 +117,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Testimonial Section */}
+      {/* Updated Testimonial Section with Indian professional images */}
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-purple-50/50"></div>
         <div className="container mx-auto px-4 relative">
@@ -132,92 +127,36 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-cyan-400 to-blue-500 p-0.5">
-                  <img 
-                    src={generateAvatar("Priya Sharma", true, 0)} 
-                    alt="Priya Sharma" 
-                    className="w-full h-full object-cover rounded-full"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = "https://via.placeholder.com/150?text=Priya+S";
-                    }}
-                  />
+            {successStories.map((story, index) => (
+              <div key={index} className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1">
+                <div className="flex items-center mb-6">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-cyan-400 to-blue-500 p-0.5">
+                    <img 
+                      src={story.image} 
+                      alt={story.name} 
+                      className="w-full h-full object-cover rounded-full"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = `https://via.placeholder.com/150?text=${story.name.split(' ').map(n => n[0]).join('')}`;
+                      }}
+                    />
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="font-bold text-lg">{story.name}</h3>
+                    <p className="text-sm text-gray-600">{story.role}</p>
+                  </div>
                 </div>
-                <div className="ml-4">
-                  <h3 className="font-bold text-lg">Priya Sharma</h3>
-                  <p className="text-sm text-gray-600">Software Engineer at MakeMyTrip</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic leading-relaxed">
-                "Thanks to Referral Hire, I got a direct referral to MakeMyTrip and received an interview call within 2 days. I'm now working at my dream company!"
-              </p>
-              <div className="flex mt-4 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1 delay-100">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-purple-400 to-pink-500 p-0.5">
-                  <img 
-                    src={generateAvatar("Rahul Verma", false, 1)} 
-                    alt="Rahul Verma" 
-                    className="w-full h-full object-cover rounded-full"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = "https://via.placeholder.com/150?text=Rahul+V";
-                    }}
-                  />
-                </div>
-                <div className="ml-4">
-                  <h3 className="font-bold text-lg">Rahul Verma</h3>
-                  <p className="text-sm text-gray-600">Product Manager at Reliance Industries</p>
+                <p className="text-gray-700 italic leading-relaxed">
+                  "{story.testimonial}"
+                </p>
+                <div className="flex mt-4 text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
                 </div>
               </div>
-              <p className="text-gray-700 italic leading-relaxed">
-                "After months of applying to jobs with no response, I got referred through this platform and landed a role at Reliance within weeks!"
-              </p>
-              <div className="flex mt-4 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1 delay-200">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-green-400 to-emerald-500 p-0.5">
-                  <img 
-                    src={generateAvatar("Anjali Desai", true, 2)} 
-                    alt="Anjali Desai" 
-                    className="w-full h-full object-cover rounded-full"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = "https://via.placeholder.com/150?text=Anjali+D";
-                    }}
-                  />
-                </div>
-                <div className="ml-4">
-                  <h3 className="font-bold text-lg">Anjali Desai</h3>
-                  <p className="text-sm text-gray-600">UI Designer at Tata Group</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic leading-relaxed">
-                "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at Tata Group!"
-              </p>
-              <div className="flex mt-4 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
