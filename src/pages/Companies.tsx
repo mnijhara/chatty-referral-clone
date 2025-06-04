@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { companies } from "@/utils/placeholderData";
 import CompanyCard from "@/components/CompanyCard";
@@ -38,6 +37,10 @@ const Companies = () => {
           return a.name.localeCompare(b.name);
       }
     });
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
@@ -81,6 +84,7 @@ const Companies = () => {
             <SearchBox
               value={searchQuery}
               onChange={setSearchQuery}
+              onSearch={handleSearch}
               placeholder="Search companies by name or industry..."
               className="w-full"
             />

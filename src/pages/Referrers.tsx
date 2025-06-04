@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { referrers, companies } from "@/utils/placeholderData";
 import ReferrerCard from "@/components/ReferrerCard";
@@ -39,6 +38,10 @@ const Referrers = () => {
           return a.name.localeCompare(b.name);
       }
     });
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50/30">
@@ -82,6 +85,7 @@ const Referrers = () => {
             <SearchBox
               value={searchQuery}
               onChange={setSearchQuery}
+              onSearch={handleSearch}
               placeholder="Search referrers by name, company, or role..."
               className="w-full"
             />
