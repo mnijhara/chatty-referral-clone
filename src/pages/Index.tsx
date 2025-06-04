@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { companies, referrers } from "@/utils/placeholderData";
 import CompanyCard from "@/components/CompanyCard";
 import ReferrerCard from "@/components/ReferrerCard";
-import { Handshake, GraduationCap, Trophy } from "lucide-react";
+import { Handshake, GraduationCap, Trophy, ArrowRight, Star, CheckCircle, Users, Building2 } from "lucide-react";
 
 const Index = () => {
   const featuredCompanies = companies.slice(0, 4);
@@ -44,53 +44,101 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section with improved background and contrast */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand/90 to-brand/70 mix-blend-multiply z-10"></div>
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c')] bg-cover bg-center"></div>
-        <div className="absolute inset-0 bg-black opacity-60 z-[1]"></div>
+    <div className="flex flex-col overflow-hidden">
+      {/* Enhanced Hero Section with premium gradients and animations */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Multi-layer background with animated gradients */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-cyan-400/20"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c')] bg-cover bg-center opacity-10"></div>
+        
+        {/* Animated floating elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full animate-bounce blur-sm"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-cyan-400/10 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-purple-400/10 rounded-full animate-bounce delay-1000"></div>
+        
         <div className="container mx-auto px-4 relative z-20">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 text-white animation-fade-in drop-shadow-lg">
-              Get Referred to Your Dream Company
-            </h1>
-            <p className="text-lg md:text-xl mb-8 text-white/90 animation-fade-in drop-shadow-md">
-              Connect with employees at top companies who can refer you directly,
-              increasing your chances of landing an interview by up to 9x.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 animation-fade-in">
-              <Link to="/companies" onClick={scrollToTop}>
-                <Button size="lg" className="w-full sm:w-auto">
-                  Browse Companies
-                </Button>
-              </Link>
-              <Link to="/referrers" onClick={scrollToTop}>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/20 hover:bg-white/30 text-white border-white/50">
-                  Find Referrers
-                </Button>
-              </Link>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="space-y-6 animate-fade-in">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                Get Referred to Your
+                <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Dream Company
+                </span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Connect with employees at top companies who can refer you directly, 
+                increasing your chances of landing an interview by up to 
+                <span className="font-bold text-cyan-400"> 9x</span>.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row justify-center gap-6 pt-6">
+                <Link to="/companies" onClick={scrollToTop}>
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-0 px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
+                    Browse Companies
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/referrers" onClick={scrollToTop}>
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm px-8 py-4 text-lg font-semibold transform hover:scale-105 transition-all duration-300">
+                    Find Referrers
+                    <Users className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial Section - Improved layout */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Success Stories</h2>
-            <p className="text-gray-600 mt-2 max-w-2xl mx-auto">Hear from our happy customers who landed their dream jobs through reliable referrals</p>
+      {/* Enhanced Stats Section with glassmorphism */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/50 relative">
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-3xl"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500">
+              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent mb-4">9x</div>
+              <p className="text-gray-700 font-medium">Higher chance of getting an interview with a referral</p>
+              <div className="mt-4 flex justify-center">
+                <Star className="h-6 w-6 text-yellow-500" />
+              </div>
+            </div>
+            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 delay-100">
+              <div className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">500+</div>
+              <p className="text-gray-700 font-medium">Referrers from top companies</p>
+              <div className="mt-4 flex justify-center">
+                <Building2 className="h-6 w-6 text-purple-500" />
+              </div>
+            </div>
+            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 delay-200">
+              <div className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4">85%</div>
+              <p className="text-gray-700 font-medium">Success rate for referral requests</p>
+              <div className="mt-4 flex justify-center">
+                <CheckCircle className="h-6 w-6 text-green-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Testimonial Section */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-purple-50/50"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-4">Success Stories</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Hear from our happy customers who landed their dream jobs through reliable referrals</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-cyan-400 to-blue-500 p-0.5">
                   <img 
                     src={generateAvatar("Priya Sharma", true, 0)} 
                     alt="Priya Sharma" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
@@ -99,22 +147,27 @@ const Index = () => {
                   />
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-semibold">Priya Sharma</h3>
+                  <h3 className="font-bold text-lg">Priya Sharma</h3>
                   <p className="text-sm text-gray-600">Software Engineer at MakeMyTrip</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-700 italic leading-relaxed">
                 "Thanks to Referral Hire, I got a direct referral to MakeMyTrip and received an interview call within 2 days. I'm now working at my dream company!"
               </p>
+              <div className="flex mt-4 text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
+              </div>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1 delay-100">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-purple-400 to-pink-500 p-0.5">
                   <img 
                     src={generateAvatar("Rahul Verma", false, 1)} 
                     alt="Rahul Verma" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
@@ -123,22 +176,27 @@ const Index = () => {
                   />
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-semibold">Rahul Verma</h3>
+                  <h3 className="font-bold text-lg">Rahul Verma</h3>
                   <p className="text-sm text-gray-600">Product Manager at Reliance Industries</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-700 italic leading-relaxed">
                 "After months of applying to jobs with no response, I got referred through this platform and landed a role at Reliance within weeks!"
               </p>
+              <div className="flex mt-4 text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
+              </div>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center mb-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
+            <div className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1 delay-200">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-green-400 to-emerald-500 p-0.5">
                   <img 
                     src={generateAvatar("Anjali Desai", true, 2)} 
                     alt="Anjali Desai" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
@@ -147,183 +205,90 @@ const Index = () => {
                   />
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-semibold">Anjali Desai</h3>
+                  <h3 className="font-bold text-lg">Anjali Desai</h3>
                   <p className="text-sm text-gray-600">UI Designer at Tata Group</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-700 italic leading-relaxed">
                 "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at Tata Group!"
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section - Enhanced visual appeal */}
-      <section className="py-16 bg-gray-50 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand/5 to-brand/10 mix-blend-overlay"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
-              <div className="text-4xl font-bold text-brand mb-3">9x</div>
-              <p className="text-gray-600">Higher chance of getting an interview with a referral</p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
-              <div className="text-4xl font-bold text-brand mb-3">500+</div>
-              <p className="text-gray-600">Referrers from top companies</p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
-              <div className="text-4xl font-bold text-brand mb-3">85%</div>
-              <p className="text-gray-600">Success rate for referral requests</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Companies - Improved spacing and hover effects */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Featured Companies</h2>
-            <Link to="/companies" onClick={scrollToTop} className="text-brand hover:underline flex items-center">
-              View All
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredCompanies.map((company) => (
-              <CompanyCard
-                key={company.id}
-                id={company.id}
-                name={company.name}
-                logo={company.logo}
-                industry={company.industry}
-                location={company.location}
-                referrersCount={company.referrersCount}
-                openPositions={company.openPositions}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Referrer Success Story - More engaging layout */}
-      <section className="py-16 bg-brand/5">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
-              <h2 className="text-2xl font-bold mb-4">Top Referrers Make a Difference</h2>
-              <p className="text-gray-700 mb-6">
-                Our platform's top referrers have helped hundreds of qualified candidates 
-                land interviews and jobs at the best companies.
-              </p>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex items-center mb-4">
-                  <img 
-                    src={generateAvatar("Aditya Sharma", false, 0)} 
-                    alt="Aditya Sharma" 
-                    className="w-16 h-16 rounded-full object-cover mr-4"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = "https://via.placeholder.com/150?text=Aditya+S";
-                    }}
-                  />
-                  <div>
-                    <h3 className="font-semibold">Aditya Sharma</h3>
-                    <p className="text-sm text-gray-600">Senior Engineer at Mahindra Group</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 italic">
-                  "I've referred 12 qualified candidates through Referral Hire, and 10 of them 
-                  got hired! It feels great to help talented professionals find opportunities 
-                  while also earning referral bonuses."
-                </p>
+              <div className="flex mt-4 text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
               </div>
             </div>
-            <div className="order-1 md:order-2">
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
-                alt="Professional at work" 
-                className="rounded-lg shadow-md w-full h-96 object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = "https://via.placeholder.com/640x480?text=Professional+At+Work";
-                }}
-              />
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Referrers - Improved layout and hover effects */}
-      <section className="py-16 bg-gray-50">
+      {/* Enhanced Featured Companies Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Featured Referrers</h2>
-            <Link to="/referrers" onClick={scrollToTop} className="text-brand hover:underline flex items-center">
+          <div className="flex justify-between items-center mb-12">
+            <div>
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Featured Companies</h2>
+              <p className="text-gray-600 mt-2">Top companies looking for talented professionals</p>
+            </div>
+            <Link to="/companies" onClick={scrollToTop} className="text-blue-600 hover:text-blue-700 flex items-center font-semibold text-lg group">
               View All
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredReferrers.map((referrer) => (
-              <ReferrerCard
-                key={referrer.id}
-                id={referrer.id}
-                name={referrer.name}
-                avatar={referrer.avatar}
-                company={referrer.company}
-                companyLogo={referrer.companyLogo}
-                role={referrer.role}
-                yearsAtCompany={referrer.yearsAtCompany}
-                successfulReferrals={referrer.successfulReferrals}
-              />
+            {featuredCompanies.map((company, index) => (
+              <div key={company.id} className="transform hover:scale-105 transition-all duration-300" style={{animationDelay: `${index * 100}ms`}}>
+                <CompanyCard
+                  id={company.id}
+                  name={company.name}
+                  logo={company.logo}
+                  industry={company.industry}
+                  location={company.location}
+                  referrersCount={company.referrersCount}
+                  openPositions={company.openPositions}
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works - Enhanced visual presentation */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">How It Works</h2>
-            <p className="text-lg text-gray-600">
+      {/* Enhanced How It Works Section */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-50/50 to-purple-50/50"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-6">How It Works</h2>
+            <p className="text-xl text-gray-600 leading-relaxed">
               Getting referred to your dream company has never been easier
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                <Handshake className="h-8 w-8" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="text-center p-8 bg-gradient-to-br from-white to-cyan-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-cyan-100 group transform hover:-translate-y-2">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Handshake className="h-10 w-10" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Find a Referrer</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Find a Referrer</h3>
+              <p className="text-gray-600 leading-relaxed">
                 Search for employees at your target companies who are open to providing referrals.
               </p>
             </div>
-            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                <GraduationCap className="h-8 w-8" />
+            <div className="text-center p-8 bg-gradient-to-br from-white to-purple-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-purple-100 group transform hover:-translate-y-2 delay-100">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <GraduationCap className="h-10 w-10" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Submit Your Request</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Submit Your Request</h3>
+              <p className="text-gray-600 leading-relaxed">
                 Send your resume and a personalized note to the referrer explaining why you're a good fit.
               </p>
             </div>
-            <div className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                <Trophy className="h-8 w-8" />
+            <div className="text-center p-8 bg-gradient-to-br from-white to-green-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-green-100 group transform hover:-translate-y-2 delay-200">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Trophy className="h-10 w-10" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Get Referred</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Get Referred</h3>
+              <p className="text-gray-600 leading-relaxed">
                 If the referrer approves your request, they'll submit your referral through their company's system.
               </p>
             </div>
@@ -331,63 +296,58 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Job Success Image Section - Enhanced visual appeal */}
-      <section className="py-16 bg-gray-50">
+      {/* Enhanced Featured Referrers Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-purple-50/30">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="order-2 md:order-1">
-              <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                alt="Professional working"
-                className="rounded-lg shadow-md h-96 w-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = "https://via.placeholder.com/640x480?text=Professional+Working";
-                }}
-              />
+          <div className="flex justify-between items-center mb-12">
+            <div>
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Featured Referrers</h2>
+              <p className="text-gray-600 mt-2">Connect with top professionals ready to help</p>
             </div>
-            <div className="order-1 md:order-2">
-              <h2 className="text-2xl font-bold mb-4">Work at Top Companies</h2>
-              <p className="text-gray-700 mb-6">
-                Our platform connects you with insiders at the most desirable employers, 
-                from established global leaders to innovative organizations.
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
-                  <span>Get referred to roles that match your skills and experience.</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
-                  <span>Bypass the traditional application process and get noticed.</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">✓</span>
-                  <span>Receive insider tips to help you ace your interviews.</span>
-                </li>
-              </ul>
-              <div className="mt-8">
-                <Link to="/companies" onClick={scrollToTop}>
-                  <Button>Find Your Next Opportunity</Button>
-                </Link>
+            <Link to="/referrers" onClick={scrollToTop} className="text-purple-600 hover:text-purple-700 flex items-center font-semibold text-lg group">
+              View All
+              <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredReferrers.map((referrer, index) => (
+              <div key={referrer.id} className="transform hover:scale-105 transition-all duration-300" style={{animationDelay: `${index * 100}ms`}}>
+                <ReferrerCard
+                  id={referrer.id}
+                  name={referrer.name}
+                  avatar={referrer.avatar}
+                  company={referrer.company}
+                  companyLogo={referrer.companyLogo}
+                  role={referrer.role}
+                  yearsAtCompany={referrer.yearsAtCompany}
+                  successfulReferrals={referrer.successfulReferrals}
+                />
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Enhanced visual appeal */}
-      <section className="py-16 bg-brand/10">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Ready to Get Referred?</h2>
-            <p className="text-lg text-gray-600 mb-8">
+      {/* Enhanced CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-cyan-400/20"></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-white/5 rounded-full animate-pulse blur-sm"></div>
+        <div className="absolute bottom-10 right-10 w-24 h-24 bg-cyan-400/10 rounded-full animate-bounce"></div>
+        
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
+              Ready to Get <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Referred?</span>
+            </h2>
+            <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto">
               Don't let your dream job slip away. Connect with referrers and increase your chances of landing an interview today.
             </p>
             <div className="flex justify-center">
               <Link to="/referrers" onClick={scrollToTop}>
-                <Button size="lg" className="px-8">Find Referrers Now</Button>
+                <Button size="lg" className="px-12 py-4 text-xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300">
+                  Find Referrers Now
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </Button>
               </Link>
             </div>
           </div>
