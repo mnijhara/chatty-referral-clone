@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import LogoGenerator from "./LogoGenerator";
 
 interface CompanyCardProps {
   id: string;
@@ -22,7 +23,6 @@ const CompanyCard = ({
   referrersCount, 
   openPositions 
 }: CompanyCardProps) => {
-  // Custom Link wrapper that scrolls to top when clicked
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     window.scrollTo({
       top: 0,
@@ -30,18 +30,27 @@ const CompanyCard = ({
     });
   };
 
+  // Generate a consistent color index based on company name
+  const getColorIndex = (companyName: string) => {
+    let hash = 0;
+    for (let i = 0; i < companyName.length; i++) {
+      const char = companyName.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 8;
+  };
+
   return (
     <Link to={`/companies/${id}`} onClick={handleClick}>
       <Card className="h-full hover:shadow-md transition-shadow duration-200 border-gray-100">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 flex items-center justify-center rounded bg-gray-50 p-0 overflow-hidden border border-gray-100">
-              <img 
-                src={logo} 
-                alt={`${name} logo`} 
-                className="max-w-full max-h-full w-full h-full object-contain" 
-              />
-            </div>
+            <LogoGenerator 
+              companyName={name}
+              colorIndex={getColorIndex(name)}
+              className="border border-gray-200"
+            />
             <div className="text-left">
               <h3 className="font-medium text-base">{name}</h3>
               <div className="flex items-center space-x-1 text-xs text-gray-500 mt-0.5">

@@ -4,23 +4,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { getCompanyById, getReferrersByCompanyId } from "@/utils/placeholderData";
 import ReferrerCard from "@/components/ReferrerCard";
+import LogoGenerator from "@/components/LogoGenerator";
 import { ExternalLink } from "lucide-react";
 
 const CompanyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const company = getCompanyById(id || "");
   const referrers = getReferrersByCompanyId(id || "");
-
-  // Generate a placeholder based on company name
-  const generatePlaceholder = (companyName: string) => {
-    const initials = companyName ? companyName.split(' ')
-      .map(word => word[0])
-      .slice(0, 2)
-      .join('')
-      .toUpperCase() : "CO";
-    
-    return `https://ui-avatars.com/api/?name=${initials}&background=f3f4f6&color=6366f1&size=150`;
-  };
 
   if (!company) {
     return (
@@ -34,12 +24,16 @@ const CompanyDetail = () => {
     );
   }
 
-  // Use a reliable logo or fallback
-  const logoUrl = company.logo && company.logo.startsWith('http') 
-    ? company.logo 
-    : generatePlaceholder(company.name);
+  const getColorIndex = (companyName: string) => {
+    let hash = 0;
+    for (let i = 0; i < companyName.length; i++) {
+      const char = companyName.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 8;
+  };
 
-  // Format the website URL properly
   const formatWebsiteUrl = (url: string | undefined) => {
     if (!url || url === '') return '';
     
@@ -52,25 +46,19 @@ const CompanyDetail = () => {
 
   const websiteUrl = formatWebsiteUrl(company.website);
 
-  // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
   return (
     <div className="container mx-auto px-4 py-12">
-      {/* Company Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10">
         <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-100 rounded-md p-4 flex items-center justify-center">
-          <img
-            src={logoUrl}
-            alt={`${company.name} logo`}
-            className="max-w-full max-h-full object-contain"
-            onError={(e) => { 
-              const target = e.target as HTMLImageElement;
-              target.onerror = null; 
-              target.src = generatePlaceholder(company.name);
-            }}
+          <LogoGenerator 
+            companyName={company.name}
+            size="lg"
+            colorIndex={getColorIndex(company.name)}
+            className="w-full h-full"
           />
         </div>
         <div>
@@ -97,13 +85,11 @@ const CompanyDetail = () => {
         </div>
       </div>
 
-      {/* Company Description */}
       <div className="mb-10">
         <h2 className="text-xl font-semibold mb-4">About</h2>
         <p className="text-gray-700">{company.description}</p>
       </div>
 
-      {/* Referrers Section */}
       <div>
         <h2 className="text-xl font-semibold mb-6">
           Referrers at {company.name} ({referrers.length})

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getReferrerById, getCompanyById } from "@/utils/placeholderData";
+import AvatarGenerator from "@/components/AvatarGenerator";
+import LogoGenerator from "@/components/LogoGenerator";
 
 const ReferrerProfile = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,28 +24,37 @@ const ReferrerProfile = () => {
     );
   }
 
+  const getColorIndex = (name: string) => {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      const char = name.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 8;
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-4xl mx-auto">
-        {/* Referrer Header */}
         <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
-            <img
-              src={referrer.avatar}
-              alt={`${referrer.name}'s profile`}
-              className="w-full h-full object-cover"
+            <AvatarGenerator 
+              name={referrer.name}
+              size="xl"
+              colorIndex={getColorIndex(referrer.name)}
+              className="w-full h-full rounded-full"
             />
           </div>
           <div className="flex-1">
             <h1 className="text-3xl font-bold mb-2">{referrer.name}</h1>
             <div className="flex items-center mb-4">
-              <div className="w-5 h-5 mr-2">
-                <img
-                  src={referrer.companyLogo}
-                  alt={`${referrer.company} logo`}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
+              <LogoGenerator 
+                companyName={referrer.company}
+                size="sm"
+                colorIndex={getColorIndex(referrer.company)}
+                className="mr-2"
+              />
               <Link to={`/companies/${referrer.companyId}`} className="text-lg text-gray-700 hover:text-brand">
                 {referrer.company}
               </Link>
@@ -79,7 +90,6 @@ const ReferrerProfile = () => {
           </div>
         </div>
 
-        {/* Referrer Bio */}
         <Card className="mb-8">
           <CardContent className="p-6">
             <h2 className="text-xl font-semibold mb-4">About</h2>
@@ -87,7 +97,6 @@ const ReferrerProfile = () => {
           </CardContent>
         </Card>
 
-        {/* Company Info */}
         {company && (
           <Card>
             <CardContent className="p-6">
@@ -100,10 +109,11 @@ const ReferrerProfile = () => {
               
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-16 h-16 bg-gray-100 rounded-md p-2 flex items-center justify-center">
-                  <img
-                    src={company.logo}
-                    alt={`${company.name} logo`}
-                    className="max-w-full max-h-full object-contain"
+                  <LogoGenerator 
+                    companyName={company.name}
+                    size="md"
+                    colorIndex={getColorIndex(company.name)}
+                    className="w-full h-full"
                   />
                 </div>
                 <div>

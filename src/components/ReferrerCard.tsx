@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { toast } from "@/components/ui/use-toast";
+import AvatarGenerator from "./AvatarGenerator";
+import LogoGenerator from "./LogoGenerator";
 
 interface ReferrerCardProps {
   id: string;
@@ -27,7 +27,6 @@ const ReferrerCard = ({
   yearsAtCompany,
   successfulReferrals
 }: ReferrerCardProps) => {
-  // Extract companyId from the first referrer with this company name in the imports
   const getCompanyIdFromName = (companyName: string) => {
     const companyMap: Record<string, string> = {
       "InfoTech Solutions": "1",
@@ -45,23 +44,22 @@ const ReferrerCard = ({
 
   const companyId = getCompanyIdFromName(company);
   
-  // Get name initials for fallback
-  const getInitials = (personName: string) => {
-    return personName
-      .split(' ')
-      .map(part => part[0])
-      .join('')
-      .toUpperCase();
-  };
-  
-  const initials = getInitials(name);
-  
-  // Use react-router's scrollToTop instead of window direct manipulation
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+  };
+
+  // Generate consistent color indices
+  const getColorIndex = (name: string) => {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      const char = name.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 8;
   };
   
   return (
@@ -69,14 +67,11 @@ const ReferrerCard = ({
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12 border border-gray-200">
-              <AvatarImage
-                src={avatar}
-                alt={`${name}'s profile`}
-                className="object-cover"
-              />
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
+            <AvatarGenerator 
+              name={name}
+              colorIndex={getColorIndex(name)}
+              className="border border-gray-200"
+            />
             <div>
               <h3 className="font-semibold">
                 <Link 
@@ -88,13 +83,12 @@ const ReferrerCard = ({
                 </Link>
               </h3>
               <div className="flex items-center mt-1">
-                <div className="w-5 h-5 mr-1 bg-gray-50 rounded-sm overflow-hidden flex items-center justify-center border border-gray-200">
-                  <img
-                    src={companyLogo}
-                    alt={`${company} logo`}
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
+                <LogoGenerator 
+                  companyName={company}
+                  size="sm"
+                  colorIndex={getColorIndex(company)}
+                  className="mr-1 border border-gray-200"
+                />
                 <Link 
                   to={`/companies/${companyId}`} 
                   className="text-sm text-gray-600 hover:text-brand hover:underline"
