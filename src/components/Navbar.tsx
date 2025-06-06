@@ -1,251 +1,180 @@
-
 import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/services/firebase";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut, CreditCard } from "lucide-react";
-import { useAuth, logOut } from "@/services/firebase";
-import { 
+import { Menu, X, LogOut, User, Settings, Building, Shield, UserPlus, Briefcase, TrendingUp, DollarSign, Mail, BarChart3 } from "lucide-react";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { toast } from "@/components/ui/use-toast";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { currentUser } = useAuth();
-  const navigate = useNavigate();
+  const { currentUser, signOut } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleLogout = async () => {
+  const handleSignOut = async () => {
     try {
-      await logOut();
-      toast({
-        title: "Logged out successfully",
-        description: "You have been logged out.",
-      });
-      navigate("/");
+      await signOut();
     } catch (error) {
-      toast({
-        title: "Error logging out",
-        description: "There was a problem logging out.",
-        variant: "destructive",
-      });
+      console.error("Error signing out:", error);
     }
-  };
-
-  // Get user initials for avatar fallback
-  const getUserInitials = () => {
-    if (currentUser?.displayName) {
-      return currentUser.displayName
-        .split(' ')
-        .map(name => name[0])
-        .join('')
-        .toUpperCase();
-    }
-    return currentUser?.email?.substring(0, 2).toUpperCase() || 'U';
   };
 
   return (
-    <nav className="border-b border-gray-200 py-4">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <Link to="/" className="flex items-center">
-          <span className="text-2xl font-bold text-brand">Get<span className="text-teal-500">Referred</span></span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6">
-          <NavLink 
-            to="/companies" 
-            className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
-            }
-          >
-            Companies
-          </NavLink>
-          <NavLink 
-            to="/referrers" 
-            className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
-            }
-          >
-            Referrers
-          </NavLink>
-          <NavLink 
-            to="/how-it-works" 
-            className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
-            }
-          >
-            How it Works
-          </NavLink>
-          <NavLink 
-            to="/pricing" 
-            className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
-            }
-          >
-            Pricing
-          </NavLink>
-          <NavLink 
-            to="/about" 
-            className={({ isActive }) => 
-              isActive ? "text-brand font-medium" : "text-blue-600 hover:text-brand"
-            }
-          >
-            About
-          </NavLink>
-        </div>
-
-        <div className="hidden md:flex space-x-4">
-          {currentUser ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                  <Avatar className="h-10 w-10">
-                    <AvatarFallback>{getUserInitials()}</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end">
-                <div className="flex items-center justify-start gap-2 p-2">
-                  <div className="flex flex-col space-y-1 leading-none">
-                    {currentUser.displayName && (
-                      <p className="font-medium">{currentUser.displayName}</p>
-                    )}
-                    {currentUser.email && (
-                      <p className="w-[200px] truncate text-sm text-gray-500">{currentUser.email}</p>
-                    )}
-                  </div>
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/profile" className="cursor-pointer flex items-center">
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="cursor-pointer flex items-center">
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    <span>Dashboard</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <>
-              <Link to="/admin/login">
-                <Button variant="ghost" size="sm" className="text-xs">Admin</Button>
-              </Link>
-              <Link to="/signin">
-                <Button variant="outline">Sign In</Button>
-              </Link>
-              <Link to="/signup">
-                <Button>Sign Up</Button>
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <Button variant="ghost" size="icon" onClick={toggleMenu}>
-            {isMenuOpen ? <X /> : <Menu />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden animation-fade-in">
-          <div className="flex flex-col space-y-4 px-4 pt-4 pb-6 bg-white border-t border-gray-200">
-            <NavLink 
-              to="/companies" 
-              className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
-              }
-              onClick={toggleMenu}
-            >
+    <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">GR</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">GetReferred</span>
+            </Link>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-8">
+            <Link to="/companies" className="text-gray-700 hover:text-brand transition-colors">
               Companies
-            </NavLink>
-            <NavLink 
-              to="/referrers" 
-              className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
-              }
-              onClick={toggleMenu}
-            >
+            </Link>
+            <Link to="/referrers" className="text-gray-700 hover:text-brand transition-colors">
               Referrers
-            </NavLink>
-            <NavLink 
-              to="/how-it-works" 
-              className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
-              }
-              onClick={toggleMenu}
-            >
+            </Link>
+            <Link to="/jobs" className="text-gray-700 hover:text-brand transition-colors">
+              Jobs
+            </Link>
+            <Link to="/how-it-works" className="text-gray-700 hover:text-brand transition-colors">
               How it Works
-            </NavLink>
-            <NavLink 
-              to="/pricing" 
-              className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
-              }
-              onClick={toggleMenu}
-            >
+            </Link>
+            <Link to="/pricing" className="text-gray-700 hover:text-brand transition-colors">
               Pricing
-            </NavLink>
-            <NavLink 
-              to="/about" 
-              className={({ isActive }) => 
-                isActive ? "text-brand font-medium py-2" : "text-blue-600 hover:text-brand py-2"
-              }
-              onClick={toggleMenu}
-            >
-              About
-            </NavLink>
-            <div className="flex flex-col space-y-2 pt-2">
+            </Link>
+            
+            <div className="flex items-center space-x-4">
               {currentUser ? (
-                <>
-                  <Link to="/profile" className="flex items-center py-2" onClick={toggleMenu}>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </Link>
-                  <Link to="/dashboard" className="flex items-center py-2" onClick={toggleMenu}>
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    <span>Dashboard</span>
-                  </Link>
-                  <Button onClick={handleLogout} variant="outline" className="justify-start">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </Button>
-                </>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={currentUser.photoURL || undefined} />
+                        <AvatarFallback className="bg-brand text-white">
+                          {currentUser.displayName?.[0] || currentUser.email?.[0]?.toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56 bg-white border border-gray-200 shadow-lg" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{currentUser.displayName}</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {currentUser.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="cursor-pointer">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/profile" className="cursor-pointer">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/post-job" className="cursor-pointer">
+                        <Building className="mr-2 h-4 w-4" />
+                        <span>Post Job</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
                 <>
-                  <Link to="/admin/login">
-                    <Button variant="ghost" className="w-full justify-start text-xs">Admin Login</Button>
-                  </Link>
                   <Link to="/signin">
-                    <Button variant="outline" className="w-full">Sign In</Button>
+                    <Button variant="ghost">Sign In</Button>
                   </Link>
                   <Link to="/signup">
-                    <Button className="w-full">Sign Up</Button>
+                    <Button>Get Started</Button>
                   </Link>
                 </>
               )}
             </div>
+          </div>
+
+          <div className="md:hidden flex items-center">
+            <Button variant="ghost" size="sm" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-200">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <Link to="/companies" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              Companies
+            </Link>
+            <Link to="/referrers" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              Referrers
+            </Link>
+            <Link to="/jobs" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              Jobs
+            </Link>
+            <Link to="/how-it-works" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              How it Works
+            </Link>
+            <Link to="/pricing" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              Pricing
+            </Link>
+            
+            {currentUser ? (
+              <div className="border-t border-gray-200 pt-2 mt-2">
+                <Link to="/dashboard" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                  Dashboard
+                </Link>
+                <Link to="/profile" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                  Profile
+                </Link>
+                <Link to="/post-job" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                  Post Job
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  className="w-full text-left justify-start px-3 py-2" 
+                  onClick={() => {
+                    handleSignOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div className="border-t border-gray-200 pt-2 mt-2 space-y-1">
+                <Link to="/signin" className="block px-3 py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full justify-start">Sign In</Button>
+                </Link>
+                <Link to="/signup" className="block px-3 py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full">Get Started</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

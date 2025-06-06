@@ -81,6 +81,12 @@ const Index = () => {
                     <Users className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
+                <Link to="/jobs" onClick={scrollToTop}>
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm px-8 py-4 text-lg font-semibold transform hover:scale-105 transition-all duration-300">
+                    Browse Jobs
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

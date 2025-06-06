@@ -10,6 +10,8 @@ import CompanyDetail from "./pages/CompanyDetail";
 import Referrers from "./pages/Referrers";
 import ReferrerProfile from "./pages/ReferrerProfile";
 import RequestReferral from "./pages/RequestReferral";
+import Jobs from "./pages/Jobs";
+import PostJob from "./pages/PostJob";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
@@ -88,6 +90,8 @@ const App = () => (
             <Route path="/referrers" element={<Referrers />} />
             <Route path="/referrers/:id" element={<ReferrerProfile />} />
             <Route path="/request/:referrerId" element={<RequestReferral />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/post-job" element={<ProtectedRoute><PostJob /></ProtectedRoute>} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
