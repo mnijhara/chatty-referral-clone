@@ -6,11 +6,11 @@ const AboutPage = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">About ReferMe</h1>
+        <h1 className="text-3xl font-bold mb-6">About GetReferred</h1>
 
         <div className="prose max-w-none">
           <p className="text-lg mb-6">
-            ReferMe connects job seekers with employee referrers at top companies, 
+            GetReferred connects job seekers with employee referrers at top companies, 
             helping candidates bypass the traditional application process and 
             significantly increase their chances of landing an interview.
           </p>
@@ -26,7 +26,7 @@ const AboutPage = () => {
 
           <h2 className="text-2xl font-bold mt-8 mb-4">How It Started</h2>
           <p className="mb-6">
-            ReferMe was founded in 2023 by a team of tech professionals who 
+            GetReferred was founded in 2023 by a team of tech professionals who 
             experienced firsthand the challenges of breaking into competitive 
             companies without insider connections. After seeing how referrals 
             dramatically increased interview rates, we built a platform to 
@@ -51,7 +51,7 @@ const AboutPage = () => {
 
           <h2 className="text-2xl font-bold mt-8 mb-4">For Job Seekers</h2>
           <p className="mb-6">
-            As a job seeker, ReferMe gives you access to employees who are ready to
+            As a job seeker, GetReferred gives you access to employees who are ready to
             refer qualified candidates at their companies. Instead of submitting your
             application into the void of an applicant tracking system, you can connect
             directly with someone who can champion your application internally.
@@ -68,7 +68,7 @@ const AboutPage = () => {
             <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
             <p className="mb-6">
               Whether you're looking for a job or want to help others find opportunities
-              at your company, ReferMe can help you make valuable connections.
+              at your company, GetReferred can help you make valuable connections.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link to="/companies">

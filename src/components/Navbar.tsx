@@ -146,6 +146,9 @@ const Navbar = () => {
             </DropdownMenu>
           ) : (
             <>
+              <Link to="/admin/login">
+                <Button variant="ghost" size="sm" className="text-xs">Admin</Button>
+              </Link>
               <Link to="/signin">
                 <Button variant="outline">Sign In</Button>
               </Link>
@@ -231,6 +234,9 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
+                  <Link to="/admin/login">
+                    <Button variant="ghost" className="w-full justify-start text-xs">Admin Login</Button>
+                  </Link>
                   <Link to="/signin">
                     <Button variant="outline" className="w-full">Sign In</Button>
                   </Link>

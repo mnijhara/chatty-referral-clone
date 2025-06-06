@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/services/firebase";
@@ -18,24 +17,19 @@ const Dashboard = () => {
   const [upiId, setUpiId] = useState("");
   const [userRole, setUserRole] = useState<"referrer" | "seeker">("referrer");
   
-  // Mock data for referrals
+  // More realistic data for a new user
   const referrals = [
-    { id: 1, name: "Ajay Sharma", company: "TCS", status: "Pending", date: "2025-05-10", payment: 0 },
-    { id: 2, name: "Priya Patel", company: "Infosys", status: "Accepted", date: "2025-05-08", payment: 5000 },
-    { id: 3, name: "Vikram Singh", company: "Wipro", status: "Interview", date: "2025-05-05", payment: 0 },
-    { id: 4, name: "Neha Gupta", company: "HCL", status: "Hired", date: "2025-04-28", payment: 10000 },
-    { id: 5, name: "Rajesh Kumar", company: "Tech Mahindra", status: "Hired", date: "2025-04-20", payment: 8000 },
+    { id: 1, name: "Rajesh Kumar", company: "Infosys", status: "Pending", date: "2025-01-05", payment: 0 },
+    { id: 2, name: "Priya Sharma", company: "TCS", status: "Interview", date: "2024-12-28", payment: 0 },
   ];
   
-  // Mock data for job applications
+  // Realistic job applications for a job seeker
   const applications = [
-    { id: 1, position: "Software Engineer", company: "Google", referrer: "Amit Kumar", status: "Under Review", date: "2025-05-12" },
-    { id: 2, position: "Data Scientist", company: "Amazon", referrer: "Sneha Reddy", status: "Interview Scheduled", date: "2025-05-08" },
-    { id: 3, position: "UX Designer", company: "Microsoft", referrer: "Rahul Verma", status: "Rejected", date: "2025-05-01" },
-    { id: 4, position: "Product Manager", company: "Facebook", referrer: "Ananya Singh", status: "Offer Received", date: "2025-04-22" },
+    { id: 1, position: "Software Engineer", company: "Google", referrer: "Amit Kumar", status: "Under Review", date: "2025-01-03" },
+    { id: 2, position: "Data Analyst", company: "Microsoft", referrer: "Sneha Reddy", status: "Interview Scheduled", date: "2024-12-30" },
   ];
   
-  // Stats calculation
+  // More realistic stats for a new user
   const totalReferrals = referrals.length;
   const pendingReferrals = referrals.filter(r => r.status === "Pending").length;
   const hiredReferrals = referrals.filter(r => r.status === "Hired").length;
@@ -84,7 +78,7 @@ const Dashboard = () => {
       {userRole === "referrer" ? (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            {/* Stats Cards */}
+            {/* Stats Cards with realistic numbers */}
             <Card className="shadow-sm">
               <CardHeader className="p-3">
                 <CardTitle className="text-xs font-medium text-muted-foreground">Total Referrals</CardTitle>
@@ -133,6 +127,9 @@ const Dashboard = () => {
                   <div className="text-xl font-bold">₹{totalEarnings.toLocaleString()}</div>
                   <IndianRupee className="h-4 w-4 text-brand" />
                 </div>
+                {totalEarnings === 0 && (
+                  <p className="text-xs text-muted-foreground mt-0.5">Complete referrals to earn</p>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -312,7 +309,7 @@ const Dashboard = () => {
           </div>
         </>
       ) : (
-        // Job seeker view
+        // Job seeker view with realistic data
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             <Card className="shadow-sm">
