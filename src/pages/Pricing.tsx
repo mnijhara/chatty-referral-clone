@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ const Pricing = () => {
       name: "Priya Sharma",
       role: "Software Engineer",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
-      text: "ReferralHire helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
+      text: "GetReferred helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
     },
     {
       name: "Raj Patel",
@@ -39,7 +40,7 @@ const Pricing = () => {
     {
       name: "Anika Gupta",
       role: "Data Scientist",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
       text: "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
     }
   ];
