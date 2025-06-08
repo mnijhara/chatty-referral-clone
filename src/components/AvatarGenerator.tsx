@@ -9,7 +9,7 @@ interface AvatarGeneratorProps {
 const AvatarGenerator = ({ name, size = 'md', colorIndex = 0, className = '' }: AvatarGeneratorProps) => {
   const initials = name
     .split(' ')
-    .map(word => word[0])
+    .map(word => word.charAt(0))
     .join('')
     .toUpperCase()
     .slice(0, 2);
@@ -39,7 +39,7 @@ const AvatarGenerator = ({ name, size = 'md', colorIndex = 0, className = '' }: 
     <div 
       className={`${bgColor} ${sizeClass} rounded-full flex items-center justify-center text-white font-semibold shadow-sm ${className}`}
     >
-      {initials}
+      <span>{initials}</span>
     </div>
   );
 };

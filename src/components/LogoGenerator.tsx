@@ -9,7 +9,7 @@ interface LogoGeneratorProps {
 const LogoGenerator = ({ companyName, size = 'md', colorIndex = 0, className = '' }: LogoGeneratorProps) => {
   const initials = companyName
     .split(' ')
-    .map(word => word[0])
+    .map(word => word.charAt(0))
     .slice(0, 2)
     .join('')
     .toUpperCase();
@@ -26,7 +26,7 @@ const LogoGenerator = ({ companyName, size = 'md', colorIndex = 0, className = '
   ];
 
   const sizeClasses = {
-    sm: 'w-5 h-5 text-xs',
+    sm: 'w-8 h-8 text-xs',
     md: 'w-12 h-12 text-sm',
     lg: 'w-16 h-16 text-base'
   };
@@ -38,7 +38,7 @@ const LogoGenerator = ({ companyName, size = 'md', colorIndex = 0, className = '
     <div 
       className={`${bgColor} ${sizeClass} rounded-lg flex items-center justify-center text-white font-bold shadow-sm ${className}`}
     >
-      {initials}
+      <span>{initials}</span>
     </div>
   );
 };
