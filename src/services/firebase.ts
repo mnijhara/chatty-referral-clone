@@ -42,11 +42,21 @@ const googleProvider = new GoogleAuthProvider();
 
 // Set custom parameters for the provider
 const addHostToProvider = (provider: GoogleAuthProvider) => {
-  // Set custom parameters for the provider
   provider.setCustomParameters({
     prompt: 'select_account'
   });
   return provider;
+};
+
+// Check if user has admin role
+export const checkAdminRole = async (user: User): Promise<boolean> => {
+  try {
+    const idTokenResult = await user.getIdTokenResult();
+    return idTokenResult.claims.admin === true;
+  } catch (error) {
+    console.error("Error checking admin role:", error);
+    return false;
+  }
 };
 
 // Auth functions
@@ -65,10 +75,8 @@ export const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, updatedProvider);
     return result;
   } catch (error: any) {
-    // Handle errors here
     console.error("Google sign-in error:", error);
     
-    // If it's a domain authorization error, show a better message
     if (error.code === 'auth/unauthorized-domain') {
       toast({
         title: "Google Sign-in Failed",
@@ -76,7 +84,6 @@ export const signInWithGoogle = async () => {
         variant: "destructive",
       });
     } else {
-      // For other errors, show the error message
       toast({
         title: "Authentication Error",
         description: error.message || "An error occurred during sign in",
@@ -94,17 +101,26 @@ export const logOut = () => {
 export const useAuth = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+      
+      if (user) {
+        const adminStatus = await checkAdminRole(user);
+        setIsAdmin(adminStatus);
+      } else {
+        setIsAdmin(false);
+      }
+      
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  return { currentUser, loading };
+  return { currentUser, loading, isAdmin };
 };
 
 export default auth;

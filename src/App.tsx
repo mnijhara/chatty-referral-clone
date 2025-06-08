@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -29,14 +30,15 @@ import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
 
 // Create a new QueryClient instance with improved caching configuration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false, // Prevents refetching data every time window gains focus
-      staleTime: 5 * 60 * 1000, // 5 minutes - data is considered fresh for 5 minutes
-      retry: 1, // Only retry failed requests once
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+      retry: 1,
     },
   },
 });
@@ -47,7 +49,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   
   useEffect(() => {
-    // Set a timeout to prevent flash of loading state for quick auth checks
     const timer = setTimeout(() => {
       if (loading) {
         setIsCheckingAuth(true);
@@ -59,7 +60,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timer);
   }, [loading]);
   
-  // Show loading state only if auth check is taking longer than 200ms
   if (isCheckingAuth && loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -106,7 +106,7 @@ const App = () => (
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

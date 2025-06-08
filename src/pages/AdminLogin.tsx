@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { Shield } from "lucide-react";
+import { signInWithEmail, useAuth, checkAdminRole } from "@/services/firebase";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -14,28 +15,52 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { currentUser, isAdmin } = useAuth();
+
+  // Redirect if already authenticated as admin
+  if (currentUser && isAdmin) {
+    navigate("/admin/dashboard");
+    return null;
+  }
 
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simple admin credentials check (in real app, this would be handled by backend)
-    if (email === "admin@getreferred.com" && password === "admin123") {
-      localStorage.setItem("adminLoggedIn", "true");
+    try {
+      if (!email || !password) {
+        throw new Error("Please enter both email and password");
+      }
+
+      const userCredential = await signInWithEmail(email, password);
+      const user = userCredential.user;
+      
+      // Check if user has admin privileges
+      const hasAdminRole = await checkAdminRole(user);
+      
+      if (!hasAdminRole) {
+        toast({
+          title: "Access Denied",
+          description: "You do not have admin privileges.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Admin login successful",
         description: "Welcome to the admin dashboard.",
       });
       navigate("/admin/dashboard");
-    } else {
+    } catch (error: any) {
       toast({
         title: "Login failed",
-        description: "Invalid admin credentials.",
+        description: error.message || "Invalid credentials or insufficient privileges.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   return (
@@ -46,7 +71,7 @@ const AdminLogin = () => {
             <Shield className="h-12 w-12 text-brand" />
           </div>
           <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
-          <CardDescription>Enter admin credentials to access dashboard</CardDescription>
+          <CardDescription>Sign in with your admin account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleAdminLogin} className="space-y-4">
@@ -55,7 +80,7 @@ const AdminLogin = () => {
               <Input 
                 id="email" 
                 type="email" 
-                placeholder="admin@getreferred.com"
+                placeholder="admin@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -76,9 +101,7 @@ const AdminLogin = () => {
             </Button>
           </form>
           <div className="mt-4 p-3 bg-gray-50 rounded text-sm text-gray-600">
-            <strong>Demo credentials:</strong><br />
-            Email: admin@getreferred.com<br />
-            Password: admin123
+            <strong>Note:</strong> Admin access requires proper Firebase authentication with admin role claims.
           </div>
         </CardContent>
       </Card>

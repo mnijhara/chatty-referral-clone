@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,30 +7,37 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import {
   Shield, LogOut, Users, Briefcase, TrendingUp, DollarSign, UserPlus, Building2, Mail, BarChart3
 } from "lucide-react";
+import { useAuth, logOut } from "@/services/firebase";
+import { useToast } from "@/components/ui/use-toast";
 
 const AdminDashboard = () => {
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const { currentUser, isAdmin } = useAuth();
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState("overview");
 
-  useEffect(() => {
-    const checkAdminLogin = () => {
-      const adminLoggedIn = localStorage.getItem("adminLoggedIn");
-      setIsAdminLoggedIn(adminLoggedIn === "true");
-      
-      if (adminLoggedIn !== "true") {
-        navigate("/admin/login");
-      }
-    };
-
-    checkAdminLogin();
-  }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("adminLoggedIn");
-    navigate("/admin/login");
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      toast({
+        title: "Logged out successfully",
+        description: "You have been signed out of the admin dashboard.",
+      });
+      navigate("/admin/login");
+    } catch (error) {
+      toast({
+        title: "Logout failed",
+        description: "An error occurred while signing out.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const [activeTab, setActiveTab] = useState("overview");
+  // This component should only be rendered within AdminRoute, but add extra protection
+  if (!currentUser || !isAdmin) {
+    navigate("/admin/login");
+    return null;
+  }
 
   const stats = [
     { label: "Total Users", value: "2,847", change: "+12%", icon: Users },
@@ -71,7 +78,7 @@ const AdminDashboard = () => {
               <Shield className="h-8 w-8 text-brand" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-gray-600">Manage your referral platform</p>
+                <p className="text-gray-600">Welcome, {currentUser.email}</p>
               </div>
             </div>
             <Button onClick={handleLogout} variant="outline">
