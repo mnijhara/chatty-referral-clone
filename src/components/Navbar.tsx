@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/services/firebase";
+import { useAuth, logOut } from "@/services/firebase";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogOut, User, Settings, Building, Shield, UserPlus, Briefcase, TrendingUp, DollarSign, Mail, BarChart3 } from "lucide-react";
 import {
@@ -14,12 +14,12 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Navbar = () => {
-  const { currentUser, signOut } = useAuth();
+  const { currentUser } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     try {
-      await signOut();
+      await logOut();
     } catch (error) {
       console.error("Error signing out:", error);
     }
