@@ -1,300 +1,338 @@
+
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { companies, referrers } from "@/utils/placeholderData";
-import CompanyCard from "@/components/CompanyCard";
-import ReferrerCard from "@/components/ReferrerCard";
-import { Handshake, GraduationCap, Trophy, ArrowRight, Star, CheckCircle, Users, Building2 } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { 
+  Users, 
+  Building2, 
+  TrendingUp, 
+  Star, 
+  ArrowRight, 
+  CheckCircle, 
+  Search,
+  Briefcase,
+  DollarSign,
+  Clock,
+  Award,
+  Target,
+  Zap
+} from "lucide-react";
 
 const Index = () => {
-  const featuredCompanies = companies.slice(0, 4);
-  const featuredReferrers = referrers.slice(0, 4);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
+  // Mock data for companies
+  const featuredCompanies = [
+    { id: 1, name: "Google", logo: "/placeholder.svg", referrers: 45, activeJobs: 23 },
+    { id: 2, name: "Microsoft", logo: "/placeholder.svg", referrers: 38, activeJobs: 18 },
+    { id: 3, name: "Amazon", logo: "/placeholder.svg", referrers: 52, activeJobs: 31 },
+    { id: 4, name: "Meta", logo: "/placeholder.svg", referrers: 29, activeJobs: 15 },
+  ];
 
-  // Updated Indian professional images for success stories
-  const successStories = [
+  // Mock data for top referrers
+  const topReferrers = [
+    { id: 1, name: "Priya Sharma", company: "Google", title: "Senior SDE", rating: 4.9, referrals: 28 },
+    { id: 2, name: "Rahul Kumar", company: "Microsoft", title: "Product Manager", rating: 4.8, referrals: 22 },
+    { id: 3, name: "Sneha Reddy", company: "Amazon", title: "Data Scientist", rating: 4.9, referrals: 35 },
+  ];
+
+  const stats = [
+    { label: "Active Referrers", value: "2,500+", icon: Users },
+    { label: "Companies", value: "500+", icon: Building2 },
+    { label: "Success Rate", value: "85%", icon: TrendingUp },
+    { label: "Average Rating", value: "4.8", icon: Star },
+  ];
+
+  const benefits = [
     {
-      name: "Priya Sharma",
-      role: "Software Engineer at MakeMyTrip",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      testimonial: "Thanks to Referral Hire, I got a direct referral to MakeMyTrip and received an interview call within 2 days. I'm now working at my dream company!"
+      icon: Target,
+      title: "9x Higher Success Rate",
+      description: "Get referred and increase your chances of landing an interview by 9 times"
     },
     {
-      name: "Rahul Verma", 
-      role: "Product Manager at Reliance Industries",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      testimonial: "After months of applying to jobs with no response, I got referred through this platform and landed a role at Reliance within weeks!"
+      icon: Zap,
+      title: "Skip the Queue",
+      description: "Bypass traditional applications and get your resume directly to hiring managers"
     },
     {
-      name: "Anjali Desai",
-      role: "UI Designer at Tata Group", 
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      testimonial: "The referral I received through this platform helped me bypass the regular application process. I'm now leading design projects at Tata Group!"
+      icon: Award,
+      title: "Quality Referrers",
+      description: "Connect with verified employees from top companies who want to help"
+    },
+    {
+      icon: DollarSign,
+      title: "Earn Referral Bonuses",
+      description: "Referrers earn bonuses when their referrals get hired - everyone wins"
     }
   ];
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      {/* Enhanced Hero Section with premium gradients and animations */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        {/* Multi-layer background with animated gradients */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900"></div>
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-cyan-400/20"></div>
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c')] bg-cover bg-center opacity-10"></div>
-        
-        {/* Animated floating elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full animate-bounce blur-sm"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 bg-cyan-400/10 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-purple-400/10 rounded-full animate-bounce delay-1000"></div>
-        
-        <div className="container mx-auto px-4 relative z-20">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="space-y-6 animate-fade-in">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
-                Get Referred to Your
-                <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Dream Company
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-                Connect with employees at top companies who can refer you directly, 
-                increasing your chances of landing an interview by up to 
-                <span className="font-bold text-cyan-400"> 9x</span>.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row justify-center gap-6 pt-6">
-                <Link to="/companies" onClick={scrollToTop}>
-                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-0 px-8 py-4 text-lg font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300">
-                    Browse Companies
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="/referrers" onClick={scrollToTop}>
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm px-8 py-4 text-lg font-semibold transform hover:scale-105 transition-all duration-300">
-                    Find Referrers
-                    <Users className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="/jobs" onClick={scrollToTop}>
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm px-8 py-4 text-lg font-semibold transform hover:scale-105 transition-all duration-300">
-                    Browse Jobs
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Stats Section with glassmorphism */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/50 relative">
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-3xl"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500">
-              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent mb-4">9x</div>
-              <p className="text-gray-700 font-medium">Higher chance of getting an interview with a referral</p>
-              <div className="mt-4 flex justify-center">
-                <Star className="h-6 w-6 text-yellow-500" />
-              </div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 delay-100">
-              <div className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">500+</div>
-              <p className="text-gray-700 font-medium">Referrers from top companies</p>
-              <div className="mt-4 flex justify-center">
-                <Building2 className="h-6 w-6 text-purple-500" />
-              </div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-white/20 text-center group hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 delay-200">
-              <div className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4">85%</div>
-              <p className="text-gray-700 font-medium">Success rate for referral requests</p>
-              <div className="mt-4 flex justify-center">
-                <CheckCircle className="h-6 w-6 text-green-500" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Updated Testimonial Section with Indian professional images */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-purple-50/50"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-4">Success Stories</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Hear from our happy customers who landed their dream jobs through reliable referrals</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {successStories.map((story, index) => (
-              <div key={index} className="bg-gradient-to-br from-white to-gray-50/80 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 group transform hover:-translate-y-1">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gradient-to-r from-cyan-400 to-blue-500 p-0.5">
-                    <img 
-                      src={story.image} 
-                      alt={story.name} 
-                      className="w-full h-full object-cover rounded-full"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = `https://via.placeholder.com/150?text=${story.name.split(' ').map(n => n[0]).join('')}`;
-                      }}
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="font-bold text-lg">{story.name}</h3>
-                    <p className="text-sm text-gray-600">{story.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 italic leading-relaxed">
-                  "{story.testimonial}"
-                </p>
-                <div className="flex mt-4 text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Featured Companies Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
-            <div>
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Featured Companies</h2>
-              <p className="text-gray-600 mt-2">Top companies looking for talented professionals</p>
-            </div>
-            <Link to="/companies" onClick={scrollToTop} className="text-blue-600 hover:text-blue-700 flex items-center font-semibold text-lg group">
-              View All
-              <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredCompanies.map((company, index) => (
-              <div key={company.id} className="transform hover:scale-105 transition-all duration-300" style={{animationDelay: `${index * 100}ms`}}>
-                <CompanyCard
-                  id={company.id}
-                  name={company.name}
-                  logo={company.logo}
-                  industry={company.industry}
-                  location={company.location}
-                  referrersCount={company.referrersCount}
-                  openPositions={company.openPositions}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced How It Works Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-50/50 to-purple-50/50"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-6">How It Works</h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Getting referred to your dream company has never been easier
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="text-center p-8 bg-gradient-to-br from-white to-cyan-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-cyan-100 group transform hover:-translate-y-2">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <Handshake className="h-10 w-10" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Find a Referrer</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Search for employees at your target companies who are open to providing referrals.
-              </p>
-            </div>
-            <div className="text-center p-8 bg-gradient-to-br from-white to-purple-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-purple-100 group transform hover:-translate-y-2 delay-100">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <GraduationCap className="h-10 w-10" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Submit Your Request</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Send your resume and a personalized note to the referrer explaining why you're a good fit.
-              </p>
-            </div>
-            <div className="text-center p-8 bg-gradient-to-br from-white to-green-50/80 rounded-2xl hover:shadow-2xl transition-all duration-500 border border-green-100 group transform hover:-translate-y-2 delay-200">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <Trophy className="h-10 w-10" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Get Referred</h3>
-              <p className="text-gray-600 leading-relaxed">
-                If the referrer approves your request, they'll submit your referral through their company's system.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Featured Referrers Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-purple-50/30">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
-            <div>
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Featured Referrers</h2>
-              <p className="text-gray-600 mt-2">Connect with top professionals ready to help</p>
-            </div>
-            <Link to="/referrers" onClick={scrollToTop} className="text-purple-600 hover:text-purple-700 flex items-center font-semibold text-lg group">
-              View All
-              <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredReferrers.map((referrer, index) => (
-              <div key={referrer.id} className="transform hover:scale-105 transition-all duration-300" style={{animationDelay: `${index * 100}ms`}}>
-                <ReferrerCard
-                  id={referrer.id}
-                  name={referrer.name}
-                  avatar={referrer.avatar}
-                  company={referrer.company}
-                  companyLogo={referrer.companyLogo}
-                  role={referrer.role}
-                  yearsAtCompany={referrer.yearsAtCompany}
-                  successfulReferrals={referrer.successfulReferrals}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-transparent to-cyan-400/20"></div>
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white/5 rounded-full animate-pulse blur-sm"></div>
-        <div className="absolute bottom-10 right-10 w-24 h-24 bg-cyan-400/10 rounded-full animate-bounce"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-              Ready to Get <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Referred?</span>
-            </h2>
-            <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto">
-              Don't let your dream job slip away. Connect with referrers and increase your chances of landing an interview today.
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-2xl">
+                <Users className="h-10 w-10" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Get <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Referred</span> to Your Dream Job
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
+              Connect with employees at top companies who can refer you directly. Skip traditional applications and increase your interview chances by 9x through employee referrals.
             </p>
-            <div className="flex justify-center">
-              <Link to="/referrers" onClick={scrollToTop}>
-                <Button size="lg" className="px-12 py-4 text-xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300">
-                  Find Referrers Now
-                  <ArrowRight className="ml-3 h-6 w-6" />
+            
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="relative">
+                <Search className="absolute left-4 top-4 h-5 w-5 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search companies, roles, or referrers..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 pr-4 py-4 text-lg bg-white/95 backdrop-blur-md border-0 shadow-xl rounded-2xl"
+                />
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+              <Link to="/companies">
+                <Button size="lg" className="px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300">
+                  Browse Companies
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/referrers">
+                <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold bg-white/10 border-white/20 text-white hover:bg-white/20 shadow-xl">
+                  Find Referrers
                 </Button>
               </Link>
             </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="flex justify-center mb-2">
+                    <stat.icon className="h-8 w-8 text-cyan-400" />
+                  </div>
+                  <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-white/80 text-sm">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              Why Choose GetReferred?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Transform your job search with the power of employee referrals
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-lg">{benefit.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Companies */}
+      <section className="py-20 bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              Featured Companies
+            </h2>
+            <p className="text-xl text-gray-600">
+              Get referred to top companies hiring now
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {featuredCompanies.map((company) => (
+              <Card key={company.id} className="hover:shadow-lg transition-all duration-300 border-0 bg-white/90 backdrop-blur-sm">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
+                    <Building2 className="h-8 w-8 text-gray-600" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{company.name}</h3>
+                  <div className="space-y-1 text-sm text-gray-600">
+                    <div className="flex items-center justify-center gap-1">
+                      <Users className="h-4 w-4" />
+                      <span>{company.referrers} referrers</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-1">
+                      <Briefcase className="h-4 w-4" />
+                      <span>{company.activeJobs} active jobs</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <Link to="/companies">
+              <Button size="lg" variant="outline">
+                View All Companies
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Top Referrers */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              Top Referrers
+            </h2>
+            <p className="text-xl text-gray-600">
+              Connect with verified professionals ready to help
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {topReferrers.map((referrer) => (
+              <Card key={referrer.id} className="hover:shadow-lg transition-all duration-300 border-0 bg-white/90 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src="/placeholder.svg" />
+                      <AvatarFallback className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+                        {referrer.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{referrer.name}</h3>
+                      <p className="text-sm text-gray-600">{referrer.title}</p>
+                      <p className="text-sm text-gray-500">{referrer.company}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                      <span>{referrer.rating}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="h-4 w-4 text-gray-500" />
+                      <span>{referrer.referrals} referrals</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <Link to="/referrers">
+              <Button size="lg" variant="outline">
+                View All Referrers
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 bg-gradient-to-r from-gray-50 to-blue-50/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              How GetReferred Works
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Get referred in three simple steps
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                1
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Find Your Company</h3>
+              <p className="text-gray-600">
+                Browse our network of 500+ companies and find the one you want to work for
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 text-white flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                2
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Connect with Referrers</h3>
+              <p className="text-gray-600">
+                Connect with verified employees who can refer you directly to hiring managers
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                3
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Get Interviewed</h3>
+              <p className="text-gray-600">
+                Skip the resume black hole and get your application directly to decision makers
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            Ready to Get <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Referred</span>?
+          </h2>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+            Join thousands of professionals who have transformed their job search with GetReferred
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link to="/companies">
+              <Button size="lg" className="px-8 py-4 text-lg font-semibold">
+                Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/post-job">
+              <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold bg-white/10 border-white/20 text-white hover:bg-white/20">
+                Post a Job
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
