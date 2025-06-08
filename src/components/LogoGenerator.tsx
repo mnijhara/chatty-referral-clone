@@ -36,7 +36,7 @@ const LogoGenerator = ({ companyName, size = 'md', colorIndex = 0, className = '
 
   return (
     <div 
-      className={`${bgColor} ${sizeClass} rounded flex items-center justify-center text-white font-bold ${className}`}
+      className={`${bgColor} ${sizeClass} rounded-lg flex items-center justify-center text-white font-bold shadow-sm ${className}`}
     >
       {initials}
     </div>

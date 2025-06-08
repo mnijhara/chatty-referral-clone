@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import AvatarGenerator from "@/components/AvatarGenerator";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
@@ -23,25 +24,25 @@ const Pricing = () => {
     });
   };
 
-  // Customer testimonial data with specific Indian-focused avatars
+  // Customer testimonial data with avatar generation
   const testimonials = [
     {
       name: "Priya Sharma",
       role: "Software Engineer",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
-      text: "GetReferred helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!"
+      text: "GetReferred helped me land interviews at top tech companies in Bangalore. The Pro plan was worth every rupee!",
+      colorIndex: 0
     },
     {
       name: "Raj Patel",
       role: "Product Manager",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-      text: "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!"
+      text: "I connected with referrers from my dream companies in Mumbai and Delhi. Got 3 interviews in my first month!",
+      colorIndex: 1
     },
     {
       name: "Anika Gupta",
       role: "Data Scientist",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      text: "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!"
+      text: "The resume feedback feature alone was worth the subscription. Now working at a top AI company in Hyderabad!",
+      colorIndex: 2
     }
   ];
 
@@ -144,36 +145,28 @@ const Pricing = () => {
             Trusted by Professionals Across India
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => {
-              const fallbackUrl = `https://ui-avatars.com/api/?name=${testimonial.name.split(' ').map(n => n[0]).join('')}&background=f3f4f6&color=6366f1&size=150`;
-              
-              return (
-                <div key={index} className="group bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-center mb-4">
-                    <div className="relative">
-                      <img 
-                        src={testimonial.image} 
-                        alt={`${testimonial.name} testimonial`} 
-                        className="w-14 h-14 rounded-full object-cover mr-4 border-2 border-gradient-to-r from-blue-400 to-purple-400 shadow-md"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.onerror = null;
-                          target.src = fallbackUrl;
-                        }}
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
-                      <p className="text-sm text-blue-600 font-medium">{testimonial.role}</p>
-                    </div>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="group bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-center mb-4">
+                  <div className="relative mr-4">
+                    <AvatarGenerator 
+                      name={testimonial.name}
+                      size="lg"
+                      colorIndex={testimonial.colorIndex}
+                      className="border-2 border-white shadow-md"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
                   </div>
-                  <p className="text-gray-700 italic leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+                    <p className="text-sm text-blue-600 font-medium">{testimonial.role}</p>
+                  </div>
                 </div>
-              );
-            })}
+                <p className="text-gray-700 italic leading-relaxed">
+                  "{testimonial.text}"
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 

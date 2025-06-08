@@ -37,7 +37,7 @@ const AvatarGenerator = ({ name, size = 'md', colorIndex = 0, className = '' }: 
 
   return (
     <div 
-      className={`${bgColor} ${sizeClass} rounded-full flex items-center justify-center text-white font-semibold ${className}`}
+      className={`${bgColor} ${sizeClass} rounded-full flex items-center justify-center text-white font-semibold shadow-sm ${className}`}
     >
       {initials}
     </div>
