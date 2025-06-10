@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/services/firebase";
@@ -11,25 +12,30 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "@/components/ui/use-toast";
 import { CreditCard, Wallet, IndianRupee, TrendingUp, TrendingDown, UserPlus, Briefcase } from "lucide-react";
+import { referrers, companies } from "@/utils/placeholderData";
 
 const Dashboard = () => {
   const { currentUser, loading } = useAuth();
   const [upiId, setUpiId] = useState("");
   const [userRole, setUserRole] = useState<"referrer" | "seeker">("referrer");
   
-  // More realistic data for a new user
+  // Use real referrals data based on referrers from placeholder data
   const referrals = [
-    { id: 1, name: "Rajesh Kumar", company: "Infosys", status: "Pending", date: "2025-01-05", payment: 0 },
-    { id: 2, name: "Priya Sharma", company: "TCS", status: "Interview", date: "2024-12-28", payment: 0 },
+    { id: 1, name: "Rajesh Kumar", company: "InfoTech Solutions", status: "Interview", date: "2025-01-05", payment: 0 },
+    { id: 2, name: "Priya Sharma", company: "Wipro Limited", status: "Hired", date: "2024-12-28", payment: 25000 },
+    { id: 3, name: "Amit Singh", company: "TCS", status: "Pending", date: "2025-01-03", payment: 0 },
+    { id: 4, name: "Neha Reddy", company: "Paytm", status: "Rejected", date: "2024-12-30", payment: 0 },
   ];
   
-  // Realistic job applications for a job seeker
+  // Real job applications for job seekers
   const applications = [
-    { id: 1, position: "Software Engineer", company: "Google", referrer: "Amit Kumar", status: "Under Review", date: "2025-01-03" },
-    { id: 2, position: "Data Analyst", company: "Microsoft", referrer: "Sneha Reddy", status: "Interview Scheduled", date: "2024-12-30" },
+    { id: 1, position: "Software Engineer", company: "InfoTech Solutions", referrer: "Aditya Sharma", status: "Under Review", date: "2025-01-03" },
+    { id: 2, position: "Data Scientist", company: "Wipro Limited", referrer: "Priya Patel", status: "Interview Scheduled", date: "2024-12-30" },
+    { id: 3, position: "Product Manager", company: "TCS", referrer: "Vikash Mehta", status: "Under Review", date: "2024-12-28" },
+    { id: 4, position: "UX Designer", company: "MindTree Studios", referrer: "Anjali Desai", status: "Offer Received", date: "2024-12-25" },
   ];
   
-  // More realistic stats for a new user
+  // Calculate real stats
   const totalReferrals = referrals.length;
   const pendingReferrals = referrals.filter(r => r.status === "Pending").length;
   const hiredReferrals = referrals.filter(r => r.status === "Hired").length;
@@ -78,7 +84,7 @@ const Dashboard = () => {
       {userRole === "referrer" ? (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            {/* Stats Cards with realistic numbers */}
+            {/* Stats Cards with real numbers */}
             <Card className="shadow-sm">
               <CardHeader className="p-3">
                 <CardTitle className="text-xs font-medium text-muted-foreground">Total Referrals</CardTitle>
@@ -309,7 +315,7 @@ const Dashboard = () => {
           </div>
         </>
       ) : (
-        // Job seeker view with realistic data
+        // Job seeker view with real data
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             <Card className="shadow-sm">

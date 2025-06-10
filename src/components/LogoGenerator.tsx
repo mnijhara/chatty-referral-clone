@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 interface LogoGeneratorProps {
   companyName: string;
   size?: 'sm' | 'md' | 'lg';
@@ -38,7 +40,7 @@ const LogoGenerator = ({ companyName, size = 'md', colorIndex = 0, className = '
     <div 
       className={`${bgColor} ${sizeClass} rounded-lg flex items-center justify-center text-white font-bold shadow-sm ${className}`}
     >
-      <span>{initials}</span>
+      {initials}
     </div>
   );
 };
