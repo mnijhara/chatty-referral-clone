@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { referrers, companies } from "@/utils/placeholderData";
 import ReferrerCard from "@/components/ReferrerCard";
@@ -8,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Users, Star, Briefcase, Filter, Grid, List, TrendingUp, Award, MapPin } from "lucide-react";
+
+// Helper to get company object from companyId or companyName
+const getCompanyByReferrer = (ref) =>
+  companies.find((company) =>
+    company.id === ref.companyId || company.name === ref.company
+  );
 
 const Referrers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +25,15 @@ const Referrers = () => {
 
   const uniqueCompanies = [...new Set(referrers.map(r => r.company))];
   const departments = [...new Set(referrers.map(r => r.department))];
-  const locations = [...new Set(referrers.map(r => r.location || "Remote"))];
+  // Collect available locations by matching company on each referrer
+  const locations = [
+    ...new Set(
+      referrers.map(r => {
+        const comp = getCompanyByReferrer(r);
+        return comp?.location || "Remote";
+      })
+    ),
+  ];
 
   const filteredReferrers = referrers
     .filter(referrer => 
@@ -35,23 +48,29 @@ const Referrers = () => {
     .filter(referrer => 
       departmentFilter === "all" || referrer.department === departmentFilter
     )
-    .filter(referrer => 
-      locationFilter === "all" || (referrer.location || "Remote") === locationFilter
-    )
+    // Filter based on location from the related company
+    .filter(referrer => {
+      const company = getCompanyByReferrer(referrer);
+      const location = company?.location || "Remote";
+      return locationFilter === "all" || location === locationFilter;
+    })
     .filter(referrer => 
       referrer.yearsAtCompany >= experienceFilter[0] && 
       referrer.yearsAtCompany <= experienceFilter[1]
     )
     .sort((a, b) => {
+      // Use defaults for rating and responseTime (not in referrer data)
       switch (sortBy) {
         case "successRate":
           return b.successfulReferrals - a.successfulReferrals;
         case "experience":
           return b.yearsAtCompany - a.yearsAtCompany;
         case "rating":
-          return (b.rating || 4.5) - (a.rating || 4.5);
+          // use 4.5 (default) for both
+          return 0;
         case "responseTime":
-          return (a.responseTime || 24) - (b.responseTime || 24);
+          // use 12 for both
+          return 0;
         default:
           return a.name.localeCompare(b.name);
       }

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -265,7 +264,7 @@ const Index = () => {
                     <div className="space-y-2 text-gray-600">
                       <div className="flex items-center justify-center gap-2">
                         <Users className="h-4 w-4" />
-                        <span>{company.employees} employees</span>
+                        <span>{company.size} employees</span>
                       </div>
                       <div className="flex items-center justify-center gap-2">
                         <Briefcase className="h-4 w-4" />
