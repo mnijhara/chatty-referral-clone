@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth, logOut } from "@/services/firebase";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogOut, User, Settings, Building, Shield, UserPlus, Briefcase, TrendingUp, DollarSign, Mail, BarChart3 } from "lucide-react";
 import {
@@ -14,12 +14,12 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Navbar = () => {
-  const { currentUser } = useAuth();
+  const { user, signOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     try {
-      await logOut();
+      await signOut();
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -56,14 +56,14 @@ const Navbar = () => {
             </Link>
             
             <div className="flex items-center space-x-4">
-              {currentUser ? (
+              {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
-                        <AvatarImage src={currentUser.photoURL || undefined} />
+                        <AvatarImage src={user.user_metadata?.avatar_url || undefined} />
                         <AvatarFallback className="bg-brand text-white">
-                          {currentUser.displayName?.[0] || currentUser.email?.[0]?.toUpperCase()}
+                          {user.user_metadata?.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
@@ -71,9 +71,9 @@ const Navbar = () => {
                   <DropdownMenuContent className="w-56 bg-white border border-gray-200 shadow-lg" align="end" forceMount>
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{currentUser.displayName}</p>
+                        <p className="text-sm font-medium leading-none">{user.user_metadata?.full_name || 'User'}</p>
                         <p className="text-xs leading-none text-muted-foreground">
-                          {currentUser.email}
+                          {user.email}
                         </p>
                       </div>
                     </DropdownMenuLabel>
@@ -143,7 +143,7 @@ const Navbar = () => {
               Pricing
             </Link>
             
-            {currentUser ? (
+            {user ? (
               <div className="border-t border-gray-200 pt-2 mt-2">
                 <Link to="/dashboard" className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
                   Dashboard
